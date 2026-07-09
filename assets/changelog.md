@@ -1,3 +1,6 @@
+## 1.5.6 - 7/8/2026
+* Implemented a change that should fix offline play in the browser version *again*, and updated my build process so that this should stop happening in the future
+
 ## 1.5.5 - 7/2/2026
 * Fixed a mobile bug that was keeping the software keyboard from appearing
 * Police and others will now take down heat-generating flags if they find them during a raid
