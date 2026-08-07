@@ -482,7 +482,7 @@ Future<void> aNewConservativeEra() async {
   mvaddstr(
     8,
     2,
-    "Arch-Conservative Vice President, ${execName[Exec.president]!.firstLast}, a close ally of the",
+    "Fascist Vice President, ${execName[Exec.president]!.firstLast}, a close ally of the",
   );
   mvaddstr(
     9,

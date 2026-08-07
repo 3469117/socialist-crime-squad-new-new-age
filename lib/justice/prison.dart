@@ -123,7 +123,7 @@ Future<void> prison(Creature g) async {
             gameOptions.lighterTone) {
           method = historicExecutionMethods.random;
         }
-        mvaddstr(9, 1, "Today, the Conservative Machine executed ${g.name}");
+        mvaddstr(9, 1, "Today, the Fascist Machine executed ${g.name}");
         mvaddstr(10, 1, "by $method.");
 
         await getKey();

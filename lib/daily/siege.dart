@@ -611,7 +611,7 @@ Future<void> siegeCheck() async {
             addparagraph(
               8,
               1,
-              "You have received warning from ${ccsSleeper.name} that the CCS "
+              "You have received warning from ${ccsSleeper.name} that the FCS "
               "is gearing up to attack ${l.getName()} in ${l.city.name}.",
             );
             await getKey();
@@ -842,7 +842,7 @@ Future<void> siegeCheck() async {
           console.y + 1,
           1,
           "Rallied by misguided calls to violence that swept through social "
-          "media, the Conservative masses are pouring into ${l.district.name} "
+          "media, the Fascist masses are pouring into ${l.district.name} "
           "to assault the ${l.getName()}!",
         );
         await getKey();
@@ -880,7 +880,7 @@ Future<void> siegeTurn() async {
       mvaddstr(
         8,
         1,
-        "Conservatives have raided the ${l.getName()}, an unoccupied safehouse.",
+        "Fascists have raided the ${l.getName()}, an unoccupied safehouse.",
       );
 
       if (l.siege.activeSiegeType == SiegeType.ccs &&
@@ -1976,7 +1976,7 @@ Future<void> conquerTextCCS() async {
       text +=
           "The FCS Founder lost in self-realization, the squad "
           "slips away.\n\n"
-          "With even its Founder swearing off Conservatism forever, the last "
+          "With even its Founder swearing off Fascism forever, the last "
           "of the FCS's morale and confidence is shattered.\n\n";
       pacifist = true;
     } else if (ccsSiegeKills > 10) {
@@ -1994,7 +1994,7 @@ Future<void> conquerTextCCS() async {
     }
 
     text +=
-        "The CCS has been completely ${pacifist ? "neutralized" : "destroyed"}.  Now wasn't there a "
+        "The FCS has been completely ${pacifist ? "neutralized" : "destroyed"}.  Now wasn't there a "
         "revolution to attend to?\n\n";
     text +=
         "+200 JUICE TO EVERYONE FOR ${pacifist ? "CONVERTING" : "ERADICATING"} THE FASCIST CRIME SQUAD";

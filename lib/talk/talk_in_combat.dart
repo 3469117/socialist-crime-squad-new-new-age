@@ -440,7 +440,7 @@ Future<bool> talkInCombat(Creature liberal, Creature target) async {
         addstrc(RainbowFlag.orange, "h");
         addstrc(lightGreen, " on the floor.");
       } else {
-        addstr("${liberal.name} talks like a Conservative ");
+        addstr("${liberal.name} talks like a Fascist ");
         mvaddstr(10, 1, "and pretends to belong here.");
       }
     }

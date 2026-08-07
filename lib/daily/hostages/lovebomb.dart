@@ -289,7 +289,7 @@ Future<void> handleLoveBombing(
           "${lead.name} is unable to shake ${cr.name}'s religious conviction.",
           "${cr.name} draws strength from God.",
           "${lead.name}'s efforts to shake ${cr.name}'s faith seem futile.",
-          "${cr.name} explains the Conservative tenets of ${cr.gender.hisHer} faith.",
+          "${cr.name} explains the reactionary tenets of ${cr.gender.hisHer} faith.",
           "${cr.name} praises the Lord for this moment to converse.",
           "${cr.name} prays that health finds them both.",
           "${cr.name} asks ${lead.name} if ${lead.gender.heShe} ever think${lead.gender.s} about Jesus.",

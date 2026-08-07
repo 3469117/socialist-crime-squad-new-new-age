@@ -65,9 +65,9 @@ Future<void> mediaOverview() async {
                 name = squadStoryTextLocation(ns, true, includeOpening: false);
               }
               if (ns.liberalSpin) {
-                headline = "CCS Action $name";
+                headline = "FCS Action $name";
               } else {
-                headline = "CCS Rampage $name";
+                headline = "FCS Rampage $name";
               }
             default:
               headline = ns.body.split("\n").first.split(" - ").last;

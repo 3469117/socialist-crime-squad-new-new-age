@@ -576,7 +576,7 @@ MajorEventContent generateMajorEventContent(
         return MajorEventContent(
           headline: "IN CONTEMPT",
           storyText:
-              "${randomCityName()} - Conservative federal judge "
+              "${randomCityName()} - Reactionary federal judge "
               "${judge.firstLast} has resigned in disgrace after being caught with a "
               "$prostituteLabel.&r"
               "  ${judge.last}, who once $judgeDid, was found with ${prostitute.firstLast} "

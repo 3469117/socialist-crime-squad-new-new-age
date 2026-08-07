@@ -283,7 +283,7 @@ void _alignmentKey(int y) {
   addstrc(lightGray, "  -  ");
   addstrc(DeepAlignment.conservative.color, "Fascist");
   addstrc(lightGray, "  -  ");
-  addstrc(DeepAlignment.archConservative.color, "Arch-Fascist");
+  addstrc(DeepAlignment.archConservative.color, "Fascist");
 }
 
 void _lawsPage(int start, AgendaVibe vibe) {

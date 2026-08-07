@@ -261,7 +261,7 @@ Future<void> advanceMonth() async {
     if (p.site?.type == SiteType.policeStation) {
       if (p.missing) {
         await showMessageOrLog(
-          "Cops re-polluted ${p.name}'s mind with Conservatism!",
+          "Cops re-polluted ${p.name}'s mind with Fascism!",
           color: purple,
         );
         p.squad = null;
@@ -323,7 +323,7 @@ Future<void> advanceMonth() async {
           p.base?.heat += 300;
 
           String headline = p.brainwashed
-              ? "${p.name} reverted to Conservatism in police custody!"
+              ? "${p.name} reverted to Fascism in police custody!"
               : "${p.name} broke under pressure and ratted you out!";
           if (canSeeThings) {
             erase();

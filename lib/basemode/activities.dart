@@ -95,7 +95,7 @@ enum ActivityType {
   takeClass("Taking a Class", pink),
   clinic("Going to the Hospital", red),
   sleeperLiberal("Promoting Socialism", lightGreen),
-  sleeperConservative("Spouting Conservatism", red),
+  sleeperConservative("Spouting Fascism", red),
   sleeperSpy("Snooping Around", lightBlue),
   sleeperRecruit("Recruiting Sleepers", green),
   sleeperEmbezzle("Embezzling Funds", red),

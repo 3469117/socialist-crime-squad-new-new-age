@@ -1659,7 +1659,7 @@ Future<bool> socialAttack(Creature a, Creature t, Attack attackUsed) async {
         mvaddstr(10, 1, "${t.name} can't bear to leave!");
       } else {
         if (a.align == Alignment.conservative) {
-          mvaddstr(10, 1, "${t.name} is turned Conservative");
+          mvaddstr(10, 1, "${t.name} is turned Fascist");
           if (t.prisoner != null) {
             await freehostage(t, FreeHostageMessage.continueLine);
           }

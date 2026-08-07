@@ -116,7 +116,7 @@ String squadStoryTextLocation(
         story +=
             ", also known to be a Fascist storage facility for radioactive waste.  ";
       case SiteType.corporateHQ:
-        story += ", where evil and Conservatism coagulate in the hallways.  ";
+        story += ", where evil and Fascism coagulate in the hallways.  ";
       case SiteType.ceoHouse:
         story +=
             ", a building with enough square footage enough to house a hundred people if it weren't in Fascist Hands.  ";
@@ -203,7 +203,7 @@ String squadStoryTextOpening(NewsStory ns, bool ccs) {
             ? ""
             : ", according to a spokesperson from the police department";
         story +=
-            "A group of $wouldBe$vigilantes calling themselves the Conservative Crime Squad ";
+            "A group of $wouldBe$vigilantes calling themselves the Fascist Crime Squad ";
         story +=
             "burst ${briefly}onto the scene of political activism yesterday$accordingToThePolice.&r";
       } else {
@@ -222,7 +222,7 @@ String squadStoryTextOpening(NewsStory ns, bool ccs) {
             ? "violent "
             : "suicidal";
         story +=
-            "A gang of $wouldBe$terrorists calling themselves the Conservative Crime Squad ";
+            "A gang of $wouldBe$terrorists calling themselves the Fascist Crime Squad ";
         story += "went on a $violent rampage yesterday$accordingToThePolice.&r";
       }
     } else {
@@ -232,14 +232,14 @@ String squadStoryTextOpening(NewsStory ns, bool ccs) {
             ns.publicationAlignment == DeepAlignment.archConservative
             ? "patriots have"
             : "has";
-        story += "The Conservative Crime Squad $patriotsHave struck again.&r";
+        story += "The Fascist Crime Squad $patriotsHave struck again.&r";
       } else {
         String terroristsHave =
             ns.publicationAlignment == DeepAlignment.eliteLiberal
             ? "terrorists"
             : "";
         story +=
-            "The Conservative Crime Squad $terroristsHave went on another rampage.&r";
+            "The Fascist Crime Squad $terroristsHave went on another rampage.&r";
       }
     }
   }

@@ -550,7 +550,7 @@ Future<void> partyrescue(TileSpecial special) async {
 
       printParty();
       await encounterMessage(
-          "You've rescued ${rescue.name} from the Conservatives.");
+          "You've rescued ${rescue.name} from the Fascists.");
       waitingForRescue.remove(rescue);
     } else if (hostslots > 0) {
       for (Creature p in activeSquad!.livingMembers) {
@@ -564,7 +564,7 @@ Future<void> partyrescue(TileSpecial special) async {
           criminalize(rescue, Crime.escapingPrison);
           printParty();
           await encounterMessage(
-              "You've rescued ${rescue.name} from the Conservatives.");
+              "You've rescued ${rescue.name} from the Fascists.");
           if (rescue.canWalk) {
             await encounterMessage(
                 "${rescue.name} ${[

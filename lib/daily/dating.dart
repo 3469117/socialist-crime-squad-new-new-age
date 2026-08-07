@@ -421,7 +421,7 @@ Future<bool> completeDate(DatingSession d, Creature p) async {
           ranged = true;
         } else if (p.equippedWeapon != null) {
           weapon = p.weapon.getName(sidearm: true);
-          addstr(" grabs the Conservative from behind, holding the $weapon");
+          addstr(" grabs the Fascist from behind, holding the $weapon");
           move(18, 0);
           addstr("to the corporate slave's throat!");
 
@@ -538,7 +538,7 @@ Future<bool> completeDate(DatingSession d, Creature p) async {
             move(y++, 0);
             if (weapon != "" && !unseriousWeapon) {
               addstrc(
-                  red, "The Conservative manages to wrest the $weapon away!");
+                  red, "The Fascist manages to wrest the $weapon away!");
               move(y++, 0);
               await getKey();
               if (p.weapon.type.attacks.any((a) => a.bruises)) {
@@ -696,7 +696,7 @@ Future<DateResult> dateResult(int aroll, int troll, DatingSession d, Creature e,
             0; // Reset to zero since we used this to track time dating
       } else if (e.align == Alignment.conservative) {
         addstr(
-            "In fact, ${e.name} swears off Conservatism and begs to join the LCS!");
+            "In fact, ${e.name} swears off Fascism and begs to join the LCS!");
       } else if (e.align == Alignment.moderate) {
         addstr("In fact, ${e.name} wants to join ${p.name} in the LCS!");
       } else {
@@ -751,7 +751,7 @@ Future<DateResult> dateResult(int aroll, int troll, DatingSession d, Creature e,
         y++;
         move(y++, 0);
         addstr(
-            "${p.name} is slowly warming ${e.name}'s frozen Conservative heart.");
+            "${p.name} is slowly warming ${e.name}'s frozen Fascist heart.");
 
         move(y++, 0);
         e.adjustAttribute(Attribute.wisdom, -1);
