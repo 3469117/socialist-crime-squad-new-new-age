@@ -85,7 +85,7 @@ int displayStoryHeader(NewsStory ns, View? header) {
     case NewsStories.ccsSiteAction:
     case NewsStories.ccsKilledInSiteAction:
       if (!ccsInPublicEye) {
-        displayCenteredNewsFont("CONSERVATIVE", 5, ns);
+        displayCenteredNewsFont("FASCIST", 5, ns);
         displayCenteredNewsFont("CRIME SQUAD", 11, ns);
       } else {
         if (!ns.liberalSpin) {
@@ -207,7 +207,7 @@ int displayStoryHeader(NewsStory ns, View? header) {
                         "BOLD STRIKE",
                         "JUSTICE WON",
                         "SPARK OF HOPE",
-                        "LIBERAL WIN",
+                        "SOCIALIST WIN",
                         "BOLD DEFIANCE",
                         "HEROIC ACTION",
                         "HOPE IGNITED",
@@ -223,7 +223,7 @@ int displayStoryHeader(NewsStory ns, View? header) {
             }
           }
         } else {
-          displayCenteredNewsFont("LIBERAL CRIME", 5, ns);
+          displayCenteredNewsFont("SOCIALIST CRIME", 5, ns);
           displayCenteredNewsFont("SQUAD STRIKES", 11, ns);
         }
       } else {
@@ -231,7 +231,7 @@ int displayStoryHeader(NewsStory ns, View? header) {
           displayCenteredNewsFont("SCS RAMPAGE", 5, ns);
           y = 11;
         } else {
-          displayCenteredNewsFont("LIBERAL CRIME", 5, ns);
+          displayCenteredNewsFont("SOCIALIST CRIME", 5, ns);
           displayCenteredNewsFont("SQUAD RAMPAGE", 11, ns);
         }
       }

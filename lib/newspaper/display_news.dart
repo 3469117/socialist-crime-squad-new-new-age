@@ -595,7 +595,7 @@ Future<void> displayStory(NewsStory ns, View? header) async {
           displayCenteredNewsFont("MYSTERIOUS", 5, ns);
           displayCenteredNewsFont("MASSACRE", 10, ns);
         } else {
-          displayCenteredNewsFont("CONSERVATIVE", 5, ns);
+          displayCenteredNewsFont("FASCIST", 5, ns);
           displayCenteredNewsFont("MASSACRE", 10, ns);
         }
       }

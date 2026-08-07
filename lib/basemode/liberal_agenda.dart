@@ -279,9 +279,9 @@ void _alignmentKey(int y) {
   addstrc(lightGray, "  -  ");
   addstrc(DeepAlignment.liberal.color, "Socialist");
   addstrc(lightGray, "  -  ");
-  addstrc(DeepAlignment.moderate.color, "moderate");
+  addstrc(DeepAlignment.moderate.color, "Liberal");
   addstrc(lightGray, "  -  ");
-  addstrc(DeepAlignment.conservative.color, "Fascist");
+  addstrc(DeepAlignment.conservative.color, "Reactionary");
   addstrc(lightGray, "  -  ");
   addstrc(DeepAlignment.archConservative.color, "Fascist");
 }

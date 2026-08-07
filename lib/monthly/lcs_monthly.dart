@@ -962,7 +962,7 @@ Future<void> printNews(LootType li, Iterable<Creature> publishers) async {
     LootTypeIds.prisonFiles => "PRISON ABUSES EXPOSED",
     LootTypeIds.cableNewsFiles => "CABLE NEWS BIAS REVEALED",
     LootTypeIds.amRadioFiles => "AM RADIO PROPAGANDA EXPOSED",
-    _ => "LIBERAL GUARDIAN EXPOSÉ",
+    _ => "SOCIALIST GUARDIAN EXPOSÉ",
   };
 
   // Record the opinion changes in effects

@@ -229,7 +229,7 @@ Future<void> rehabilitation(Creature g) async {
     " works on a mural about political diversity.",
     " routinely sees a Socialist therapist in prison.",
     " attends a group therapy session in prison.",
-    " enjoys the company of a moderate inmate.",
+    " enjoys the company of a Liberal inmate.",
     " enjoys the company of a Fascist inmate.",
     " puts on an anti-crime performance in prison.",
     " learns about the victims of political crime.",

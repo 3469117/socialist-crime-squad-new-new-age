@@ -499,7 +499,7 @@ Future<bool> _mediaBroadcast(String takeover, View mediaView, String medium,
   if (siteAlienated.index >= SiteAlienation.alienatedModerates.index &&
       segmentpower >= 40) {
     siteAlienated = SiteAlienation.none;
-    await encounterMessage("Moderates at the station appreciated the show.",
+    await encounterMessage("Liberals at the station appreciated the show.",
         line2: "They no longer feel alienated.");
   }
 

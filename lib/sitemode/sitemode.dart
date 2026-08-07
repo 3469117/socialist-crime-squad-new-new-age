@@ -291,15 +291,15 @@ Future<void> _siteModeAux() async {
             }
         }
       } else if (postAlarmTimer > 60) {
-        addstr(": CONSERVATIVE REINFORCEMENTS INCOMING");
+        addstr(": FASCIST REINFORCEMENTS INCOMING");
       } else if (siteAlienated == SiteAlienation.alienatedModerates) {
         addstr(": ALIENATED MASSES");
       } else if (siteAlienated == SiteAlienation.alienatedEveryone) {
         addstr(": ALIENATED EVERYONE");
       } else if (siteAlarm) {
-        addstr(": CONSERVATIVES ALARMED");
+        addstr(": FASCISTS ALARMED");
       } else if (siteAlarmTimer == 0) {
-        addstr(": CONSERVATIVES SUSPICIOUS");
+        addstr(": FASCISTS SUSPICIOUS");
       }
     }
 

@@ -465,7 +465,7 @@ Future<void> aNewConservativeEra() async {
   FullName oldPresident = generateFullName(Gender.whiteMalePatriarch);
 
   erase();
-  mvaddstrc(2, 2, white, "A NEW CONSERVATIVE ERA");
+  mvaddstrc(2, 2, white, "A NEW FASCIST ERA");
 
   mvaddstrc(4, 2, lightGray, "The Year is $year.");
 
@@ -511,7 +511,7 @@ Future<void> aNewConservativeEra() async {
   addstr(
     "President ${execName[Exec.president]!.firstLast} has asked the new Congress to move quickly",
   );
-  mvaddstr(16, 2, "to rubber stamp his radical Arch-Fascist agenda. ");
+  mvaddstr(16, 2, "to rubber stamp his radical Fascist agenda. ");
   setColor(lightGray);
   addstr("The left seems");
   mvaddstr(

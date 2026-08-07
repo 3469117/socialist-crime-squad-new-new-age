@@ -398,7 +398,7 @@ Future<void> tendHostage(InterrogationSession intr) async {
           "accuses ${lead.name} of being absolutely out of "
               "${lead.gender.hisHer} mind if ${lead.gender.heShe} thinks "
               "${cr.name} would ever join a left-wing terrorist organization.",
-          "rants about how the SCS are a bunch of LIBERALS and that's the "
+          "rants about how the SCS are a bunch of SOCIALISTS and that's the "
               "absolute worst thing you can be.",
           "stands up and starts yelling about how ${cr.gender.heShe} "
               "was KIDNAPPED and is a PRISONER and if ${lead.name} has "

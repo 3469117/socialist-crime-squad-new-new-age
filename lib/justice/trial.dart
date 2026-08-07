@@ -236,7 +236,7 @@ Future<void> trial(Creature g) async {
       } else {
         setColor(red);
         addstr(
-          "$attorneyname's CONSERVATIVE ARCH-NEMESIS will represent the prosecution!!!",
+          "$attorneyname's FASCIST ARCH-NEMESIS will represent the prosecution!!!",
         );
 
         jury = 0;
@@ -253,13 +253,13 @@ Future<void> trial(Creature g) async {
           addstr("A few of the jurors are closet Socialists.");
         case 3:
           addstr(
-            "One of the jurors flashes a SECRET LIBERAL HAND SIGNAL when no one is looking.",
+            "One of the jurors flashes a SECRET SOCIALIST HAND SIGNAL when no one is looking.",
           );
       }
     } else if (jury <= -15) {
       addstr("The jury is fairly Socialist.");
     } else if (jury < 15) {
-      addstr("The jury is quite moderate.");
+      addstr("The jury is quite Liberal.");
     } else if (jury < 29) {
       addstr("The jury is a bit Fascist.");
     } else {

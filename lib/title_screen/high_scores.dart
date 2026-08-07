@@ -176,7 +176,7 @@ Future<void> viewHighScores([HighScore? yourScore]) async {
     move(y + 1, 0);
     switch (s.endType) {
       case Ending.victory:
-        addstr("The Socialist Crime Squad liberalized the country in ");
+        addstr("The Socialist Crime Squad revolutionized the country in ");
       case Ending.policeSiege:
         addstr("The Socialist Crime Squad was brought to justice in ");
       case Ending.ciaSiege:

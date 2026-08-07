@@ -28,7 +28,7 @@ Future<void> tryToPurgeSupremeCourt() async {
       12,
       6,
       white,
-      "The Revolutionary Socialist Congress is proposing an ELITE LIBERAL AMENDMENT!",
+      "The Revolutionary Socialist Congress proposes a constitutional amendment!",
     );
 
     await getKey();
@@ -49,7 +49,7 @@ Future<void> tryToPurgeSupremeCourt() async {
     } else {
       addstr(" is");
     }
-    addstr(" branded Arch-Fascist:");
+    addstr(" branded Fascist:");
 
     int y = 4;
 
@@ -123,7 +123,7 @@ Future<void> tryToPassTermLimits() async {
       12,
       6,
       white,
-      "A National Convention has proposed an ELITE LIBERAL AMENDMENT!",
+      "A National Convention has proposed a REVOLUTIONARY SOCIALIST AMENDMENT!",
     );
 
     await getKey();
@@ -199,7 +199,7 @@ Future<void> tryToRepealConstitution() async {
     mvaddstr(
       12,
       3,
-      "The Arch-Fascist Congress is proposing an ARCH-CONSERVATIVE AMENDMENT!",
+      "The Fascist Congress is proposing a FASCIST AMENDMENT!",
     );
 
     await getKey();
@@ -215,7 +215,7 @@ Future<void> tryToRepealConstitution() async {
     mvaddstr(
       3,
       0,
-      "the pressure of the elite liberal threat, WE THE PEOPLE HEREBY",
+      "the pressure of the revolutionary socialist threat, WE THE PEOPLE HEREBY",
     );
     mvaddstr(
       4,
@@ -323,7 +323,7 @@ Future<void> tryToRepealConstitution() async {
             "The Fascists have made the world in their image.",
             "They'll round up the last of you eventually.  All is lost.",
             gentle:
-                "The Arch-Fascist Amendment passed while you were on vacation.",
+                "The Fascist Amendment passed while you were on vacation.",
           );
           yourScore = await saveHighScore(Ending.dating);
         case CantSeeReason.hiding:
@@ -333,7 +333,7 @@ Future<void> tryToRepealConstitution() async {
             "The Fascists have made the world in their image.",
             "They'll round the last of you up eventually.  All is lost.",
             gentle:
-                "The Arch-Fascist Amendment passed while you were in hiding.",
+                "The Fascist Amendment passed while you were in hiding.",
           );
           yourScore = await saveHighScore(Ending.hiding);
         case CantSeeReason.prison:
@@ -343,7 +343,7 @@ Future<void> tryToRepealConstitution() async {
             "Your kind are never released these days.",
             "Ain't no sunshine...",
             gentle:
-                "The Arch-Fascist Amendment passed while you were in prison.",
+                "The Fascist Amendment passed while you were in prison.",
           );
           yourScore = await saveHighScore(Ending.prison);
         case CantSeeReason.disbanded:
@@ -353,7 +353,7 @@ Future<void> tryToRepealConstitution() async {
             "Freedom, equality, justice... they're just words now.",
             "The world grows dark...",
             gentle:
-                "The Arch-Fascist Amendment passed after the SCS disbanded.",
+                "The Fascist Amendment passed after the SCS disbanded.",
           );
           yourScore = await saveHighScore(Ending.disbandLoss);
         case CantSeeReason.hospital:
@@ -363,7 +363,7 @@ Future<void> tryToRepealConstitution() async {
             "They don't bring folks like you back anymore.",
             "The world is fading with you...",
             gentle:
-                "The Arch-Fascist Amendment passed while you were in the hospital.",
+                "The Fascist Amendment passed while you were in the hospital.",
           );
           yourScore = await saveHighScore(Ending.reaganified);
         case CantSeeReason.other:
@@ -374,7 +374,7 @@ Future<void> tryToRepealConstitution() async {
             "The Fascists have made the world in their image.",
             "They'll round the last of you up eventually.  All is lost.",
             gentle:
-                "The Arch-Fascist Amendment passed while you were away.",
+                "The Fascist Amendment passed while you were away.",
           );
           yourScore = await saveHighScore(Ending.reaganified);
       }

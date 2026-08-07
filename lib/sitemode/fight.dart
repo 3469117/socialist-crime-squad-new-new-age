@@ -2279,7 +2279,7 @@ void addDeathMessage(Creature cr) {
           case Alignment.moderate:
             addstr("\"A plague on both your houses...\"");
           default:
-            addstr("\"Better dead than liberal...\"");
+            addstr("\"Better dead than socialist...\"");
         }
     }
   }
