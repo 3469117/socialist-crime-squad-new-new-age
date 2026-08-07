@@ -454,8 +454,8 @@ void initSiteName(Site loc) {
         do {
           name = lastName();
         } while (name.length > 7);
-        loc.name = "$name St. Housing Projects";
-        loc.shortName = "Projects";
+        loc.name = "$name St. Public Housing";
+        loc.shortName = "Public Hsg.";
       } while (loc.isDuplicateLocation());
     case SiteType.geneticsLab:
       loc.name = "${lastName()} Genetics";
@@ -468,8 +468,8 @@ void initSiteName(Site loc) {
       loc.name = "$name's Used Cars";
       loc.shortName = "Car Dealer";
     case SiteType.departmentStore:
-      loc.name = "${lastName()}'s Department Store";
-      loc.shortName = "Dept. Store";
+      loc.name = "${lastName()} Superstore";
+      loc.shortName = "Superstore";
     case SiteType.sweatshop:
       loc.name = "${lastName()} Garment Makers";
       loc.shortName = "Sweatshop";
@@ -511,15 +511,15 @@ void initSiteName(Site loc) {
       loc.name = "${veggie.random} ${noun.random} Vegan Co-op";
       loc.shortName = "Vegan";
     case SiteType.internetCafe:
-      const adj = ["Electric", "Wired", "Nano", "Micro", "Techno"];
-      const noun = ["Panda", "Troll", "Latte", "Unicorn", "Pixie"];
-      loc.name = "${adj.random} ${noun.random} Internet Cafe";
-      loc.shortName = "Net Cafe";
+      const adj = ["Open", "Urban", "Remote", "Civic", "Cloud"];
+      const noun = ["Hub", "Commons", "Works", "Desk", "Collective"];
+      loc.name = "${adj.random} ${noun.random} Coworking Space";
+      loc.shortName = "Cowork";
     case SiteType.latteStand:
       const adj = ["Frothy", "Milky", "Caffeine", "Morning", "Evening"];
       const noun = ["Mug", "Cup", "Jolt", "Wonder", "Express"];
-      loc.name = "${adj.random} ${noun.random} Latte Stand";
-      loc.shortName = "Latte";
+      loc.name = "${adj.random} ${noun.random} Coffee Kiosk";
+      loc.shortName = "Coffee";
     case SiteType.publicPark:
       loc.name = "${lastName()} Park";
       loc.shortName = "Park";

@@ -301,8 +301,8 @@
             <color>Taxi-Striped</color>
         </colors>
         <drivebonus>1</drivebonus>
-        <longname>Taxicab</longname>
-        <shortname>Taxicab</shortname>
+        <longname>Rideshare Sedan</longname>
+        <shortname>Rideshare Sedan</shortname>
         <stealing>
             <difficulty_to_find>8</difficulty_to_find>
             <juice>0</juice>

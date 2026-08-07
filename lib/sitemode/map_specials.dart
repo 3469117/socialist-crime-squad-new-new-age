@@ -1703,7 +1703,7 @@ Future<void> specialRadioBroadcastStudio() async {
     );
   } else {
     broadcast = await sitemodePrompt(
-      "You've found a radio broadcasting room.",
+      "You've found a talk radio studio.",
       "Interrupt this evening's programming? (Yes or No)",
     );
   }
@@ -1725,7 +1725,7 @@ Future<void> specialCableBroadcastStudio() async {
     );
   } else {
     broadcast = await sitemodePrompt(
-      "You've found a Cable News broadcasting studio.",
+      "You've found a news network studio.",
       "Interrupt this evening's programming? (Yes or No)",
     );
   }

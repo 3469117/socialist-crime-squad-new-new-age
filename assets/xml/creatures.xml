@@ -1895,7 +1895,7 @@ Elements marked as hardcoded may have their values overridden by the game.
         <recruit_activity_difficulty>6</recruit_activity_difficulty>
     </creaturetype>
     <creaturetype idname="CREATURE_TAXIDRIVER">
-        <type_name>Taxi Driver</type_name>
+        <type_name>Rideshare Driver</type_name>
         <weapon>CIVILIAN</weapon>
         <armor>CLOTHING_CLOTHES</armor>
         <age>MATURE</age>
