@@ -47,7 +47,7 @@ Future<void> noticeCheck({
     } else {
       clearMessageArea();
 
-      mvaddstrc(9, 1, red, "${e.name} observes your Liberal activity ");
+      mvaddstrc(9, 1, red, "${e.name} observes your Socialist activity ");
       move(10, 1);
       if (e.align == Alignment.conservative) {
         addstr("and lets forth a piercing Fascist alarm cry!");

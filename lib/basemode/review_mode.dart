@@ -106,7 +106,7 @@ Future<void> reviewAssetsAndFormSquads() async {
           mvaddstr(y, 51, str);
         }
       } else if (p == squads.length) {
-        addOptionText(y, 0, "1", "1 - Active Liberals ($active)",
+        addOptionText(y, 0, "1", "1 - Active Socialists ($active)",
             enabledWhen: active > 0);
       } else if (p == squads.length + 1) {
         addOptionText(y, 0, "2", "2 - Hostages ($hostages)",

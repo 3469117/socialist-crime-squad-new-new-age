@@ -1346,7 +1346,7 @@ Future<void> siegeDefeat() async {
       addstr("is taken to the police station.");
     }
     if (pcount > 1) {
-      mvaddstr(5, 1, "$pcount Liberals are taken to the police station.");
+      mvaddstr(5, 1, "$pcount Socialists are taken to the police station.");
     }
     if (ledger.funds > 0) {
       if (ledger.funds <= 2000) {

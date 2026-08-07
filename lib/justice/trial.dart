@@ -153,7 +153,7 @@ Future<void> trial(Creature g) async {
     y++,
     1,
     "D",
-    "D - Pay \$5000 to hire Elite Liberal Attorney ${uniqueCreatures.aceLiberalAttorney.name}",
+    "D - Pay \$5000 to hire Revolutionary Socialist Attorney ${uniqueCreatures.aceLiberalAttorney.name}",
     enabledWhen: ledger.funds >= 5000,
   );
   if (sleeperlawyer != null) {

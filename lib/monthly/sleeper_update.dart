@@ -723,7 +723,7 @@ Future<void> sleeperRecruit(Creature cr, Map<View, int> libpower) async {
         mvaddstrc(6, 1, lightGray,
             "Sleeper ${cr.name} has recruited a new ${e.type.name}.");
         mvaddstrc(8, 1, lightGray,
-            "${e.name} looks forward serving the Liberal cause!");
+            "${e.name} looks forward serving the Socialist cause!");
 
         await getKey();
 

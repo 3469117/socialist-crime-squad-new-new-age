@@ -53,7 +53,7 @@ Future<void> setVehicles() async {
       int c = 0;
       if (squad.length > 1) {
         mvaddstrc(8, 20, white,
-            "Choose a Liberal to ${driver ? "drive it" : "be a passenger"}.");
+            "Choose a Socialist to ${driver ? "drive it" : "be a passenger"}.");
         c = (await getKey()) - '1'.codePoint;
       }
       if (c >= 0 && c < squad.length) {

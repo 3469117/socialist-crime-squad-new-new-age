@@ -344,7 +344,7 @@ Future<void> tendHostage(InterrogationSession intr) async {
     addparagraph(
         y,
         0,
-        "${lead.name} attempts to recruit ${cr.name} to the Liberal Crime Squad. "
+        "${lead.name} attempts to recruit ${cr.name} to the Socialist Crime Squad. "
         "As the pitch goes on, ${cr.gender.heShe} $reaction");
     y = console.y + 1;
 
@@ -371,7 +371,7 @@ Future<void> tendHostage(InterrogationSession intr) async {
 
       setColor(lightGreen);
       addparagraph(y, 0,
-          "${cr.name} agrees to join the Liberal Crime Squad! ${cr.gender.heSheCap} $reaction");
+          "${cr.name} agrees to join the Socialist Crime Squad! ${cr.gender.heSheCap} $reaction");
       cr.hireId = lead.id;
       cr.juice = 0;
       cr.brainwashed = true;

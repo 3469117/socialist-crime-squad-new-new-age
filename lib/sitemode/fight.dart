@@ -1715,7 +1715,7 @@ Future<bool> socialAttack(Creature a, Creature t, Attack attackUsed) async {
           }
         }
 
-        mvaddstr(10, 1, "${t.name} has turned Liberal!");
+        mvaddstr(10, 1, "${t.name} has turned Socialist!");
         t.stunned = 0;
 
         liberalize(t);

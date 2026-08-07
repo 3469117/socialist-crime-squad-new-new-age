@@ -377,7 +377,7 @@ Future<void> sleeperizePrompt(
     move(y, 0);
     setColor(lightGray);
     addstr(
-      "In what capacity will ${converted.name} best serve the Liberal cause?",
+      "In what capacity will ${converted.name} best serve the Socialist cause?",
     );
     addOptionText(
       y + 2,

@@ -240,7 +240,7 @@ Future<void> surrenderToAuthorities(Site loc) async {
     }
     addstr(" is arrested.");
   } else if (arrested.length > 1) {
-    mvaddstr(y += 2, 1, "${arrested.length} Liberals are arrested.");
+    mvaddstr(y += 2, 1, "${arrested.length} Socialists are arrested.");
   }
 
   if (ledger.funds > 0) {

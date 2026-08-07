@@ -162,7 +162,7 @@ String squadStoryTextOpening(NewsStory ns, bool ccs) {
             ? ", albiet with a tragic end"
             : "";
         story +=
-            "The Liberal Crime Squad has struck again$albietWithTragicEnd.&r";
+            "The Socialist Crime Squad has struck again$albietWithTragicEnd.&r";
       } else {
         String notorious =
             ns.publicationAlignment == DeepAlignment.archConservative
@@ -181,7 +181,7 @@ String squadStoryTextOpening(NewsStory ns, bool ccs) {
             ? ", but they got what they deserved"
             : "";
         story +=
-            "The ${notorious}Liberal Crime Squad ${terrorists}went on $another rampage$butTheyGotWhatTheyDeserved.&r";
+            "The ${notorious}Socialist Crime Squad ${terrorists}went on $another rampage$butTheyGotWhatTheyDeserved.&r";
       }
     }
   } else if (ns.type == NewsStories.ccsSiteAction ||

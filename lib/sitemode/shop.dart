@@ -567,7 +567,7 @@ class Shop extends ShopOption {
         }
 
         if (fenceamount > 0) {
-          mvaddstrc(8, 1, white, "You add \$$fenceamount to Liberal Funds.");
+          mvaddstrc(8, 1, white, "You add \$$fenceamount to Socialist Funds.");
 
           await getKey();
 
@@ -592,7 +592,7 @@ class Shop extends ShopOption {
       mvaddstrc(0, 0, lightGray, "What will you sell?");
 
       if (ret != 0) {
-        mvaddstr(0, 30, "Estimated Liberal Amount: \$$ret");
+        mvaddstr(0, 30, "Estimated Socialist Amount: \$$ret");
       }
 
       printParty();

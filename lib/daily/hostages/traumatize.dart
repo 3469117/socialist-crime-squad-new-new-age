@@ -87,7 +87,7 @@ Future<int> traumatize(Creature lead, String action, int y) async {
           addparagraph(
             y++,
             0,
-            "${lead.name} decides to leave the Liberal Crime Squad.",
+            "${lead.name} decides to leave the Socialist Crime Squad.",
           );
         } else {
           mvaddstrc(y++, 4, darkGray, "${lead.name} never comes back.");

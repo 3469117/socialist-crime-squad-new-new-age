@@ -135,7 +135,7 @@ Future<void> prison(Creature g) async {
             12,
             1,
             lightGray,
-            "${boss.name} has failed the Liberal Crime Squad.",
+            "${boss.name} has failed the Socialist Crime Squad.",
           );
 
           mvaddstr(

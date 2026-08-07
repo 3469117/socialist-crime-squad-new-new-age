@@ -19,7 +19,7 @@ Future<void> mediaOverview() async {
     double lcsSupport = gameState.politics.lcsApproval();
     makeDelimiter(y: 20);
     mvaddstrx(21, 0,
-        "&G${gameState.politics.publicMood().toStringAsFixed(1)}%&w of people have Liberal views");
+        "&G${gameState.politics.publicMood().toStringAsFixed(1)}%&w of people have Socialist views");
     String lcsSupportColorKey = lcsSupport >= publicMood
         ? ColorKey.lightGreen
         : lcsSupport < publicMood - 20
@@ -27,7 +27,7 @@ Future<void> mediaOverview() async {
             : ColorKey.yellow;
     String lcsSupportString = lcsSupport.toStringAsFixed(1);
     mvaddstrx(22, 0,
-        "&$lcsSupportColorKey$lcsSupportString%&w support the Liberal Crime Squad");
+        "&$lcsSupportColorKey$lcsSupportString%&w support the Socialist Crime Squad");
     setColor(midGray);
     mvaddstrx(23, 0,
         "  SCS activities will inspire supporters, but may alienate detractors.");

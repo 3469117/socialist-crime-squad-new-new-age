@@ -72,7 +72,7 @@ String get pageStr {
   } else {
     str = "PGUP/PGDN";
   }
-  return "$str - View other Liberal pages";
+  return "$str - View other Socialist pages";
 }
 
 String pageStrWithCurrentAndMax(int current, int max) {
@@ -86,7 +86,7 @@ String pageStrWithCurrentAndMax(int current, int max) {
   } else {
     str = "PGUP/PGDN";
   }
-  return "$str - View other Liberal pages ($current/$max)";
+  return "$str - View other Socialist pages ($current/$max)";
 }
 
 void addPageButtons(

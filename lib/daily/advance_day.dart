@@ -532,12 +532,12 @@ Future<void> dispersalCheck() async {
               8,
               1,
               white,
-              "${p.name} lost touch with the Liberal Crime Squad.",
+              "${p.name} lost touch with the Socialist Crime Squad.",
             );
             await getKey();
             mvaddstrc(9, 1, lightGreen, "The Socialist has gone into hiding...");
             await getKey();
-            logBlindEvent("${p.name} lost touch with the Liberal Crime Squad.");
+            logBlindEvent("${p.name} lost touch with the Socialist Crime Squad.");
           } else if (dispersalStatus[p] == DispersalTypes.abandonLCS) {
             mvaddstrc(8, 1, white, "${p.name} abandoned the LCS.");
             await getKey();
@@ -547,10 +547,10 @@ Future<void> dispersalCheck() async {
               8,
               1,
               white,
-              "${p.name} lost touch with the Liberal Crime Squad.",
+              "${p.name} lost touch with the Socialist Crime Squad.",
             );
             await getKey();
-            logBlindEvent("${p.name} lost touch with the Liberal Crime Squad.");
+            logBlindEvent("${p.name} lost touch with the Socialist Crime Squad.");
           }
         }
 
