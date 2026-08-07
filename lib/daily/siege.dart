@@ -342,7 +342,7 @@ Future<void> siegeCheck() async {
               8,
               1,
               white,
-              "The cops have raided the ${l.getName()}.  No LCS members were present.",
+              "The cops have raided the ${l.getName()}.  No SCS members were present.",
             );
           } else {
             mvaddstrc(
@@ -1210,7 +1210,7 @@ Future<void> siegeTurn() async {
             newsBody += "\n\n$paragraph";
             addparagraph(console.y + 1, 1, paragraph);
           } else if (segmentpower < 35) {
-            String paragraph = "${pool[best].name} represents the LCS well.";
+            String paragraph = "${pool[best].name} represents the SCS well.";
             newsBody += "\n\n$paragraph";
             addparagraph(console.y + 1, 1, paragraph);
           } else if (segmentpower < 50) {
@@ -1360,7 +1360,7 @@ Future<void> siegeDefeat() async {
         mvaddstr(
           8,
           1,
-          "Law enforcement has confiscated \$$confiscated in LCS funds.",
+          "Law enforcement has confiscated \$$confiscated in SCS funds.",
         );
         ledger.subtractFunds(confiscated, Expense.confiscated);
       }

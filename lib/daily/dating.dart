@@ -691,14 +691,14 @@ Future<DateResult> dateResult(int aroll, int troll, DatingSession d, Creature e,
       y++;
       if (eIsSexworker) {
         addstr(
-            "In fact, ${e.name} decides to put ${e.gender.hisHer} skills to work for the LCS!");
+            "In fact, ${e.name} decides to put ${e.gender.hisHer} skills to work for the SCS!");
         e.daysSinceJoined =
             0; // Reset to zero since we used this to track time dating
       } else if (e.align == Alignment.conservative) {
         addstr(
-            "In fact, ${e.name} swears off Fascism and begs to join the LCS!");
+            "In fact, ${e.name} swears off Fascism and begs to join the SCS!");
       } else if (e.align == Alignment.moderate) {
-        addstr("In fact, ${e.name} wants to join ${p.name} in the LCS!");
+        addstr("In fact, ${e.name} wants to join ${p.name} in the SCS!");
       } else {
         addstr("In fact, ${e.name} is eager to fight alongside ${p.name}!");
       }

@@ -51,9 +51,9 @@ Future<void> mediaOverview() async {
                 name = squadStoryTextLocation(ns, false, includeOpening: false);
               }
               if (ns.liberalSpin) {
-                headline = "LCS Action $name";
+                headline = "SCS Action $name";
               } else {
-                headline = "LCS Rampage $name";
+                headline = "SCS Rampage $name";
               }
             case NewsStories.squadKilledInSiteAction:
               headline = "Tragic SCS Strike";

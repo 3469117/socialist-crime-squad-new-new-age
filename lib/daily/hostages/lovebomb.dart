@@ -299,7 +299,7 @@ Future<void> handleLoveBombing(
         description = [
           "${cr.name} offers to make a deal.",
           "${cr.name} asks if there's a ransom.",
-          "${cr.name} asks if the LCS plans to make money from kidnapping.",
+          "${cr.name} asks if the SCS plans to make money from kidnapping.",
           "${cr.name} suggests the interrogation room could be better decorated.",
           "${cr.name} explains the basics of supply and demand.",
           "${cr.name} talks about economic theory.",

@@ -205,11 +205,11 @@ Future<bool> completeRecruitMeeting(RecruitmentSession r, Creature p) async {
   String recruitmentText = "C - ";
   if (p.subordinatesLeft > 0 && r.eagerness >= 4) {
     canRecruit = true;
-    recruitmentText += "Offer to let ${r.recruit.name} join the LCS.";
+    recruitmentText += "Offer to let ${r.recruit.name} join the SCS.";
   } else if (p.subordinatesLeft <= 0) {
     recruitmentText += "${p.name} needs more Juice to recruit.";
   } else {
-    recruitmentText += "${r.recruit.name} isn't ready to join the LCS.";
+    recruitmentText += "${r.recruit.name} isn't ready to join the SCS.";
   }
   addOptionText(15, 0, "C", recruitmentText, enabledWhen: canRecruit);
 
@@ -221,7 +221,7 @@ Future<bool> completeRecruitMeeting(RecruitmentSession r, Creature p) async {
     int c = await getKey();
 
     if (c == Key.c && p.subordinatesLeft > 0 && r.eagerness >= 4) {
-      mvaddstr(y, 0, "${p.name} offers to let ${r.recruit.name} join the LCS.");
+      mvaddstr(y, 0, "${p.name} offers to let ${r.recruit.name} join the SCS.");
       await getKey();
 
       mvaddstrc(

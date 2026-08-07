@@ -267,7 +267,7 @@ Future<void> _ageThings() async {
           if (!c.imprisoned) {
             c.location = c.base;
           }
-          await showMessage("${c.name} regains contact with the LCS.");
+          await showMessage("${c.name} regains contact with the SCS.");
         }
       }
     }
@@ -539,9 +539,9 @@ Future<void> dispersalCheck() async {
             await getKey();
             logBlindEvent("${p.name} lost touch with the Socialist Crime Squad.");
           } else if (dispersalStatus[p] == DispersalTypes.abandonLCS) {
-            mvaddstrc(8, 1, white, "${p.name} abandoned the LCS.");
+            mvaddstrc(8, 1, white, "${p.name} abandoned the SCS.");
             await getKey();
-            logBlindEvent("${p.name} abandoned the LCS.");
+            logBlindEvent("${p.name} abandoned the SCS.");
           } else if (dispersalStatus[p] == DispersalTypes.noContact) {
             mvaddstrc(
               8,
@@ -931,7 +931,7 @@ Future<void> _dailyHealing() async {
           1,
           "&w${p.name}'s hospital bill comes to &R\$${p.medicalBills}&w.",
         );
-        mvaddstrx(9, 1, "The LCS has &G\$${ledger.funds}&w available.");
+        mvaddstrx(9, 1, "The SCS has &G\$${ledger.funds}&w available.");
         addOptionText(
           11,
           1,

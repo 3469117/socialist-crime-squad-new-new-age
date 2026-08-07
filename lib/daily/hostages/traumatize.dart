@@ -105,7 +105,7 @@ Future<int> traumatize(Creature lead, String action, int y) async {
           addparagraph(
             y++,
             0,
-            "${lead.name} decides to take a few days off from LCS work.",
+            "${lead.name} decides to take a few days off from SCS work.",
           );
         } else {
           mvaddstrc(
@@ -118,7 +118,7 @@ Future<int> traumatize(Creature lead, String action, int y) async {
       }
     } else {
       if (gameOptions.lighterTone) {
-        addparagraph(y++, 0, "${lead.name} thinks about leaving the LCS.");
+        addparagraph(y++, 0, "${lead.name} thinks about leaving the SCS.");
       } else {
         mvaddstrc(
           y++,

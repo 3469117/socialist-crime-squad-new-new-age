@@ -270,7 +270,7 @@ Future<void> rehabilitation(Creature g) async {
     await _prisonSceneLine("${g.name}$experience${_juiceSuffix(juiceChange)}");
   }
   if (renounced) {
-    await _prisonSceneLine("${g.name} renounces the LCS!");
+    await _prisonSceneLine("${g.name} renounces the SCS!");
   }
   return;
 }
@@ -512,9 +512,9 @@ void escape(Creature g, bool withFriends) {
         logBlindEvent("Another imprisoned SCS member also gets out!");
       }
     } else if (numEscaped > 1) {
-      mvaddstr(11, 1, "$numEscaped other LCS members escape in the riot!");
+      mvaddstr(11, 1, "$numEscaped other SCS members escape in the riot!");
       if (!canSeeThings) {
-        logBlindEvent("$numEscaped other LCS members escape in the riot!");
+        logBlindEvent("$numEscaped other SCS members escape in the riot!");
       }
     }
   }

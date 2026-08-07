@@ -120,22 +120,22 @@ Future<void> trial(Creature g) async {
     if (g.confessions > 1) {
       if (sleeperjudge != null) {
         addstr(
-          "The judge has blocked ${g.confessions} ex-LCS members from testifying against ${g.name}.",
+          "The judge has blocked ${g.confessions} ex-SCS members from testifying against ${g.name}.",
         );
         g.confessions = 0;
       } else {
         addstr(
-          "${g.confessions} former LCS members will testify against ${g.name}.",
+          "${g.confessions} former SCS members will testify against ${g.name}.",
         );
       }
     } else {
       if (sleeperjudge != null) {
         addstr(
-          "The judge has blocked an ex-LCS member from testifying against ${g.name}.",
+          "The judge has blocked an ex-SCS member from testifying against ${g.name}.",
         );
         g.confessions = 0;
       } else {
-        addstr("A former LCS member will testify against ${g.name}.");
+        addstr("A former SCS member will testify against ${g.name}.");
       }
     }
 

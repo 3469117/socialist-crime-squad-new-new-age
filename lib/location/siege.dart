@@ -257,7 +257,7 @@ Future<void> surrenderToAuthorities(Site loc) async {
       mvaddstr(
         y += 2,
         1,
-        "Law enforcement has confiscated \$$confiscated in LCS funds.",
+        "Law enforcement has confiscated \$$confiscated in SCS funds.",
       );
       ledger.subtractFunds(confiscated, Expense.confiscated);
     }
