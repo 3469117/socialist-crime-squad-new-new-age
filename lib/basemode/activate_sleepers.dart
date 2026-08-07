@@ -138,7 +138,7 @@ Future<void> activateSleeper(Creature cr) async {
         baseColorKey: state == Key.a ? ColorKey.white : ColorKey.lightGray);
     addOptionText(11, 1, "B", "B - Espionage",
         baseColorKey: state == Key.b ? ColorKey.white : ColorKey.lightGray);
-    addOptionText(12, 1, "C", "C - Join the Active LCS",
+    addOptionText(12, 1, "C", "C - Join the Active SCS",
         baseColorKey: cr.activity.type == ActivityType.sleeperJoinLcs
             ? ColorKey.white
             : ColorKey.lightGray);
@@ -151,7 +151,7 @@ Future<void> activateSleeper(Creature cr) async {
             baseColorKey: cr.activity.type == ActivityType.none
                 ? ColorKey.white
                 : ColorKey.lightGray);
-        addOptionText(11, 40, "2", "2 - Advocate Liberalism",
+        addOptionText(11, 40, "2", "2 - Advocate Socialism",
             baseColorKey: cr.activity.type == ActivityType.sleeperLiberal
                 ? ColorKey.white
                 : ColorKey.lightGray);
@@ -193,7 +193,7 @@ Future<void> activateSleeper(Creature cr) async {
         addstr(" will stay out of trouble.");
       case ActivityType.sleeperLiberal:
         mvaddstr(22, 3, cr.name);
-        addstr(" will build support for Liberal causes.");
+        addstr(" will build support for Socialist causes.");
       case ActivityType.sleeperRecruit:
         if (cr.subordinatesLeft > 0) {
           mvaddstr(22, 3, cr.name);
@@ -204,13 +204,13 @@ Future<void> activateSleeper(Creature cr) async {
         addstr(" will snoop around for secrets and enemy plans.");
       case ActivityType.sleeperEmbezzle:
         mvaddstr(22, 3, cr.name);
-        addstr(" will embezzle money for the LCS.");
+        addstr(" will embezzle money for the SCS.");
       case ActivityType.sleeperSteal:
         mvaddstr(22, 3, cr.name);
         addstr(" will steal equipment and send it to the Camp.");
       case ActivityType.sleeperJoinLcs:
         mvaddstr(22, 3, cr.name);
-        addstr(" will join the active LCS.");
+        addstr(" will join the active SCS.");
       default:
         mvaddstrc(22, 3, red, "${cr.name} will dig around in the bugfield.");
         debugPrint("Unexpected sleeper activity type: "
@@ -298,12 +298,12 @@ Future<void> activateSleepersBulk() async {
     }
 
     addOption(1, "Lay Low");
-    addOption(2, "Advocate Liberalism");
+    addOption(2, "Advocate Socialism");
     addOption(3, "Uncover Secrets");
     addOption(4, "Embezzle Funds");
     addOption(5, "Steal Equipment");
     addOption(6, "Expand Network");
-    addOption(7, "Join LCS");
+    addOption(7, "Join SCS");
 
     int y = 2;
     for (int p = page * 19;

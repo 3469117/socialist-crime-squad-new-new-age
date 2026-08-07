@@ -37,7 +37,7 @@ Future<void> kidnapattempt() async {
 
     move(8, 20);
     setColor(white);
-    addstr("Choose a Liberal squad member to do the job.");
+    addstr("Choose a Socialist squad member to do the job.");
 
     int c = await getKey();
 
@@ -114,7 +114,7 @@ Future<void> kidnapattempt() async {
           !kidnapper.skillCheck(Skill.stealth, Difficulty.formidable)) {
         await encounterMessage(
           "${guard.name} steps between the squad and ${target.name},",
-          line2: "eyeing the Liberals with suspicion.",
+          line2: "eyeing the Socialists with suspicion.",
           color: purple,
         );
 
@@ -222,7 +222,7 @@ Future<void> kidnapattempt() async {
         "I just know we're gonna get along great.",
         "Ever considered a career in politics?",
         "Ever thought about being an activist?",
-        "I think you'd enjoy being a Liberal.",
+        "I think you'd enjoy being a Socialist.",
         "You might like direct action.",
         "I prefer the term 'activist' myself.",
         "Don't worry, I'm not a cop.",
@@ -299,7 +299,7 @@ Future<void> releasehostage() async {
 
     move(8, 20);
     setColor(white);
-    addstr("Choose a Liberal squad member to release their hostage.");
+    addstr("Choose a Socialist squad member to release their hostage.");
 
     int c = await getKey();
 

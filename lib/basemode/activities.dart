@@ -86,15 +86,15 @@ enum ActivityType {
   stealCars("Stealing a Car", lightBlue),
   wheelchair("Procuring a Wheelchair", lightBlue),
   bury("Burying Dead", darkGray),
-  writeGuardian("Liberal Guardian Writing", lightGreen),
-  streamGuardian("Liberal Guardian Streaming", lightGreen),
-  teachLiberalArts("Teaching Liberal Arts", purple),
+  writeGuardian("Socialist Guardian Writing", lightGreen),
+  streamGuardian("Socialist Guardian Streaming", lightGreen),
+  teachLiberalArts("Teaching Socialist Arts", purple),
   teachFighting("Teaching Fighting", purple),
   teachCovert("Teaching Covert Ops", purple),
   study("Practicing", pink),
   takeClass("Taking a Class", pink),
   clinic("Going to the Hospital", red),
-  sleeperLiberal("Promoting Liberalism", lightGreen),
+  sleeperLiberal("Promoting Socialism", lightGreen),
   sleeperConservative("Spouting Conservatism", red),
   sleeperSpy("Snooping Around", lightBlue),
   sleeperRecruit("Recruiting Sleepers", green),
@@ -102,7 +102,7 @@ enum ActivityType {
   sleeperSteal("Stealing Equipment", lightBlue),
   sleeperJoinLcs("Quitting Job", red),
   recruiting("Recruiting", green),
-  augment("Augmenting a Liberal", lightBlue);
+  augment("Augmenting a Socialist", lightBlue);
 
   const ActivityType(this.label, this.color);
 

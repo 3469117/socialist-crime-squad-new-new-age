@@ -50,7 +50,7 @@ Future<void> noticeCheck({
       mvaddstrc(9, 1, red, "${e.name} observes your Liberal activity ");
       move(10, 1);
       if (e.align == Alignment.conservative) {
-        addstr("and lets forth a piercing Conservative alarm cry!");
+        addstr("and lets forth a piercing Fascist alarm cry!");
       } else {
         addstr("and shouts for help!");
       }
@@ -307,7 +307,7 @@ Future<void> disguisecheck(int timer) async {
             " coughs.",
             " accidentally mumbles the slogan.",
             " paces uneasily.",
-            " stares at the Conservatives.",
+            " stares at the Fascists.",
             " laughs nervously.",
             " fidgets.",
             " whistles.",
@@ -353,7 +353,7 @@ Future<void> disguisecheck(int timer) async {
           levelMap[locx][locy][locz].flag & SITEBLOCK_RESTRICTED != 0) {
         siteAlarm = true;
 
-        addstr(" shouts in alarm at the squad's Liberal Trespassing!");
+        addstr(" shouts in alarm at the squad's Socialist Trespassing!");
       } else {
         addstr(" looks at the Squad suspiciously.");
 
@@ -387,9 +387,9 @@ Future<void> disguisecheck(int timer) async {
       }
       move(10, 1);
       if (n.type.dog) {
-        addstr("and launches into angry Conservative barking!");
+        addstr("and launches into angry Fascist barking!");
       } else if (n.align == Alignment.conservative) {
-        addstr("and lets forth a piercing Conservative alarm cry!");
+        addstr("and lets forth a piercing Fascist alarm cry!");
       } else {
         addstr("and shouts for help!");
       }

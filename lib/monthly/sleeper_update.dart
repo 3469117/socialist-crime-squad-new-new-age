@@ -295,7 +295,7 @@ Future<void> sleeperSpy(Creature cr, Map<View, int> libpower) async {
         politics.promoteVP();
       } else {
         mvaddstr(6, 1, "Sleeper ${cr.name} has been caught snooping around.");
-        mvaddstr(8, 1, "The Liberal is now homeless and jobless...");
+        mvaddstr(8, 1, "The Socialist is now homeless and jobless...");
       }
       await getKey();
 
@@ -313,7 +313,7 @@ Future<void> sleeperSpy(Creature cr, Map<View, int> libpower) async {
         mvaddstr(8, 1, "A corruption scandal is brewing...");
       } else {
         mvaddstr(6, 1, "Sleeper ${cr.name} has been caught snooping around.");
-        mvaddstr(8, 1, "The Liberal's infiltration score has taken a hit.");
+        mvaddstr(8, 1, "The Socialist's infiltration score has taken a hit.");
       }
       await getKey();
     }
@@ -337,7 +337,7 @@ Future<void> sleeperSpy(Creature cr, Map<View, int> libpower) async {
     if (cr == uniqueCreatures.president) {
       mvaddstr(10, 1, "A corruption scandal is brewing...");
     } else {
-      mvaddstr(10, 1, "The Liberal's infiltration score has taken a hit.");
+      mvaddstr(10, 1, "The Socialist's infiltration score has taken a hit.");
     }
 
     cr.infiltration -= 0.2;
@@ -355,7 +355,7 @@ Future<void> sleeperSpy(Creature cr, Map<View, int> libpower) async {
         await leak(LootTypeIds.secretDocuments, "secret intelligence files");
       } else {
         await leak(LootTypeIds.ccsBackerList,
-            "a list of the CCS's government backers");
+            "a list of the FCS's government backers");
         ccsExposure = CCSExposure.lcsGotData;
       }
     case CreatureTypeIds.deathSquad:
@@ -386,7 +386,7 @@ Future<void> sleeperSpy(Creature cr, Map<View, int> libpower) async {
     case CreatureTypeIds.ccsArchConservative:
       if (ccsExposure.index >= CCSExposure.lcsGotData.index) break;
       await leak(
-          LootTypeIds.ccsBackerList, "a list of the CCS's government backers");
+          LootTypeIds.ccsBackerList, "a list of the FCS's government backers");
       ccsExposure = CCSExposure.lcsGotData;
     case CreatureTypeIds.landlord:
       await leak(LootTypeIds.landlordPapers, "evidence of landlord misconduct");
@@ -492,8 +492,8 @@ Future<void> sleeperEmbezzle(Creature cr, Map<View, int> libpower) async {
       mvaddstr(9, 1, "A corruption scandal is brewing...");
     } else {
       mvaddstr(8, 1,
-          "Unfortunately, Conservatives have noticed funds are going missing.");
-      mvaddstr(9, 1, "The Liberal's infiltration score has taken a hit.");
+          "Unfortunately, Fascists have noticed funds are going missing.");
+      mvaddstr(9, 1, "The Socialist's infiltration score has taken a hit.");
     }
   }
 }
@@ -548,8 +548,8 @@ Future<void> sleeperSteal(Creature cr, Map<View, int> libpower) async {
       mvaddstr(9, 1, "A corruption scandal is brewing...");
     } else {
       mvaddstr(8, 1,
-          "Unfortunately, the Conservatives have noticed things are going missing.");
-      mvaddstr(9, 1, "The Liberal's infiltration score has taken a hit.");
+          "Unfortunately, the Fascists have noticed things are going missing.");
+      mvaddstr(9, 1, "The Socialist's infiltration score has taken a hit.");
     }
   }
   await getKey();
@@ -686,9 +686,9 @@ Future<void> sleeperRecruit(Creature cr, Map<View, int> libpower) async {
               "Update from our ${cr.gender.manWoman} in the White House: "
               "Despite the President's best efforts, &$oldAlignColor${positionToFill.displayName} "
               "${politics.execName[positionToFill]!.last}&w continues to "
-              "hold out against the internal push for more Liberal policies. "
+              "hold out against the internal push for more Socialist policies. "
               "The President is considering other options, but lacks the "
-              "votes in Congress to confirm a more Liberal appointment.");
+              "votes in Congress to confirm a more Socialist appointment.");
 
           await getKey();
           return;

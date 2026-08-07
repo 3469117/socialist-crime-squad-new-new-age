@@ -196,7 +196,7 @@ void printWounds(Creature cr, {int y = 2, int x = 49}) {
       if (cr.type.animal) {
         addstr("Animal");
       } else {
-        addstr(cr.align == Alignment.liberal ? "Liberal" : "Healthy");
+        addstr(cr.align == Alignment.liberal ? "Socialist" : "Healthy");
       }
     } else {
       List<String> injuries = [];
@@ -246,7 +246,7 @@ Future<void> fullCreatureInfoScreen(Creature cr) async {
 
     setColor(lightGreen);
     move(0, 0);
-    addstr("Profile of a Liberal");
+    addstr("Profile of a Socialist");
 
     if (page == 0) printFullCreatureStats(cr);
     if (page == 1) printFullCreatureSkills(cr);
@@ -257,7 +257,7 @@ Future<void> fullCreatureInfoScreen(Creature cr) async {
     if ((activeSquad?.members.length ?? 0) > 1) {
       addOptionText(23, 50, "LEFT", "LEFT");
       addstr(" / ");
-      addOptionText(23, 57, "RIGHT", "RIGHT - Other Liberals");
+      addOptionText(23, 57, "RIGHT", "RIGHT - Other Socialists");
     }
     mvaddstr(24, 0, "Any Other Key - Continue the Struggle");
     addOptionText(24, 52, "UP", "UP");

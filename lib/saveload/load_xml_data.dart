@@ -25,7 +25,7 @@ import 'package:xml/xml.dart';
 
 void loadingFeedback(String fileName) {
   erase();
-  mvaddstr(8, 2, "Loading Liberal Crime Squad...");
+  mvaddstr(8, 2, "Loading Socialist Crime Squad...");
   mvaddstr(10, 2, "File: $fileName");
   refresh();
 }

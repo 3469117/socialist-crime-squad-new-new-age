@@ -172,7 +172,7 @@ Future<void> selectAndFlyFlag(Site loc, {bool ownedOnly = false}) async {
     footer = "Under siege: only flags already in your inventory can be raised.";
   } else {
     footer =
-        "Only a few flags can be bought. Many more can be made by the LCS.";
+        "Only a few flags can be bought. Many more can be made by the SCS.";
   }
 
   await pagedInterface(

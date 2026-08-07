@@ -1,0 +1,4 @@
+This patch kit is intended for use with Liberal Crime Squad: New Age.
+The upstream project is licensed under GPL-2.0. Modified distributions of the
+upstream program must comply with the upstream license and preserve applicable
+copyright/license notices.

@@ -44,8 +44,8 @@ String levelTitle(int level, Alignment align) {
     "Socialist Threat",
     "Revolutionary",
     "Urban Commando",
-    "Liberal Guardian",
-    "Elite Liberal",
+    "Socialist Guardian",
+    "Revolutionary Socialist",
   ];
   const List<String> moderateTitles = [
     "In Crisis",
@@ -63,13 +63,13 @@ String levelTitle(int level, Alignment align) {
     "In Crisis",
     "Unstable",
     "Struggling",
-    "Mindless Conservative",
+    "Mindless Fascist",
     "Heckler",
     "Right-Wing Goon",
     "Violent Vigilante",
     "Rural Reactionary",
-    "Conservative Crusader",
-    "Arch Conservative",
+    "Fascist Crusader",
+    "Fascist",
   ];
   List titleList;
   if (align == Alignment.liberal) {

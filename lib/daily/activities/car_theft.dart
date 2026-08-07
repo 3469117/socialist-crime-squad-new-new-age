@@ -387,7 +387,7 @@ class CarTheftScene {
 
   void _addCarTheftHeader() {
     erase();
-    mvaddstrc(0, 0, white, "Adventures in Liberal Car Theft");
+    mvaddstrc(0, 0, white, "Adventures in Socialist Car Theft");
     printCreatureInfo(cr, showCarPrefs: ShowCarPrefs.onFoot);
     makeDelimiter();
   }

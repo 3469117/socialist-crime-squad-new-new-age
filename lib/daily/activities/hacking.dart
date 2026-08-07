@@ -68,7 +68,7 @@ Future<void> doActivityHacking(List<Creature> hack) async {
           loot(LootTypeIds.amRadioFiles);
         }
       case 4:
-        msg += "broke into military networks leaving LCS slogans.";
+        msg += "broke into military networks leaving SCS slogans.";
         trackdif = Difficulty.superHeroic;
         crime = Crime.cyberTerrorism;
         juiceval = 25;
@@ -92,8 +92,8 @@ Future<void> doActivityHacking(List<Creature> hack) async {
     ];
     const targets = [
       "corporate website",
-      "Conservative forum",
-      "Conservative blog",
+      "Fascist forum",
+      "Fascist blog",
       "news website",
       "government website"
     ];

@@ -9,7 +9,7 @@ void main() {
   runApp(
     const MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'LCS Map Editor',
+      title: 'SCS Map Editor',
       home: ColoredBox(
         color: editorBg,
         child: MapEditorScreen(directLaunch: true),

@@ -13,7 +13,7 @@ void conservatize(Creature cr) {
       case CreatureTypeIds.unionWorker:
         cr.name = "Ex-Union Worker";
       case CreatureTypeIds.liberalJudge:
-        cr.name = "Jaded Liberal Judge";
+        cr.name = "Jaded Socialist Judge";
     }
   }
 }

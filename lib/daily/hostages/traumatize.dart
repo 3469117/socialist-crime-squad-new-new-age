@@ -72,7 +72,7 @@ Future<int> traumatize(Creature lead, String action, int y) async {
         "\"I don't want to be a part of this...\"",
         "\"I hate this place!\"",
         "\"Fuck all of this!\"",
-        "\"Fucking LCS bullshit...\"",
+        "\"Fucking SCS bullshit...\"",
         "\"Who gives a shit about this anyway...\"",
         "\"What am I fucking doing?\"",
         "\"I hate this, I hate myself.\"",

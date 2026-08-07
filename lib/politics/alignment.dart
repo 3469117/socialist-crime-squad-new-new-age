@@ -18,15 +18,24 @@ enum Alignment {
     }
   }
 
-  String get label => name;
+  String get label {
+    switch (this) {
+      case liberal:
+        return "Socialist";
+      case moderate:
+        return "Liberal";
+      case conservative:
+        return "Fascist";
+    }
+  }
   String get ism {
     switch (this) {
       case liberal:
-        return "Liberalism";
+        return "Socialism";
       case moderate:
-        return "moderation";
+        return "Liberalism";
       case conservative:
-        return "Conservatism";
+        return "Fascism";
     }
   }
 }
@@ -71,45 +80,45 @@ enum DeepAlignment implements Comparable<DeepAlignment> {
   String get label {
     switch (this) {
       case eliteLiberal:
-        return "Elite Liberal";
+        return "Revolutionary Socialist";
       case liberal:
-        return "Liberal";
+        return "Socialist";
       case moderate:
-        return "moderate";
+        return "Liberal";
       case conservative:
-        return "Conservative";
+        return "Reactionary";
       case archConservative:
-        return "Arch Conservative";
+        return "Fascist";
     }
   }
 
   String get short {
     switch (this) {
       case eliteLiberal:
-        return "Lib+";
+        return "Soc+";
       case liberal:
-        return "Lib";
+        return "Soc";
       case moderate:
-        return "mod";
+        return "Lib";
       case conservative:
-        return "Con";
+        return "React";
       case archConservative:
-        return "Con+";
+        return "Fash";
     }
   }
 
   String get veryShort {
     switch (this) {
       case eliteLiberal:
-        return "L+";
+        return "S+";
       case liberal:
-        return "L ";
+        return "S ";
       case moderate:
-        return "m ";
+        return "L ";
       case conservative:
-        return "C ";
+        return "R ";
       case archConservative:
-        return "C+";
+        return "F+";
     }
   }
 

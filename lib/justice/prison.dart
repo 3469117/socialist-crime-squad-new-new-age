@@ -160,7 +160,7 @@ Future<void> prison(Creature g) async {
         mvaddstr(
           9,
           1,
-          "No doubt there are some mental scars, but the Liberal is back.",
+          "No doubt there are some mental scars, but the Socialist is back.",
         );
 
         await getKey();
@@ -227,10 +227,10 @@ Future<void> rehabilitation(Creature g) async {
   const List<String> reeducationExperiences = [
     " attends rehabilitative therapy in prison.",
     " works on a mural about political diversity.",
-    " routinely sees a Liberal therapist in prison.",
+    " routinely sees a Socialist therapist in prison.",
     " attends a group therapy session in prison.",
     " enjoys the company of a moderate inmate.",
-    " enjoys the company of a Conservative inmate.",
+    " enjoys the company of a Fascist inmate.",
     " puts on an anti-crime performance in prison.",
     " learns about the victims of political crime.",
   ];
@@ -248,7 +248,7 @@ Future<void> rehabilitation(Creature g) async {
       wisdomChange = 1;
     } else if (g.align == Alignment.liberal && g.seduced && oneIn(4)) {
       addstr(g.name);
-      addstr(" only stays loyal to the LCS for ");
+      addstr(" only stays loyal to the SCS for ");
       addstr(g.boss?.name ?? "the cause");
       addstr(".");
     } else {
@@ -378,7 +378,7 @@ Future<void> prisonScene(Creature g) async {
     if (g.hireId == null && oneIn(10)) {
       escaped = 2;
       experience =
-          " leads a riot with dozens of prisoners chanting the LCS slogan!";
+          " leads a riot with dozens of prisoners chanting the SCS slogan!";
     } else if (g.skillCheck(Skill.computers, Difficulty.formidable) &&
         oneIn(5)) {
       escaped = 2;
@@ -416,7 +416,7 @@ Future<void> prisonScene(Creature g) async {
   }
 
   const List<String> goodExperiences = [
-    " advertises the LCS to other inmates.",
+    " advertises the SCS to other inmates.",
     " organizes a gang to beat up on a serial rapist.",
     " learns little skills from other inmates.",
     " gets a prison tattoo with the letters L-C-S.",
@@ -507,9 +507,9 @@ void escape(Creature g, bool withFriends) {
       }
     }
     if (numEscaped == 1) {
-      mvaddstr(11, 1, "Another imprisoned LCS member also gets out!");
+      mvaddstr(11, 1, "Another imprisoned SCS member also gets out!");
       if (!canSeeThings) {
-        logBlindEvent("Another imprisoned LCS member also gets out!");
+        logBlindEvent("Another imprisoned SCS member also gets out!");
       }
     } else if (numEscaped > 1) {
       mvaddstr(11, 1, "$numEscaped other LCS members escape in the riot!");

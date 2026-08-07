@@ -55,7 +55,7 @@ class GameState {
       districts.expand((district) => district.sites).toList();
   Politics politics = Politics.newGame();
   CrimeSquad lcs = CrimeSquad();
-  DateTime date = DateTime(2023, DateTime.january, 1);
+  DateTime date = DateTime(2026, DateTime.august, 1);
   int disbandTime = 0;
   bool disbanding = false;
   Ledger ledger = Ledger();
@@ -192,7 +192,7 @@ int get month => gameState.date.month;
 int get day => gameState.date.day;
 int get year => gameState.date.year;
 DateTime get date => gameState.date;
-DateTime get gameStartDate => DateTime(2023, DateTime.january, 1);
+DateTime get gameStartDate => DateTime(2026, DateTime.august, 1);
 int get disbandTime => gameState.disbandTime;
 bool get disbanding => gameState.disbanding;
 set disbanding(bool value) => gameState.disbanding = value;

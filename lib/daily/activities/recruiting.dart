@@ -19,7 +19,7 @@ Future<void> doActivityRecruit(Creature cr) async {
   cr.train(Skill.streetSmarts, 5);
 
   erase();
-  mvaddstrc(0, 0, white, "Adventures in Liberal Recruitment");
+  mvaddstrc(0, 0, white, "Adventures in Socialist Recruitment");
   printCreatureInfo(cr, showCarPrefs: ShowCarPrefs.onFoot);
   makeDelimiter();
 
@@ -52,14 +52,14 @@ Future<void> doActivityRecruit(Creature cr) async {
     await getKey();
 
     erase();
-    mvaddstrc(0, 0, white, "Adventures in Liberal Recruitment");
+    mvaddstrc(0, 0, white, "Adventures in Socialist Recruitment");
     printCreatureInfo(encounter[0], showCarPrefs: ShowCarPrefs.onFoot);
     makeDelimiter();
     await talk(cr, encounter[0]);
   } else {
     while (true) {
       erase();
-      mvaddstrc(0, 0, white, "Adventures in Liberal Recruitment");
+      mvaddstrc(0, 0, white, "Adventures in Socialist Recruitment");
       printCreatureInfo(cr, showCarPrefs: ShowCarPrefs.onFoot);
       makeDelimiter();
 
@@ -83,7 +83,7 @@ Future<void> doActivityRecruit(Creature cr) async {
 
         Creature target = encounter[c];
         erase();
-        mvaddstrc(0, 0, white, "Adventures in Liberal Recruitment");
+        mvaddstrc(0, 0, white, "Adventures in Socialist Recruitment");
         printCreatureInfo(target, showCarPrefs: ShowCarPrefs.onFoot);
         makeDelimiter();
 

@@ -110,13 +110,13 @@ Future<void> handleLoveBombing(
           "style and the subculture it comes from.",
       "brings in gardening supplies and teaches ${cr.name} how to grow ${cr.gender.hisHer} own "
           "food, narrating how sowing literal seeds of change mirrors the "
-          "LCS's mission to uproot harmful ideologies.",
+          "SCS's mission to uproot harmful ideologies.",
       "builds an intricate escape room for ${cr.name}, full of puzzles about "
           "systemic inequality, where ${cr.gender.heShe} can only solve each "
           "puzzle by first escaping ${cr.gender.hisHer} old mindset.",
       "stages a puppet show for ${cr.name}, featuring characters like "
           "Karl Marx and Rosa Luxemburg in a series of skits about the "
-          "history of the LCS and the importance of revolutionary "
+          "history of the SCS and the importance of revolutionary "
           "politics.",
       "throws a holiday party for ${cr.name} celebrating ${[
         "Intersectional Justice Jubilee",
@@ -134,19 +134,19 @@ Future<void> handleLoveBombing(
         "Black And Proud Day",
         "Black Lives Do In Fact Matter Day",
         "Love Wins Day",
-        "Liberalism Day",
+        "Socialism Day",
         "Leftist Pride Day",
         "Social Justice Day",
-        "Adopt-A-Conservative Day",
+        "Adopt-A-Fascist Day",
         "Fuck The Police Day",
         "Radical Self-Care Day",
         "Resistance Day",
         "Even Prouder Pride Day",
-        "I'm A Liberal Day",
-        "Damn It's Good To Be A Liberal Day",
-        "Liberalism Is The New Black Day",
-        "Join The LCS Day",
-        "Stop Being A Conservative Day",
+        "I'm A Socialist Day",
+        "Damn It's Good To Be A Socialist Day",
+        "Socialism Is The New Black Day",
+        "Join The SCS Day",
+        "Stop Being A Fascist Day",
       ].random}, complete with a ${miniOptions.randomPop()}, a ${miniOptions.randomPop()}, and a ${miniOptions.randomPop()}.",
       "gives ${cr.name} a live chicken to hold while ${lead.name} plays "
           "a series of undercover videos of factory farms and slaughterhouses "
@@ -235,13 +235,13 @@ Future<void> handleLoveBombing(
 
     mvaddstr(y++, 0, cr.name);
     addstr([
-      "'s Conservative beliefs are shaken.",
+      "'s Fascist beliefs are shaken.",
       " quietly considers these ideas.",
-      " is beginning to see Liberal reason.",
+      " is beginning to see Socialist reason.",
       " has a revelation of understanding.",
-      " grudgingly admits sympathy for LCS ideals.",
+      " grudgingly admits sympathy for SCS ideals.",
       " is beginning to see the error of ${cr.gender.hisHer} ways.",
-      " is beginning to understand where the LCS is coming from.",
+      " is beginning to understand where the SCS is coming from.",
       " never really thought about things this way before.",
     ].random);
 

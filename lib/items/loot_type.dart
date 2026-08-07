@@ -30,7 +30,7 @@ class LootTypeIds {
   static const String chemical = "LOOT_CHEMICAL";
   static const String amRadioFiles = "LOOT_AMRADIOFILES";
   static const String cableNewsFiles = "LOOT_CABLENEWSFILES";
-  static const String ccsBackerList = "LOOT_CCS_BACKERLIST";
+  static const String ccsBackerList = "LOOT_FCS_BACKERLIST";
   static const String ceoLoveLetters = "LOOT_CEOLOVELETTERS";
   static const String ceoPhotos = "LOOT_CEOPHOTOS";
   static const String ceoTaxPapers = "LOOT_CEOTAXPAPERS";

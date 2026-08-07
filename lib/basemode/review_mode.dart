@@ -36,7 +36,7 @@ Future<void> reviewAssetsAndFormSquads() async {
     erase();
 
     setColor(lightGray);
-    mvaddstr(0, 0, "Review your Liberals and Assemble Squads");
+    mvaddstr(0, 0, "Review your Socialists and Assemble Squads");
     addHeader({4: "SQUAD NAME", 31: "LOCATION", 51: "ACTIVITY"});
 
     int active = 0, hostages = 0, hospital = 0;
@@ -133,10 +133,10 @@ Future<void> reviewAssetsAndFormSquads() async {
     }
 
     setColor(lightGray);
-    addOptionText(22, 0, "V", "V - Inspect Liberal finances.");
+    addOptionText(22, 0, "V", "V - Inspect Socialist finances.");
     addPageButtons(y: 23, x: 0);
     move(console.y, console.x + 3);
-    addInlineOptionText("U", "U - Promote Liberals.");
+    addInlineOptionText("U", "U - Promote Socialists.");
     addOptionText(24, 0, "Z", "Z - Assemble a New Squad.  ");
     addInlineOptionText("T", "T - Assign New Bases to the Squadless.");
 
@@ -245,19 +245,19 @@ Future<void> reviewMode(ReviewMode mode) async {
     move(0, 0);
     switch (mode) {
       case ReviewMode.liberals:
-        addstr("Active Liberals");
+        addstr("Active Socialists");
       case ReviewMode.hostages:
-        addstr("Conservative Automatons in Captivity");
+        addstr("Fascist Automatons in Captivity");
       case ReviewMode.clinic:
-        addstr("Liberals in the Medical System");
+        addstr("Socialists in the Medical System");
       case ReviewMode.justice:
-        addstr("Liberals in the Justice System");
+        addstr("Socialists in the Justice System");
       case ReviewMode.sleepers:
         addstr("Sleepers");
       case ReviewMode.dead:
-        addstr("Liberal Martyrs and Dead Bodies");
+        addstr("Socialist Martyrs and Dead Bodies");
       case ReviewMode.away:
-        addstr("Liberals that are Away");
+        addstr("Socialists that are Away");
     }
     addHeader({
       4: "CODE NAME",
@@ -407,11 +407,11 @@ Future<void> reviewMode(ReviewMode mode) async {
     if (swap != null) {
       addOptionText(22, 38, "Z", "Z - Place ${swap.name}");
     } else {
-      addOptionText(22, 38, "Z", "Z - Reorder Liberals",
+      addOptionText(22, 38, "Z", "Z - Reorder Socialists",
           enabledWhen: temppool.length > 1);
     }
     addPageButtons(y: 23, x: 0);
-    addOptionText(23, 38, "T", "T - Sort Liberals");
+    addOptionText(23, 38, "T", "T - Sort Socialists");
 
     int c = await getKey();
 
@@ -440,7 +440,7 @@ Future<void> reviewMode(ReviewMode mode) async {
             addstr("Profile of an Automaton");
           } else {
             setColor(lightGreen);
-            addstr("Profile of a Liberal");
+            addstr("Profile of a Socialist");
           }
 
           if (page == 0) printFullCreatureStats(tempp);
@@ -453,10 +453,10 @@ Future<void> reviewMode(ReviewMode mode) async {
           if (tempp.isActiveLiberal &&
               tempp.hireId != null) // If alive and not own boss? (suicide?)
           {
-            addOptionText(22, 0, "R", "R - Remove LCS Member");
+            addOptionText(22, 0, "R", "R - Remove SCS Member");
             Creature? boss = pool.firstWhereOrNull((p) => p.id == tempp.hireId);
             if (boss != null && boss.location == tempp.location) {
-              addOptionText(22, 26, "K", "K - Kill LCS Member");
+              addOptionText(22, 26, "K", "K - Kill SCS Member");
             }
           }
           if (tempp.isActiveLiberal) {
@@ -538,7 +538,7 @@ Future<void> reviewMode(ReviewMode mode) async {
             move(22, 0);
             setColor(lightGray);
             addstr(
-                "Do you want to permanently release this squad member from the LCS?");
+                "Do you want to permanently release this squad member from the SCS?");
 
             move(23, 0);
             addstr("If the member has low heart they may go to the police.");
@@ -563,12 +563,12 @@ Future<void> reviewMode(ReviewMode mode) async {
                   boss?.isCriminal == true) {
                 setColor(lightBlue);
                 move(22, 0);
-                addstr("A Liberal friend tips you off on ");
+                addstr("A Socialist friend tips you off on ");
                 addstr(tempp.name);
                 addstr("'s whereabouts.");
                 move(24, 0);
                 addstr(
-                    "The Conservative traitor has ratted you out to the police, and sworn");
+                    "The Fascist traitor has ratted you out to the police, and sworn");
                 move(25, 0);
                 addstr("to testify against ");
                 addstr(boss!.name);
@@ -613,7 +613,7 @@ Future<void> reviewMode(ReviewMode mode) async {
             addstr(boss.name);
             addstr(" kill this squad member?");
             mvaddstrx(
-                23, 0, "&RKilling your squad members is Deeply Conservative.");
+                23, 0, "&RKilling your squad members is Deeply Fascist.");
             addOptionText(24, 0, "C", "C - Confirm");
             addOptionText(24, 27, "Any Other Key", "Any Other Key - Continue");
 
@@ -834,9 +834,9 @@ Future<void> assembleSquad(Squad? cursquad) async {
     }
 
     mvaddstrc(22, 0, lightGray,
-        "Press a Letter to add or remove a Liberal from the squads.");
+        "Press a Letter to add or remove a Socialist from the squads.");
     addPageButtons(y: 23, x: 0);
-    addOptionText(23, 40, "v", "V - View a Liberal");
+    addOptionText(23, 40, "v", "V - View a Socialist");
     if (partysize > 0) {
       addOptionText(24, 0, "Enter", "Enter - The squad is ready.");
     } else {
@@ -867,7 +867,7 @@ Future<void> assembleSquad(Squad? cursquad) async {
             eraseArea(startY: 22);
             setColor(red);
             mvaddstrCenter(
-                23, "Liberals must be in the same location to form a squads.");
+                23, "Socialists must be in the same location to form a squads.");
 
             await getKey();
 
@@ -877,7 +877,7 @@ Future<void> assembleSquad(Squad? cursquad) async {
         if (!tempp.canWalk && !tempp.hasWheelchair) {
           eraseArea(startY: 22);
           setColor(red);
-          mvaddstrCenter(23, "Squad Liberals must be able to move around.");
+          mvaddstrCenter(23, "Squad Socialists must be able to move around.");
 
           await getKey();
 
@@ -895,7 +895,7 @@ Future<void> assembleSquad(Squad? cursquad) async {
     }
     if (c == Key.v) {
       eraseArea(startY: 22);
-      mvaddstrc(22, 0, white, "Press a Letter to view Liberal details.");
+      mvaddstrc(22, 0, white, "Press a Letter to view Socialist details.");
 
       int c2 = await getKey();
       if (c2 >= Key.a && c2 <= Key.s) {
@@ -939,8 +939,8 @@ Future<void> assembleSquad(Squad? cursquad) async {
     if (hasmembers) {
       eraseArea(startY: 22);
       move(23, 0);
-      addstr("What shall we designate this Liberal squad?");
-      cursquad.name = await enterName(24, 0, "The Liberal Crime Squad");
+      addstr("What shall we designate this Socialist squad?");
+      cursquad.name = await enterName(24, 0, "The Socialist Crime Squad");
 
       squads.add(cursquad);
     }
@@ -972,7 +972,7 @@ Future<void> assignNewBasesToTheSquadless() async {
     printFunds();
 
     move(0, 0);
-    addstr("New Bases for Squadless Liberals");
+    addstr("New Bases for Squadless Socialists");
     addHeader({4: "CODE NAME", 25: "CURRENT BASE", 51: "NEW BASE"});
 
     int y = 2;
@@ -1015,7 +1015,7 @@ Future<void> assignNewBasesToTheSquadless() async {
     mvaddstr(21, 0,
         "Press a letter to assign a base.  Press a number to select a base.");
     mvaddstr(
-        22, 0, "Liberals must be moved in squads to transfer between cities.");
+        22, 0, "Socialists must be moved in squads to transfer between cities.");
     if (temppool.length > 19) {
       addPageButtons(y: 24, x: 0);
     }
@@ -1123,7 +1123,7 @@ Future<void> promoteliberals() async {
     printFunds();
 
     move(0, 0);
-    addstr("Promote the Elite Liberals");
+    addstr("Promote the Revolutionary Socialists");
     addHeader(
         {4: "CODE NAME", 27: "CURRENT CONTACT", 54: "CONTACT AFTER PROMOTION"});
 
@@ -1162,7 +1162,7 @@ Future<void> promoteliberals() async {
           break;
         }
       }
-      if (p2 == pool.length) addstr("<LCS Leader>");
+      if (p2 == pool.length) addstr("<SCS Leader>");
 
       move(y++, 4 + level[p]);
       printname(temppool[p]);
@@ -1188,10 +1188,10 @@ Future<void> promoteliberals() async {
     setColor(lightGray);
     move(22, 0);
     addstr(
-        "Press a letter to promote a Liberal. You cannot promote Liberals in hiding.");
+        "Press a letter to promote a Socialist. You cannot promote Socialists in hiding.");
     move(23, 0);
     addstr(
-        "Enlightened Liberals follow anyone. Seduced Liberals follow only their lover.");
+        "Enlightened Socialists follow anyone. Seduced Socialists follow only their lover.");
     if (temppool.length > pageLength) {
       move(24, 0);
       addstr(pageStr);

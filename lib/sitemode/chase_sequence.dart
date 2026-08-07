@@ -228,7 +228,7 @@ Future<ChaseOutcome> carChaseSequence() async {
   erase();
   mvaddstrc(
       0, 0, white, "As you pull away from the site, you notice that you are ");
-  mvaddstr(1, 0, "being followed by Conservative swine!");
+  mvaddstr(1, 0, "being followed by Fascist swine!");
   await getKey();
 
   if (chase.location is Site) {
@@ -254,7 +254,7 @@ Future<ChaseOutcome> carChaseSequence() async {
         p.die();
         p.location = null;
       }
-      addOptionText(9, 1, "C", "C - Reflect on your Conservative driving.");
+      addOptionText(9, 1, "C", "C - Reflect on your Fascist driving.");
       printChaseEncounter();
       while (await getKey() != Key.c) {}
       if (!await checkForDefeat()) {
@@ -517,7 +517,7 @@ Future<ChaseOutcome> footChaseSequence({
     erase();
     mvaddstrc(0, 0, white, "As you exit the site, you notice that you are ");
     move(1, 0);
-    addstr("being followed by Conservative swine!");
+    addstr("being followed by Fascist swine!");
     await getKey();
   }
 
@@ -545,7 +545,7 @@ Future<ChaseOutcome> footChaseSequence({
       }
 
       mvaddstrc(
-          9, 1, lightGray, "C - Reflect on your Conservative ineptitude.");
+          9, 1, lightGray, "C - Reflect on your Fascist ineptitude.");
     } else {
       printChaseOptions();
     }
@@ -599,7 +599,7 @@ Future<ChaseOutcome> footChaseSequence({
           setColor(white);
           clearMessageArea();
           if (!ranAway) {
-            mvaddstr(9, 1, "A Liberal outcome!");
+            mvaddstr(9, 1, "A Socialist outcome!");
           } else {
             mvaddstr(9, 1, "It looks like you've lost them!");
           }

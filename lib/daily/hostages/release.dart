@@ -38,7 +38,7 @@ Future<void> handleRelease(
       SiegeType.angryRuralMob => "people outside",
       SiegeType.corporateMercs => "corporate mercenaries",
       SiegeType.medicalDebtCollectors => "debt collectors",
-      SiegeType.ccs => "CCS vigilantes",
+      SiegeType.ccs => "FCS vigilantes",
       _ => "giant bugs",
     };
     addparagraph(
@@ -125,7 +125,7 @@ Future<void> handleRelease(
       "${cr.name} gets in touch with ${lead.name} later, expressing "
       "a desire to continue their conversations and offering "
       "${cr.gender.hisHer} services as a sleeper agent for the "
-      "Liberal Crime Squad.",
+      "Socialist Crime Squad.",
     );
     cr.hireId = lead.id;
     cr.brainwashed = true;

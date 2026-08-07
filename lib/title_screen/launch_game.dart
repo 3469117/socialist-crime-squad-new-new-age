@@ -70,10 +70,10 @@ Future<void> errorScreen(Error e, {bool willContinue = false}) async {
   }
   if (willContinue) {
     mvaddstrc(24, 0, lightGreen,
-        "Press any key to continue the game after this Conservative interruption.");
+        "Press any key to continue the game after this Fascist interruption.");
   } else {
     mvaddstrc(24, 0, lightGreen,
-        "Press any key to restart the game after this Conservative interruption.");
+        "Press any key to restart the game after this Fascist interruption.");
   }
   checkKey();
   await Future.delayed(const Duration(milliseconds: 250));

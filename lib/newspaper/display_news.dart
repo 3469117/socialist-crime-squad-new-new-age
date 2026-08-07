@@ -72,29 +72,29 @@ Future<void> displayStory(NewsStory ns, View? header) async {
       switch (ns.type) {
         case NewsStories.ccsNoBackers:
           story +=
-              "The FBI investigation into the Conservative Crime Squad's government connections has led to the arrest of more than "
+              "The FBI investigation into the Fascist Crime Squad's government connections has led to the arrest of more than "
               "a dozen elected officials and revealed extensive corruption in law enforcement."
               "&r"
               "  \"The uphevals in the police force, and arrest of corrupt officials, are only the beginning,\" FBI Chief "
               "Roberta T. Malton said during a news conference.  \"A major focus "
-              "of our efforts will be on the complete destruction of the Conservative Crime Squad. Within six months, we'll have their "
+              "of our efforts will be on the complete destruction of the Fascist Crime Squad. Within six months, we'll have their "
               "entire leadership, dead or alive. I personally guarantee it.\""
               "&r";
         case NewsStories.ccsDefeated:
           story +=
               "An elite FBI force conducted simultaneous "
-              "raids on several suspected Conservative Crime Squad safehouses in the early hours. Despite resistance from "
-              "CCS terrorists armed with automatic weapons and body armor, no FBI agents were killed in the raids, and all "
+              "raids on several suspected Fascist Crime Squad safehouses in the early hours. Despite resistance from "
+              "FCS terrorists armed with automatic weapons and body armor, no FBI agents were killed in the raids, and all "
               "three raids were successful. Seventeen suspects were killed in the fighting, and twenty-three are "
               "now in custody."
               "&r"
-              "  The Conservative Crime Squad fell on hard times when the alternative news site Liberal Guardian published "
+              "  The Fascist Crime Squad fell on hard times when the alternative news site Socialist Guardian published "
               "1147 pages of documents showing extensive government support for the group. The ensuing scandal "
               "led to the arrest of twenty-five members of Congress, as well as several leadership figures in the "
-              "Conservative Party's National Committee."
+              "Fascist Party's National Committee."
               "&r"
               "  \"I want parents to rest easy tonight,\" FBI Chief "
-              "Roberta T. Malton said during a news conference to announce the raids.  \"You don't need the Liberal Crime Squad "
+              "Roberta T. Malton said during a news conference to announce the raids.  \"You don't need the Socialist Crime Squad "
               "to protect you. The Government can handle it.\""
               "&r";
         case NewsStories.arrestGoneWrong:
@@ -121,46 +121,46 @@ Future<void> displayStory(NewsStory ns, View? header) async {
           story += "&r";
         case NewsStories.squadEscapedSiege:
           story +=
-              "Members of the Liberal Crime Squad "
+              "Members of the Socialist Crime Squad "
               "escaped from a police siege yesterday, according ";
           if (!liberalguardian) {
             story += "to a spokesperson from the police department.";
           } else {
-            story += "to a Liberal Crime Squad spokesperson.";
+            story += "to a Socialist Crime Squad spokesperson.";
           }
           story += "&r";
         case NewsStories.squadFledAttack:
           story +=
-              "Members of the Liberal Crime Squad "
+              "Members of the Socialist Crime Squad "
               "escaped from police officers during a raid yesterday, according ";
           if (!liberalguardian) {
             story += "to a spokesperson from the police department.";
           } else {
-            story += "to a Liberal Crime Squad spokesperson.";
+            story += "to a Socialist Crime Squad spokesperson.";
           }
           story += "&r";
         case NewsStories.squadDefended:
           story +=
-              "Members of the Liberal Crime Squad "
+              "Members of the Socialist Crime Squad "
               "fought off a police raid yesterday, according ";
           if (!liberalguardian) {
             story += "to a spokesperson from the police department.";
           } else {
-            story += "to a Liberal Crime Squad spokesperson.";
+            story += "to a Socialist Crime Squad spokesperson.";
           }
           story += "&r";
         case NewsStories.squadBrokeSiege:
           story +=
-              "Members of the Liberal Crime Squad "
+              "Members of the Socialist Crime Squad "
               "violently broke a police siege yesterday, according ";
           if (!liberalguardian) {
             story += "to a spokesperson from the police department.";
           } else {
-            story += "to a Liberal Crime Squad spokesperson.";
+            story += "to a Socialist Crime Squad spokesperson.";
           }
           story += "&r";
         case NewsStories.squadKilledInSiegeAttack:
-          story += "Members of the Liberal Crime Squad were ";
+          story += "Members of the Socialist Crime Squad were ";
           if (!liberalguardian) {
             story +=
                 "slain during a police raid yesterday, according "
@@ -168,11 +168,11 @@ Future<void> displayStory(NewsStory ns, View? header) async {
           } else {
             story +=
                 "murdered during a police raid yesterday, according "
-                "to a Liberal Crime Squad spokesperson.";
+                "to a Socialist Crime Squad spokesperson.";
           }
           story += "&r";
         case NewsStories.squadKilledInSiegeEscape:
-          story += "Members of the Liberal Crime Squad were ";
+          story += "Members of the Socialist Crime Squad were ";
           if (!liberalguardian) {
             story +=
                 "slain trying to escape from a police siege yesterday, according "
@@ -180,7 +180,7 @@ Future<void> displayStory(NewsStory ns, View? header) async {
           } else {
             story +=
                 "murdered trying to escape from a police siege yesterday, according "
-                "to a Liberal Crime Squad spokesperson.";
+                "to a Socialist Crime Squad spokesperson.";
           }
           story += "&r";
         default:
@@ -223,12 +223,12 @@ Future<void> displayStory(NewsStory ns, View? header) async {
               if (!liberalguardian) {
                 story +=
                     "  According to sources that were at the scene, "
-                    "the Liberal Crime Squad contaminated the state's water supply"
+                    "the Socialist Crime Squad contaminated the state's water supply"
                     "yesterday by tampering with equipment on the site."
                     "&r";
               } else {
                 story +=
-                    "  The Liberal Crime Squad tampered with the state's water supply yesterday, "
+                    "  The Socialist Crime Squad tampered with the state's water supply yesterday, "
                     "demonstrating the extreme dangers of Nuclear Waste. "
                     "&r";
               }
@@ -236,12 +236,12 @@ Future<void> displayStory(NewsStory ns, View? header) async {
               if (!liberalguardian) {
                 story +=
                     "  According to sources that were at the scene, "
-                    "the Liberal Crime Squad nearly caused a catastrophic meltdown of the nuclear "
+                    "the Socialist Crime Squad nearly caused a catastrophic meltdown of the nuclear "
                     "reactor."
                     "&r";
               } else {
                 story +=
-                    "  The Liberal Crime Squad brought the reactor to the verge of a nuclear meltdown, "
+                    "  The Socialist Crime Squad brought the reactor to the verge of a nuclear meltdown, "
                     "demonstrating the extreme vulnerability and danger of Nuclear Power Plants. "
                     "&r";
               }
@@ -251,12 +251,12 @@ Future<void> displayStory(NewsStory ns, View? header) async {
             if (!liberalguardian) {
               story +=
                   "  According to sources that were at the scene, "
-                  "the Liberal Crime Squad allegedly freed or attempted to free prisoners from the police lockup."
+                  "the Socialist Crime Squad allegedly freed or attempted to free prisoners from the police lockup."
                   "&r";
             } else {
               story +=
-                  "  The Liberal Crime Squad attempted to rescue innocent people from the police lockup, "
-                  "saving them from torture and brutality at the hands of Conservative police interrogators."
+                  "  The Socialist Crime Squad attempted to rescue innocent people from the police lockup, "
+                  "saving them from torture and brutality at the hands of Fascist police interrogators."
                   "&r";
             }
           }
@@ -264,23 +264,23 @@ Future<void> displayStory(NewsStory ns, View? header) async {
             if (!liberalguardian) {
               story +=
                   "  According to sources that were at the scene, "
-                  "the Liberal Crime Squad opened the bank vault, which held more than \$100,000 at the time."
+                  "the Socialist Crime Squad opened the bank vault, which held more than \$100,000 at the time."
                   "&r";
             } else {
               story +=
-                  "  The Liberal Crime Squad opened the bank vault, "
-                  "showing the triumph of Liberal ideals over Conservative economics."
+                  "  The Socialist Crime Squad opened the bank vault, "
+                  "showing the triumph of Socialist ideals over Fascist economics."
                   "&r";
             }
           } else if (did(Drama.bankStickup)) {
             if (!liberalguardian) {
               story +=
                   "  According to sources that were at the scene, "
-                  "the Liberal Crime Squad threatened innocent bystanders in order to rob the bank vault."
+                  "the Socialist Crime Squad threatened innocent bystanders in order to rob the bank vault."
                   "&r";
             } else {
               story +=
-                  "  The Liberal Crime Squad demanded access to the bank vault, "
+                  "  The Socialist Crime Squad demanded access to the bank vault, "
                   "hoping to acquire the resources to overcome evil."
                   "&r";
             }
@@ -289,12 +289,12 @@ Future<void> displayStory(NewsStory ns, View? header) async {
             if (!liberalguardian) {
               story +=
                   "  According to sources that were at the scene, "
-                  "the Liberal Crime Squad allegedly freed or attempted to free prisoners from the courthouse lockup."
+                  "the Socialist Crime Squad allegedly freed or attempted to free prisoners from the courthouse lockup."
                   "&r";
             } else {
               story +=
-                  "  The Liberal Crime Squad attempted to rescue innocent people from the courthouse lockup, "
-                  "saving them from the highly corrupt Conservative justice system."
+                  "  The Socialist Crime Squad attempted to rescue innocent people from the courthouse lockup, "
+                  "saving them from the highly corrupt Fascist justice system."
                   "&r";
             }
           }
@@ -302,11 +302,11 @@ Future<void> displayStory(NewsStory ns, View? header) async {
             if (!liberalguardian) {
               story +=
                   "  According to sources that were at the scene, "
-                  "the Liberal Crime Squad allegedly freed prisoners while in the facility."
+                  "the Socialist Crime Squad allegedly freed prisoners while in the facility."
                   "&r";
             } else {
               story +=
-                  "  The Liberal Crime Squad attempted to rescue innocent people from the abusive Conservative conditions "
+                  "  The Socialist Crime Squad attempted to rescue innocent people from the abusive Fascist conditions "
                   "at the prison."
                   "&r";
             }
@@ -315,12 +315,12 @@ Future<void> displayStory(NewsStory ns, View? header) async {
             if (!liberalguardian) {
               story +=
                   "  According to police sources that were at the scene, "
-                  "the Liberal Crime Squad allegedly violated the sacred "
+                  "the Socialist Crime Squad allegedly violated the sacred "
                   "trust and attempted to influence a jury."
                   "&r";
             } else {
               story +=
-                  "  The Liberal Crime Squad has apologized over reports that the operation "
+                  "  The Socialist Crime Squad has apologized over reports that the operation "
                   "may have interfered with jury deliberations."
                   "&r";
             }
@@ -333,7 +333,7 @@ Future<void> displayStory(NewsStory ns, View? header) async {
                   "&r";
             } else {
               story +=
-                  "  Liberal Crime Squad computer specialists worked to liberate information from CIA computers."
+                  "  Socialist Crime Squad computer specialists worked to liberate information from CIA computers."
                   "&r";
             }
           }
@@ -341,11 +341,11 @@ Future<void> displayStory(NewsStory ns, View? header) async {
             if (!liberalguardian) {
               story +=
                   "  According to sources, "
-                  "the Liberal Crime Squad attempted to break into the armory."
+                  "the Socialist Crime Squad attempted to break into the armory."
                   "&r";
             } else {
               story +=
-                  "  Liberal Crime Squad infiltration specialists worked to liberate weapons from the oppressors."
+                  "  Socialist Crime Squad infiltration specialists worked to liberate weapons from the oppressors."
                   "&r";
             }
           }
@@ -357,7 +357,7 @@ Future<void> displayStory(NewsStory ns, View? header) async {
                   "&r";
             } else {
               story +=
-                  "  The Liberal Crime Squad was attempting to uncover the CEO's Conservative corruption."
+                  "  The Socialist Crime Squad was attempting to uncover the CEO's Fascist corruption."
                   "&r";
             }
           }
@@ -369,19 +369,19 @@ Future<void> displayStory(NewsStory ns, View? header) async {
                   "&r";
             } else {
               story +=
-                  "  The Liberal Crime Squad was attempting to uncover the company's Conservative corruption."
+                  "  The Socialist Crime Squad was attempting to uncover the company's Fascist corruption."
                   "&r";
             }
           }
           if (did(Drama.hijackedBroadcast)) {
             if (!liberalguardian) {
               story +=
-                  "  The Liberal Crime Squad hijacked a news broadcast, "
+                  "  The Socialist Crime Squad hijacked a news broadcast, "
                   "interrupting regular programming."
                   "&r";
             } else {
               story +=
-                  "  The Liberal Crime Squad delivered its message to the masses today."
+                  "  The Socialist Crime Squad delivered its message to the masses today."
                   "&r";
             }
           }
@@ -394,14 +394,14 @@ Future<void> displayStory(NewsStory ns, View? header) async {
             if (!ccs) {
               if (!liberalguardian) {
                 story +=
-                    "  Further details are sketchy, but police sources suggest that the LCS "
+                    "  Further details are sketchy, but police sources suggest that the SCS "
                     "engaged in ";
               } else {
-                story += "  The Liberal Crime Squad ";
+                story += "  The Socialist Crime Squad ";
               }
             } else {
               story +=
-                  "  Further details are sketchy, but police sources suggest that the CCS "
+                  "  Further details are sketchy, but police sources suggest that the FCS "
                   "engaged in ";
             }
             debugPrint("typesum: $typesum");
@@ -424,7 +424,7 @@ Future<void> displayStory(NewsStory ns, View? header) async {
             }
 
             if (did(Drama.arson)) {
-              addDrama("arson", "set fire to Conservative property");
+              addDrama("arson", "set fire to Fascist property");
             }
             if (did(Drama.killedSomebody) && (!liberalguardian || ccs)) {
               addDrama("murder");
@@ -432,7 +432,7 @@ Future<void> displayStory(NewsStory ns, View? header) async {
             if (did(Drama.attacked)) {
               addDrama(
                 "violence",
-                "engaged in combat with Conservative forces",
+                "engaged in combat with Fascist forces",
               );
             }
             if (did(Drama.stoleSomething) || did(Drama.bankTellerRobbery)) {
@@ -489,8 +489,8 @@ Future<void> displayStory(NewsStory ns, View? header) async {
                   "following the incident.  ";
             } else {
               story +=
-                  "  Conservative operatives engaged in a reckless "
-                  "pursuit of the LCS.  ";
+                  "  Fascist operatives engaged in a reckless "
+                  "pursuit of the SCS.  ";
             }
 
             if (did(Drama.carCrash)) {
@@ -511,13 +511,13 @@ Future<void> displayStory(NewsStory ns, View? header) async {
                     "There was also a foot chase when the suspect or suspects bailed out after the high-speed pursuit.  ";
               } else {
                 story +=
-                    "The Liberal Crime Squad ended the dangerous high-speed chase in order to protect the public, and attempted to escape on foot.  ";
+                    "The Socialist Crime Squad ended the dangerous high-speed chase in order to protect the public, and attempted to escape on foot.  ";
               }
             }
             story += "&r";
           }
 
-          String culprit = ccs ? "CCS" : "LCS";
+          String culprit = ccs ? "FCS" : "SCS";
           if (ns.publicationAlignment == DeepAlignment.archConservative) {
             if (ns.type == NewsStories.squadKilledInSiteAction) {
               story +=
@@ -590,7 +590,7 @@ Future<void> displayStory(NewsStory ns, View? header) async {
       if (ns.page == 1) {
         y = 19;
         if (ns.siegetype == SiegeType.ccs) {
-          displayCenteredNewsFont("CCS MASSACRE", 5, ns);
+          displayCenteredNewsFont("FCS MASSACRE", 5, ns);
         } else if (!liberalguardian) {
           displayCenteredNewsFont("MYSTERIOUS", 5, ns);
           displayCenteredNewsFont("MASSACRE", 10, ns);
@@ -623,15 +623,15 @@ Future<void> displayStory(NewsStory ns, View? header) async {
             "  The police have opened an investigation into the massacre, but seem "
             "unwilling to pursue the case with any serious effort."
             "&r"
-            "  The Liberal Crime Squad has claimed that the ";
+            "  The Socialist Crime Squad has claimed that the ";
         if (ns.siegebodycount > 1) {
           story += "victims were members ";
         } else {
           story += "victim was a member ";
         }
         story +=
-            "of the LCS targeted simply due to their political beliefs.  "
-            "According to an LCS spokesperson, \"";
+            "of the SCS targeted simply due to their political beliefs.  "
+            "According to an SCS spokesperson, \"";
       }
       switch (ns.siegetype) {
         case SiegeType.none:
@@ -682,7 +682,7 @@ Future<void> displayStory(NewsStory ns, View? header) async {
           } else {
             story +=
                 "We have reason to believe that this brutal massacre was "
-                "inspired by the Conservative media's brainwashing propaganda";
+                "inspired by the Fascist media's brainwashing propaganda";
           }
         case SiegeType.corporateMercs:
           if (!liberalguardian) {
@@ -711,11 +711,11 @@ Future<void> displayStory(NewsStory ns, View? header) async {
         case SiegeType.ccs:
           if (!liberalguardian) {
             story +=
-                "Look, it was a Conservative Crime Squad hit, that's all we know, "
+                "Look, it was a Fascist Crime Squad hit, that's all we know, "
                 "no names, no faces, not even where it happened really";
           } else {
             story +=
-                "This is the doing of the Conservative Crime Squad butchers.  "
+                "This is the doing of the Fascist Crime Squad butchers.  "
                 "They have to be stopped before they kill again";
           }
       }
@@ -731,7 +731,7 @@ Future<void> displayStory(NewsStory ns, View? header) async {
       if (ns.page == 1) {
         y = 19;
         if (liberalguardian) {
-          displayCenteredNewsFont("LCS DENIES", 5, ns);
+          displayCenteredNewsFont("SCS DENIES", 5, ns);
           displayCenteredNewsFont("KIDNAPPING", 10, ns);
         } else {
           switch (ns.cr!.type.id) {

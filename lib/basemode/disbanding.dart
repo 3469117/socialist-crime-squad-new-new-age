@@ -26,7 +26,7 @@ Future<bool> showDisbandingScreen() async {
 
   printMood();
 
-  addOptionText(24, 0, "R", "R - Recreate the Liberal Crime Squad");
+  addOptionText(24, 0, "R", "R - Recreate the Socialist Crime Squad");
   addOptionText(24, 54, "Any Other Key", "Any Other Key - Next Month");
 
   return await getKey() != Key.r;
@@ -98,8 +98,8 @@ void printMood() {
     align = DeepAlignment.eliteLiberal;
   }
   mvaddstrc(20, 34, align.color, "Public Mood");
-  mvaddstrc(21, 1, DeepAlignment.eliteLiberal.color, "Liberal");
-  mvaddstrc(21, 67, DeepAlignment.archConservative.color, "Conservative");
+  mvaddstrc(21, 1, DeepAlignment.eliteLiberal.color, "Socialist");
+  mvaddstrc(21, 67, DeepAlignment.archConservative.color, "Fascist");
   mvaddstrc(22, 0, DeepAlignment.eliteLiberal.color, "<———————————————");
   mvaddstrc(22, 16, DeepAlignment.liberal.color, "————————————————");
   mvaddstrc(22, 32, DeepAlignment.moderate.color, "————————————————");

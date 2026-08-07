@@ -166,11 +166,11 @@ void applyHardcodedCreatureTypeStuff(Creature cr, CreatureType type) {
       }
     case CreatureTypeIds.ccsArchConservative:
       if (activeSiteUnderSiege) {
-        cr.name = "CCS Team Leader";
+        cr.name = "FCS Team Leader";
       } else if (activeSite?.type == SiteType.bunker) {
-        cr.name = "CCS Founder";
+        cr.name = "FCS Founder";
       } else {
-        cr.name = "CCS Lieutenant";
+        cr.name = "FCS Lieutenant";
       }
     case CreatureTypeIds.genetic:
       if (activeSite?.type == SiteType.ceoHouse) {
@@ -297,7 +297,7 @@ void nameCCSMember(Creature cr) {
   if (cr.clothing.type.idName == "CLOTHING_ARMYARMOR") {
     cr.name = "Soldier";
   } else if (cr.clothing.type.idName == "CLOTHING_HEAVYARMOR") {
-    cr.name = "CCS Heavy";
+    cr.name = "FCS Heavy";
   } else if (cr.weapon.type.idName == "WEAPON_PUMP_SHOTGUN" || oneIn(2)) {
     cr.name = ruralMobNames.random;
   } else {

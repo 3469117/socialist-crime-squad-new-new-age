@@ -14,7 +14,7 @@ Future<void> setVehicles() async {
   int page = 0;
   while (true) {
     erase();
-    mvaddstrc(0, 0, white, "Choosing the Right Liberal Vehicle");
+    mvaddstrc(0, 0, white, "Choosing the Right Socialist Vehicle");
     printParty(fullParty: true);
     printCars(page);
     setColor(lightGray);
@@ -28,7 +28,7 @@ Future<void> setVehicles() async {
     }
 
     mvaddstr(18, 1,
-        "Press a letter to specify passengers for that Liberal vehicle.");
+        "Press a letter to specify passengers for that Socialist vehicle.");
     mvaddstr(19, 1, "Capitalize the letter to select a driver.");
     mvaddstr(
         20, 1, "Press a number to remove that squad member from a vehicle.");

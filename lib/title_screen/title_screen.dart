@@ -19,6 +19,7 @@ import 'package:lcs_new_age/utils/lcsrandom.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const String gameVersion = "1.5.6";
+const String scsVersion = "0.1.4";
 bool megaFounderCheat = false;
 
 Future<void> titleScreen() async {
@@ -57,7 +58,7 @@ Future<void> titleScreen() async {
 
   // Add menu options
   setColor(white);
-  mvaddstrCenter(10, "Select an Option to Pursue your Liberal Agenda");
+  mvaddstrCenter(10, "Select an Option to Pursue your Socialist Agenda");
   setColor(lightGray);
   addOptionText(12, 10, "C", continueText, enabledWhen: lastGameId != null);
   addOptionText(12, 48, "L", "L - Load & Manage Saves", enabledWhen: hasSaves);
@@ -133,7 +134,7 @@ Future<void> optionsMenu() async {
     setColor(lightGreen);
     mvaddstrCenter(2, "GAME OPTIONS");
     setColor(lightGray);
-    mvaddstrCenter(4, "Configure your Liberal Crime Squad experience");
+    mvaddstrCenter(4, "Configure your Socialist Crime Squad experience");
 
     addOptionText(8, 4, "I", "I - Interface Options");
     addOptionText(console.y + 1, 4, "C", "C - Content and Tone Options");
@@ -307,7 +308,7 @@ Future<void> moddingMenu() async {
       console.y + 1,
       8,
       x2: 72,
-      "Create and edit custom maps for Liberal Crime Squad. This feature is "
+      "Create and edit custom maps for Socialist Crime Squad. This feature is "
       "currently under development.",
     );
 
@@ -329,23 +330,21 @@ void printTitleScreen(HighScores? highScores) {
   titleScreenFrame(bottom: 23);
   titleScreenScores(highScores, startY: 17);
   setColor(lightGreen);
-  mvaddstrCenter(2, "LIBERAL CRIME SQUAD: NEW AGE");
+  const leftTitle = "SOCIALIST CRIME SQUAD:";
+  const rightTitle = " NEW NEW AGE";
+  final titleX = (80 - (leftTitle.length + rightTitle.length)) ~/ 2;
+  setColor(lightGreen);
+  mvaddstr(2, titleX, leftTitle);
+  setColor(lightBlue);
+  mvaddstr(2, titleX + leftTitle.length, rightTitle);
   move(2, console.x - 7);
   setColor(RainbowFlag.lightBlue);
   addstr("NEW AGE");
   setColor(midGray);
-  mvaddstrCenter(4, "Maintained by Ashley S. Fox, with gratitude to:");
-  mvaddstrCenter(
-    5,
-    "Bay 12 Games, IsaacG, SlatersQuest, TheCheshireCat, Kamal-Sadek,",
-  );
-  mvaddstrCenter(
-    6,
-    "and many others who have contributed to LCS over the years",
-  );
-
+  mvaddstrCenter(4, "A modern polarization of Ashley S. Fox's Liberal Crime Squad: New Age");
+  mvaddstrCenter(5, "Original Liberal Crime Squad by Tarn Adams / Bay 12 Games");
   setColor(black, background: lightGray);
-  mvaddstr(23, 65, "Version $gameVersion");
+  mvaddstrCenter(23, "SCS: New New Age v$scsVersion | LCS: New Age $gameVersion");
   setColor(lightGray);
   mvaddstrCenter(24, "(click the game window to give it keyboard focus)");
 }
@@ -369,37 +368,37 @@ void titleScreenFrame({bool includeEmDash = true, int bottom = 22}) {
 
 void titleScreenScores(HighScores? highScores, {int startY = 9}) {
   highScores ??= HighScores();
-  mvaddstrc(startY, 4, white, "Universal Liberal Statistics");
+  mvaddstrc(startY, 4, white, "Universal Socialist Statistics");
   mvaddstrc(
     startY + 1,
     4,
     lightGray,
-    "Total Liberals Recruited: ${highScores.universalRecruits}",
+    "Socialists Recruited: ${highScores.universalRecruits}",
   );
   mvaddstr(
     startY + 2,
     4,
-    "Total Liberals Martyred: ${highScores.universalMartyrs}",
+    "Socialists Martyred: ${highScores.universalMartyrs}",
   );
   mvaddstr(
     startY + 3,
     4,
-    "Total Conservatives Killed: ${highScores.universalKills}",
+    "Fascists Killed: ${highScores.universalKills}",
   );
   mvaddstr(
     startY + 4,
     4,
-    "Total Conservatives Kidnapped: ${highScores.universalKidnappings}",
+    "Fascists Kidnapped: ${highScores.universalKidnappings}",
   );
   mvaddstr(
     startY + 1,
     44,
-    "Total Americas Lost: ${highScores.universalLosses}",
+    "Americas Lost to Fascism: ${highScores.universalLosses}",
   );
   mvaddstr(
     startY + 2,
     44,
-    "Total Americas Saved: ${highScores.universalVictories}",
+    "Americas Saved from Fascism: ${highScores.universalVictories}",
   );
   if (highScores.wins.isNotEmpty) {
     mvaddstr(

@@ -26,16 +26,16 @@ enum SortingScreens {
 
   String get description {
     return switch (this) {
-      SortingScreens.liberals => "active Liberals",
+      SortingScreens.liberals => "active Socialists",
       SortingScreens.hostages => "hostages",
-      SortingScreens.clinic => "Liberals in treatment",
-      SortingScreens.justice => "oppressed Liberals",
+      SortingScreens.clinic => "Socialists in treatment",
+      SortingScreens.justice => "oppressed Socialists",
       SortingScreens.sleepers => "sleeper agents",
       SortingScreens.dead => "the deceased",
       SortingScreens.away => "people away",
-      SortingScreens.activateRegulars => "Liberal activity",
+      SortingScreens.activateRegulars => "Socialist activity",
       SortingScreens.activateSleepers => "sleeper activity",
-      SortingScreens.assembleSquad => "available Liberals",
+      SortingScreens.assembleSquad => "available Socialists",
       SortingScreens.baseAssignment => "squadless members",
     };
   }

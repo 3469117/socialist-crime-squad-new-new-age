@@ -228,7 +228,7 @@ void printLocation(Site loc) {
         case SiegeType.medicalDebtCollectors:
           mvaddstr(2, 1, "Debt collectors are raiding");
         case SiegeType.ccs:
-          mvaddstr(2, 1, "The CCS is attacking");
+          mvaddstr(2, 1, "The FCS is attacking");
         default:
           mvaddstr(2, 1, "Software bugs are attacking");
       }
@@ -398,7 +398,7 @@ void baseModeOptionsDisplay(Site? loc) {
     "Z - Next Location",
     enabledWhen: safehouseCount > 0,
   );
-  addOptionText(21, 40, "l", "L - The Status of the Liberal Agenda");
+  addOptionText(21, 40, "l", "L - The Status of the Socialist Agenda");
   addOptionText(
     21,
     1,

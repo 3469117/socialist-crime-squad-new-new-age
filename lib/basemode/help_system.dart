@@ -18,20 +18,20 @@ Future<void> helpOnActivity(ActivityType type) async {
     case ActivityType.communityService:
       _head("=== Community Service ===");
       _body("Community service is a safe way to improve public opinion of the "
-          "LCS, assuming anyone has heard of you and cares what you're doing. "
+          "SCS, assuming anyone has heard of you and cares what you're doing. "
           "Planting trees and handing out food to the homeless is not going to "
           "get you into the news and make you a household name if you're not "
           "giving people another reason to care.\n\n"
           "The other power community service has is that it can forge civilians "
           "into activists, steadily increasing Juice up to a maximum of 10.");
     case ActivityType.trouble:
-      _head("=== Liberal Disobedience ===");
-      _body("Liberal Disobedience is an occasionally illegal "
-          "form of Liberal Activism which has a modest Liberalizing effect on "
+      _head("=== Socialist Disobedience ===");
+      _body("Socialist Disobedience is an occasionally illegal "
+          "form of Socialist Activism which has a modest Socialistizing effect on "
           "Public Opinion on a handful of issues. Although not without risk, "
-          "it is not as dangerous as some other activities, and Liberals who "
+          "it is not as dangerous as some other activities, and Socialists who "
           "are caught will usually face only small amounts of jail time.\n\n"
-          "Liberal Disobedience can be used to gain up to 50 juice.\n\n"
+          "Socialist Disobedience can be used to gain up to 50 juice.\n\n"
           "Art and Street Smarts are the most important skills for this "
           "activity, and will improve the impact on public opinion. Street "
           "Smarts will also reduce the chance of being hassled by the cops "
@@ -39,25 +39,25 @@ Future<void> helpOnActivity(ActivityType type) async {
     case ActivityType.graffiti:
       _head("=== Graffiti ===");
       _body("Spraying political graffiti is a misdemeanor, carrying with it "
-          "relatively short jail sentences. Liberals with low art will spread "
-          "LCS tags around town, increasing public awareness of the Liberal "
-          "Crime Squad. Liberals with greater Art skills will occasionally work on "
+          "relatively short jail sentences. Socialists with low art will spread "
+          "SCS tags around town, increasing public awareness of the Socialist "
+          "Crime Squad. Socialists with greater Art skills will occasionally work on "
           "politically charged murals that can influence public opinion on "
           "various issues. The size of this impact is not large, however.\n\n"
           "Your artists will put their own names out there and gain in street "
           "credibility, gaining juice over time. Tagging caps out at 50 "
           "juice, while murals by very skilled artists can potentially raise "
-          "Liberals to higher levels, if they're good enough.\n\n"
+          "Socialists to higher levels, if they're good enough.\n\n"
           "Art and Street Smarts are the most important skills for this "
           "activity. Art will make murals more frequent and more effective, "
           "while Street Smarts is essential for avoiding the cops.\n\n"
-          "Liberals need to equip spraypaint to do graffiti. Those without "
+          "Socialists need to equip spraypaint to do graffiti. Those without "
           "will spend the first day buying some.");
     case ActivityType.hacking:
       _head("=== Hacking ===");
-      _body("Hacking is a highly illegal form of Liberal Activism, which has "
-          "a Liberalizing effect on public opinion and can be used to "
-          "collect secret documents to publish in the Liberal Guardian.  "
+      _body("Hacking is a highly illegal form of Socialist Activism, which has "
+          "a Socialistizing effect on public opinion and can be used to "
+          "collect secret documents to publish in the Socialist Guardian.  "
           "Although there is no chance of the cops showing up mid-hack, "
           "the heat your hackers bring onto their safehouse can be very "
           "significant, and may lead to your bases being raided.\n\n"
@@ -65,11 +65,11 @@ Future<void> helpOnActivity(ActivityType type) async {
           "and avoiding the crime being traced back to your hackers.\n\n"
           "Due to its high risk, hacking can increase Juice up to a cap of 200.");
     case ActivityType.writeGuardian:
-      _head("=== Write for the Liberal Guardian ===");
-      _body("The Liberal Guardian is the LCS's media presence. In another era, "
+      _head("=== Write for the Socialist Guardian ===");
+      _body("The Socialist Guardian is the SCS's media presence. In another era, "
           "it would have been a printed newspaper, but in New Age you have a "
           "multimedia website.\n\n"
-          "Writing for the Liberal Guardian puts articles up on the website.  "
+          "Writing for the Socialist Guardian puts articles up on the website.  "
           "That's fine. It's is a safe but slow way to influence public "
           "opinion on a wide variety of issues. It costs nothing to throw "
           "some blog posts up on the internet, but it will take a long time "
@@ -77,7 +77,7 @@ Future<void> helpOnActivity(ActivityType type) async {
           "For a 4x more effective version of this activity, consider setting up "
           "a streaming room in an abandoned warehouse to do some video "
           "streaming.\n\n"
-          "The greatest power of the Liberal Guardian comes when you publish "
+          "The greatest power of the Socialist Guardian comes when you publish "
           "a special edition. This requires you to have collected "
           "some secret documents to leak. Once you've dug something up, "
           "you'll get the opportunity to run a special edition at the end of "
@@ -86,16 +86,16 @@ Future<void> helpOnActivity(ActivityType type) async {
           "there isn't much point without them. Writers are better than "
           "streamers for maximizing the impact of a special edition.");
     case ActivityType.streamGuardian:
-      _head("=== Stream for the Liberal Guardian ===");
-      _body("The Liberal Guardian is the LCS's media presence. In another era, "
+      _head("=== Stream for the Socialist Guardian ===");
+      _body("The Socialist Guardian is the SCS's media presence. In another era, "
           "it would have been a printed newspaper, but in New Age you have a "
           "multimedia website.\n\n"
-          "Streaming for the Liberal Guardian uses the platform to host "
+          "Streaming for the Socialist Guardian uses the platform to host "
           "video streams where you engage directly with the audience while "
           "debating issues. It's four times as effective as writing articles, "
-          "but you'll still need to defang the Conservative Media Machine "
+          "but you'll still need to defang the Fascist Media Machine "
           "before your message can really cut through the propaganda.\n\n"
-          "The greatest power of the Liberal Guardian comes when you publish "
+          "The greatest power of the Socialist Guardian comes when you publish "
           "a special edition. This requires you to have collected "
           "some secret documents to leak. Once you've dug something up, "
           "you'll get the opportunity to run a special edition at the end of "
@@ -105,12 +105,12 @@ Future<void> helpOnActivity(ActivityType type) async {
           "streamers for maximizing the impact of a special edition.");
     case ActivityType.donations:
       _head("=== Solicit Donations ===");
-      _body("Soliciting donations is a safe way to raise funds for the LCS.  "
-          "It is much more lucrative when the public is very Conservative, "
+      _body("Soliciting donations is a safe way to raise funds for the SCS.  "
+          "It is much more lucrative when the public is very Fascist, "
           "because it's not about how many people agree with you, it's about "
-          "how willing the Liberals you hit up are to donate to an extremist "
+          "how willing the Socialists you hit up are to donate to an extremist "
           "cause.\n\n"
-          "This really doesn't do much if the public is Liberal. They're "
+          "This really doesn't do much if the public is Socialist. They're "
           "donating to politicians or whatever instead.\n\n"
           "Persuasion and Street Smarts are essential when soliciting "
           "donations. Also, try wearing a suit. For some reason, people give "
@@ -118,11 +118,11 @@ Future<void> helpOnActivity(ActivityType type) async {
           "Honestly disgusting, but that's the system.");
     case ActivityType.sellTshirts:
       _head("=== Sell Clothing ===");
-      _body("Selling Clothing is a safe way to raise funds for the LCS. It is "
-          "more lucrative when the public is very Conservative, because it's "
+      _body("Selling Clothing is a safe way to raise funds for the SCS. It is "
+          "more lucrative when the public is very Fascist, because it's "
           "not about how many people have your back, it's about how radical "
           "and edgy your merch is. You're just not cool enough for your merch "
-          "to take off in Liberal society. This is less important than it is "
+          "to take off in Socialist society. This is less important than it is "
           "if you're just soliciting donations though. If your fashion isn't "
           "counterculture anymore, you can always just sell Che Guevara "
           "prints to hipsters who think undermining capitalism is buying "
@@ -130,11 +130,11 @@ Future<void> helpOnActivity(ActivityType type) async {
           "Tailoring and Business will improve revenues.");
     case ActivityType.sellMusic:
       _head("=== Perform Music ===");
-      _body("Performing Music is a safe way to raise funds for the LCS. It is "
-          "more lucrative when the public is very Conservative, because it's "
+      _body("Performing Music is a safe way to raise funds for the SCS. It is "
+          "more lucrative when the public is very Fascist, because it's "
           "not about how many people have your back, it's about how radical "
           "and edgy your music is. You're just not cool enough for your music "
-          "to turn heads in Liberal society. This is less important than it "
+          "to turn heads in Socialist society. This is less important than it "
           "is if you're just soliciting donations though. If protest songs "
           "don't hit like they used to, you can always just play covers of "
           "John Lennon's \"Imagine\".\n\n"
@@ -142,11 +142,11 @@ Future<void> helpOnActivity(ActivityType type) async {
           "guitar. Drumming on buckets makes a lot less money.");
     case ActivityType.sellArt:
       _head("=== Sell Art ===");
-      _body("Selling Art is a safe way to raise funds for the LCS. It is more "
-          "lucrative when the public is very Conservative, because it's not "
+      _body("Selling Art is a safe way to raise funds for the SCS. It is more "
+          "lucrative when the public is very Fascist, because it's not "
           "about how many people have your back, it's about how radical and "
           "edgy your art is. You're just not cool enough for your art to draw "
-          "big buyers in Liberal society. This is less important than it "
+          "big buyers in Socialist society. This is less important than it "
           "is if you're just soliciting donations though. If rebel art goes "
           "out of style, you can always just draw people's fursonas.\n\n"
           "Art and Business will improve revenues.");
@@ -155,7 +155,7 @@ Future<void> helpOnActivity(ActivityType type) async {
       _body("Selling Brownies on the street is an illegal but rewarding "
           "way to make money. Money earned is based on the activist's "
           "Persuasion, Street Smarts, and Business. It is significantly more "
-          "lucrative when drug laws are very Conservative, but so are the "
+          "lucrative when drug laws are very Fascist, but so are the "
           "risks.\n\n"
           "Street Smarts is essential for avoiding the cops. If you're "
           "busted, the consequences can vary greatly depending on drug laws.");
@@ -184,7 +184,7 @@ Future<void> helpOnActivity(ActivityType type) async {
           "safehouse, eventually leading to a police raid.");
     case ActivityType.stealCars:
       _head("=== Stealing Cars ===");
-      _body("Stealing a car will have the Liberal attempt to steal a car from "
+      _body("Stealing a car will have the Socialist attempt to steal a car from "
           "the street. If successful, the car will be added to your garage.  "
           "Street Smarts determines the chances of finding a specific type of "
           "car, Security determines the chances of jimmying the lock or hotwiring "
@@ -206,7 +206,7 @@ Future<void> helpOnActivity(ActivityType type) async {
       _head("=== Get To The Hospital ===");
       _body("Injuries can be healed slowly at home, but for anything serious "
           "you're going to need professional care. This activity hauls a "
-          "Liberal off to get medical attention.");
+          "Socialist off to get medical attention.");
     case ActivityType.makeClothing:
       _head("=== Make Clothing or Armor ===");
       _body("Tailoring skill is used to make clothing and armor. The first "
@@ -244,7 +244,7 @@ Future<void> helpOnActivity(ActivityType type) async {
     case ActivityType.teachCovert:
     case ActivityType.teachLiberalArts:
       _head("=== Teaching ===");
-      _body("Teaching is a way to pass on your skills to others. Every LCS "
+      _body("Teaching is a way to pass on your skills to others. Every SCS "
           "member in the city who has something to learn will attend your "
           "class, and you will teach them all.\n\n"
           "Expenses scale with the number of students and skills being "
@@ -257,11 +257,11 @@ Future<void> helpOnActivity(ActivityType type) async {
       _head("=== Laying Low ===");
       _body("Doing nothing is a safe way to avoid trouble. It is not a "
           "particularly effective way to change the world.\n\n"
-          "Liberals who hang out at the safehouse will still pitch in and "
+          "Socialists who hang out at the safehouse will still pitch in and "
           "do some laundry and mending as needed.");
     case ActivityType.visit:
       _head("=== Site Visit ===");
-      _body("Liberals acting with their squad to visit a location will not "
+      _body("Socialists acting with their squad to visit a location will not "
           "be able to do anything else that day.");
     case ActivityType.interrogation:
       _head("=== Interrogation ===");
@@ -279,7 +279,7 @@ Future<void> helpOnActivity(ActivityType type) async {
 Future<void> helpOnSitemode() async {
   erase();
   _head("=== Direct Action ===");
-  _body("You are taking direct action against the Conservative Menace.\n\n"
+  _body("You are taking direct action against the Fascist Menace.\n\n"
       "If you commit enough crimes, the media will usually report on your "
       "actions. This is generally a good thing. The more crimes you commit, "
       "and the more media attention you can attract, the greater the potential "
@@ -287,7 +287,7 @@ Future<void> helpOnSitemode() async {
       "If you start causing trouble, people may call the cops or other "
       "reinforcements. Getting out quickly is safer than an occupation.\n\n"
       "Killing anyone during direct action will draw a lot of heat and cause "
-      "the news coverage to skew hostile to the LCS. Frequent negative "
+      "the news coverage to skew hostile to the SCS. Frequent negative "
       "media coverage will eventually alienate everyone against you, limiting "
       "your ability to influence public opinion in the future. Mix up your "
       "tactics to maintain positive sentiment toward your squad.");

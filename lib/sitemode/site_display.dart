@@ -157,7 +157,7 @@ void printSiteMap(int x, int y, int z) {
     case TileSpecial.bankMoney:
       str = "Oh Wow So Much Money";
     case TileSpecial.ccsBoss:
-      str = "CCS Boss";
+      str = "FCS Boss";
     case TileSpecial.ovalOfficeNW:
     case TileSpecial.ovalOfficeNE:
     case TileSpecial.ovalOfficeSW:
@@ -529,7 +529,7 @@ void printSiteMapSmall(int x, int y, int z) {
     case TileSpecial.bankMoney:
       str = "Oh Wow So Much Money";
     case TileSpecial.ccsBoss:
-      str = "CCS Boss";
+      str = "FCS Boss";
     case TileSpecial.ovalOfficeNW:
     case TileSpecial.ovalOfficeNE:
     case TileSpecial.ovalOfficeSW:
@@ -736,37 +736,37 @@ void printWall(int x, int y, int z, int px, int py) {
 
     // Check for CCS graffiti
     if (levelMapTile(x - 1, y, z).graffitiCCS) {
-      graffiti[wallLeft] = "CCS";
+      graffiti[wallLeft] = "FCS";
       graffiticolor[wallLeft] = red;
     }
     if (levelMapTile(x + 1, y, z).graffitiCCS) {
-      graffiti[wallRight] = "CCS";
+      graffiti[wallRight] = "FCS";
       graffiticolor[wallRight] = red;
     }
     if (levelMapTile(x, y - 1, z).graffitiCCS) {
-      graffiti[wallUp] = "CCS";
+      graffiti[wallUp] = "FCS";
       graffiticolor[wallUp] = red;
     }
     if (levelMapTile(x, y + 1, z).graffitiCCS) {
-      graffiti[wallDown] = "CCS";
+      graffiti[wallDown] = "FCS";
       graffiticolor[wallDown] = red;
     }
 
     // Check for LCS graffiti
     if (levelMapTile(x - 1, y, z).graffitiLCS) {
-      graffiti[wallLeft] = "LCS";
+      graffiti[wallLeft] = "SCS";
       graffiticolor[wallLeft] = green;
     }
     if (levelMapTile(x + 1, y, z).graffitiLCS) {
-      graffiti[wallRight] = "LCS";
+      graffiti[wallRight] = "SCS";
       graffiticolor[wallRight] = green;
     }
     if (levelMapTile(x, y - 1, z).graffitiLCS) {
-      graffiti[wallUp] = "LCS";
+      graffiti[wallUp] = "SCS";
       graffiticolor[wallUp] = green;
     }
     if (levelMapTile(x, y + 1, z).graffitiLCS) {
-      graffiti[wallDown] = "LCS";
+      graffiti[wallDown] = "SCS";
       graffiticolor[wallDown] = green;
     }
   }

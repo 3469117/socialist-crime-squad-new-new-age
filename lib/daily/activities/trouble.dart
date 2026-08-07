@@ -225,7 +225,7 @@ Future<void> doActivityTrouble(List<Creature> trouble) async {
           juiceval = 1;
         }
       case View.lcsKnown:
-        message += "distributed fliers about the LCS!";
+        message += "distributed fliers about the SCS!";
         if (noProfanity) {
           juiceval = 2;
           crime = Crime.unlawfulSpeech;
@@ -233,7 +233,7 @@ Future<void> doActivityTrouble(List<Creature> trouble) async {
           juiceval = 1;
         }
       case View.lcsLiked:
-        message += "distributed fliers about the LCS!";
+        message += "distributed fliers about the SCS!";
         if (noProfanity) {
           juiceval = 2;
           crime = Crime.unlawfulSpeech;
@@ -241,7 +241,7 @@ Future<void> doActivityTrouble(List<Creature> trouble) async {
           juiceval = 1;
         }
       case View.ccsHated:
-        message += "marched downtown to protest the CCS!";
+        message += "marched downtown to protest the FCS!";
         if (noProfanity) {
           juiceval = 2;
           crime = Crime.unlawfulSpeech;

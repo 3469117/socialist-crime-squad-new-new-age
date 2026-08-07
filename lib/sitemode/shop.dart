@@ -266,11 +266,11 @@ class Shop extends ShopOption {
             enabledWhen: customers.members[0].base?.loot.isNotEmpty == true);
       }
 
-      addOptionText(++y, 1, "0", "0 - Show the squad's Liberal status",
+      addOptionText(++y, 1, "0", "0 - Show the squad's Socialist status",
           enabledWhen: activeSquadMemberIndex != -1);
       setColorConditional(
           partysize > 0 && (activeSquadMemberIndex == -1 || partysize > 1));
-      mvaddstr(y++, 40, "# - Check the status of a squad Liberal");
+      mvaddstr(y++, 40, "# - Check the status of a squad Socialist");
       addOptionText(y, 1, "B", "B - Choose a buyer",
           enabledWhen: partysize >= 2);
 
@@ -359,7 +359,7 @@ class Shop extends ShopOption {
     await pagedInterface(
       headerPrompt: "What will ${buyer.name} buy?",
       headerKey: {4: "NAME", 20: "AMMO TYPE", 47: "DAMAGE", 59: "PRICE"},
-      footerPrompt: "Press a Letter to buy a Sufficiently Liberal Weapon",
+      footerPrompt: "Press a Letter to buy a Sufficiently Socialist Weapon",
       count: availableOptions.length * 2,
       topY: fullscreen ? 0 : 9, // ignore: dead_code
       pageSize: fullscreen ? 20 : 12, // ignore: dead_code
@@ -508,10 +508,10 @@ class Shop extends ShopOption {
       addOptionText(12, 1, "C", "C - Pawn all Clothes");
       addOptionText(12, 40, "L", "L - Pawn all Loot");
       setColorConditional(activeSquadMember != null);
-      addOptionText(15, 1, "0", "0 - Show the squad's Liberal status");
+      addOptionText(15, 1, "0", "0 - Show the squad's Socialist status");
       setColorConditional(
           partysize > 0 && (activeSquadMemberIndex == -1 || partysize > 1));
-      mvaddstr(15, 40, "# - Check the status of a squad Liberal");
+      mvaddstr(15, 40, "# - Check the status of a squad Socialist");
 
       addOptionText(16, 40, "Enter", "Enter - Done pawning");
 

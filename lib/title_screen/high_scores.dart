@@ -149,7 +149,7 @@ Future<void> viewHighScores([HighScore? yourScore]) async {
   if (highScores.scoreList.isEmpty) return;
 
   erase();
-  mvaddstrc(0, 0, white, "The Liberal ELITE");
+  mvaddstrc(0, 0, white, "The Socialist ELITE");
 
   int y = 2;
   for (HighScore s in highScores.scoreList) {
@@ -176,37 +176,37 @@ Future<void> viewHighScores([HighScore? yourScore]) async {
     move(y + 1, 0);
     switch (s.endType) {
       case Ending.victory:
-        addstr("The Liberal Crime Squad liberalized the country in ");
+        addstr("The Socialist Crime Squad liberalized the country in ");
       case Ending.policeSiege:
-        addstr("The Liberal Crime Squad was brought to justice in ");
+        addstr("The Socialist Crime Squad was brought to justice in ");
       case Ending.ciaSiege:
-        addstr("The Liberal Crime Squad was blotted out in ");
+        addstr("The Socialist Crime Squad was blotted out in ");
       case Ending.hicksSiege:
-        addstr("The Liberal Crime Squad was mobbed in ");
+        addstr("The Socialist Crime Squad was mobbed in ");
       case Ending.corporateSiege:
-        addstr("The Liberal Crime Squad was downsized in ");
+        addstr("The Socialist Crime Squad was downsized in ");
       case Ending.medicalSiege:
-        addstr("The Liberal Crime Squad was billed to death in ");
+        addstr("The Socialist Crime Squad was billed to death in ");
       case Ending.dead:
-        addstr("The Liberal Crime Squad was KIA in ");
+        addstr("The Socialist Crime Squad was KIA in ");
       case Ending.reaganified:
         addstr("The country was Reaganified in ");
       case Ending.prison:
-        addstr("The Liberal Crime Squad died in prison in ");
+        addstr("The Socialist Crime Squad died in prison in ");
       case Ending.executed:
-        addstr("The Liberal Crime Squad was executed in ");
+        addstr("The Socialist Crime Squad was executed in ");
       case Ending.dating:
-        addstr("The Liberal Crime Squad was on vacation in ");
+        addstr("The Socialist Crime Squad was on vacation in ");
       case Ending.hiding:
-        addstr("The Liberal Crime Squad was in permanent hiding in ");
+        addstr("The Socialist Crime Squad was in permanent hiding in ");
       case Ending.disbandLoss:
-        addstr("The Liberal Crime Squad was hunted down in ");
+        addstr("The Socialist Crime Squad was hunted down in ");
       case Ending.dispersed:
-        addstr("The Liberal Crime Squad was scattered in ");
+        addstr("The Socialist Crime Squad was scattered in ");
       case Ending.ccsSiege:
-        addstr("The Liberal Crime Squad was out-Crime Squadded in ");
+        addstr("The Socialist Crime Squad was out-Crime Squadded in ");
       case Ending.unspecified:
-        addstr("The Liberal Crime Squad was defeated in ");
+        addstr("The Socialist Crime Squad was defeated in ");
     }
     addstr("${getMonth(s.month)} ${s.year}.");
     mvaddstr(y + 2, 0, "Recruits: ${s.statRecruits}");
@@ -223,7 +223,7 @@ Future<void> viewHighScores([HighScore? yourScore]) async {
   setColor(lightGreen);
 
   //UNIVERSAL STATS
-  mvaddstr(22, 0, "Universal Liberal Statistics:");
+  mvaddstr(22, 0, "Universal Socialist Statistics:");
   mvaddstr(23, 0, "Recruits: ${highScores.universalRecruits}");
   mvaddstr(24, 0, "Martyrs: ${highScores.universalMartyrs}");
   mvaddstr(23, 20, "Kills: ${highScores.universalKills}");

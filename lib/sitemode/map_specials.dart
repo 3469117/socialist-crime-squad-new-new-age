@@ -187,7 +187,7 @@ Future<void> specialBouncerAssessSquad() async {
     levelMap[locx][locy][locz].special = TileSpecial.clubBouncerSecondVisit;
     if (activeSite!.controller == SiteController.ccs &&
         activeSite!.type != SiteType.barAndGrill) {
-      await encounterMessage("The Conservative scum block the door.");
+      await encounterMessage("The Fascist scum block the door.");
     } else {
       await encounterMessage("The bouncer assesses your squad.");
     }
@@ -322,7 +322,7 @@ Future<void> specialBouncerAssessSquad() async {
         addstr(
           [
             "\"God, you smell.\"",
-            "\"You smell that? Yeah... Liberals...\"",
+            "\"You smell that? Yeah... Socialists...\"",
             "\"Nope. There's something off about you.\"",
             "\"Take a shower, hippie.\"",
             "\"Jesus. Ever heard of deodorant?\"",
@@ -508,7 +508,7 @@ Future<void> specialNuclearOnOff() async {
     if (laws[Law.nuclearPower] == DeepAlignment.eliteLiberal) {
       mvaddstr(9, 1, "Nuclear waste is released into the water!");
       await getKey();
-      mvaddstr(10, 1, "But why?  The squad feels a bit Conservative.");
+      mvaddstr(10, 1, "But why?  The squad feels a bit Fascist.");
       await getKey();
 
       changePublicOpinion(View.nuclearPower, 15);
@@ -830,7 +830,7 @@ Future<void> specialIntelSupercomputer() async {
     mvaddstrc(9, 1, white, "The Squad obtains sensitive information");
     if (ccsActive && ccsExposure == CCSExposure.none) {
       addstr(",");
-      mvaddstr(10, 1, "including a list of government backers of the CCS.");
+      mvaddstr(10, 1, "including a list of government backers of the FCS.");
 
       Item it = Loot(LootTypeIds.ccsBackerList);
       activeSquad!.loot.add(it);
@@ -859,7 +859,7 @@ Future<void> specialIntelSupercomputer() async {
 }
 
 Future<void> specialGraffiti() async {
-  await encounterMessage("The squad sprays Liberal Graffiti!", color: white);
+  await encounterMessage("The squad sprays Socialist Graffiti!", color: white);
 
   sitestory?.claimed = 2;
 
@@ -1759,12 +1759,12 @@ Future<void> specialDisplayCase() async {
         "a copy of the US Constitution",
         "an old photo of the courthouse",
         "an old photo of a hanging",
-        "an award from a Conservative group",
+        "an award from a Fascist group",
         "a bust of some old white guy",
       ];
     default:
       items = [
-        "some Conservative memoribilia",
+        "some Fascist memoribilia",
         "a Confederate flag",
         "a portrait of some old white guy",
         "some random pointless shit",
@@ -1985,7 +1985,7 @@ Future<void> specialSecurity(bool metaldetect) async {
               "\"Anyone carrying a gun is welcome. Head on in.\"",
               "\"Don't mind it, not sure why we even turn it on.\"",
               "\"Ignore the noise. Keep your gun, just don't shoot nobody.\"",
-              "\"Don't mind Metal Mabel here, she's just here to impress Liberals.\"",
+              "\"Don't mind Metal Mabel here, she's just here to impress Socialists.\"",
               "\"It's a free country. Don't know why we even have this thing.\"",
               "\"Constitution says you can carry guns anywhere you want.\"",
               "\"You've a right to bear arms here or anywhere else.\"",
@@ -2158,7 +2158,7 @@ Future<void> specialBankVault() async {
           p.type.id == CreatureTypeIds.bankManager) {
         await encounterMessage(
           "Sleeper ${p.name} opens the vault, ",
-          line2: "and will join the active LCS to avoid arrest.",
+          line2: "and will join the active SCS to avoid arrest.",
         );
         canbreakin = true;
         p.location = p.base = squad[0].base;
@@ -2316,14 +2316,14 @@ Future<void> specialCCSBoss() async {
     return;
   } else if (siteAlarm || activeSiteUnderSiege) {
     levelMap[locx][locy][locz].special = TileSpecial.none;
-    await encounterMessage("The CCS leader is ready for you!");
+    await encounterMessage("The FCS leader is ready for you!");
 
     encounter.clear();
     encounter.add(Creature.fromId(CreatureTypeIds.ccsArchConservative));
     fillEncounter(CreatureTypeIds.ccsVigilante, 5);
   } else {
     levelMap[locx][locy][locz].special = TileSpecial.none;
-    await encounterMessage("The CCS leader is here.");
+    await encounterMessage("The FCS leader is here.");
 
     encounter.clear();
     encounter.add(Creature.fromId(CreatureTypeIds.ccsArchConservative));

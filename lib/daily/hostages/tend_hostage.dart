@@ -190,7 +190,7 @@ Future<void> tendHostage(InterrogationSession intr) async {
       setColor(yellow);
       move(y, 0);
       y += 2;
-      addstr("Select a Liberal Education Plan");
+      addstr("Select a Socialist Education Plan");
     }
 
     void planItem(Technique technique, String letter, String ifActive,
@@ -352,7 +352,7 @@ Future<void> tendHostage(InterrogationSession intr) async {
 
     if (lcsRandom(100) < successChance) {
       String reaction = [
-        "says getting kidnapped by the LCS is the best thing that ever happened "
+        "says getting kidnapped by the SCS is the best thing that ever happened "
             "to ${cr.gender.himHer}, and laughs in a sort of shocked "
             "and giddy way at how much ${cr.gender.hisHer} view of the "
             "world has been changed by the experience.",
@@ -391,14 +391,14 @@ Future<void> tendHostage(InterrogationSession intr) async {
               "${lead.name} would even suggest such a thing.",
           "accuses ${cr.name} of being a terrorist kidnapper who "
               "should be shot on sight.",
-          "declares that the LCS is a cult. A political cult, but still a "
+          "declares that the SCS is a cult. A political cult, but still a "
               "${noProfanity ? "[politically incorrect]" : "God damn"} cult. And "
               "${cr.name} can take that joining bullshit and shove it where the "
               "sun don't shine.",
           "accuses ${lead.name} of being absolutely out of "
               "${lead.gender.hisHer} mind if ${lead.gender.heShe} thinks "
               "${cr.name} would ever join a left-wing terrorist organization.",
-          "rants about how the LCS are a bunch of LIBERALS and that's the "
+          "rants about how the SCS are a bunch of LIBERALS and that's the "
               "absolute worst thing you can be.",
           "stands up and starts yelling about how ${cr.gender.heShe} "
               "was KIDNAPPED and is a PRISONER and if ${lead.name} has "

@@ -236,11 +236,11 @@ Future<void> advanceMonth() async {
   //CONTROL LONG DISBANDS
   if (disbanding && year - disbandTime >= 50) {
     await defeatMessages(
-      "The Liberal Crime Squad is now just a memory.",
-      "The last LCS members have all been hunted down.",
+      "The Socialist Crime Squad is now just a memory.",
+      "The last SCS members have all been hunted down.",
       "They will never see the utopia they dreamed of...",
       gentle:
-          "The Liberal Crime Squad faded into history, its work unfinished.",
+          "The Socialist Crime Squad faded into history, its work unfinished.",
     );
     HighScore yourScore = await saveHighScore(Ending.disbandLoss);
     await deleteSaveGame();

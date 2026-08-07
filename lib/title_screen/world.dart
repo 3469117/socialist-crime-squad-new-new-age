@@ -10,7 +10,7 @@ class Area {
 }
 
 void makeWorld() {
-  City seattle = City("Seattle, WA", "SEA", "Birthplace of the LCS");
+  City seattle = City("Seattle, WA", "SEA", "Birthplace of the SCS");
   cities.add(seattle);
   seattle
     ..addCommercialDistrict()

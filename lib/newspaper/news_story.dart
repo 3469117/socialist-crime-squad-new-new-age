@@ -18,11 +18,11 @@ enum Publication {
   post("The Post", DeepAlignment.moderate, lightGray),
   globe("The Globe", DeepAlignment.moderate, lightGray),
   daily("The Daily", DeepAlignment.moderate, lightGray),
-  liberalGuardian("Liberal Guardian", DeepAlignment.eliteLiberal,
+  liberalGuardian("Socialist Guardian", DeepAlignment.eliteLiberal,
       liberalGuardianBackground),
   cableNews("Cable News", DeepAlignment.archConservative, cableNewsBackground),
   amRadio("AM Radio", DeepAlignment.archConservative, amRadioBackground),
-  conservativeStar("Conservative Star", DeepAlignment.archConservative,
+  conservativeStar("Fascist Star", DeepAlignment.archConservative,
       conservativeCrusaderBackground);
 
   const Publication(this.name, this.alignment, this.backgroundColor);

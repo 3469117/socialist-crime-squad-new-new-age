@@ -30,7 +30,7 @@ Future<void> mediaOverview() async {
         "&$lcsSupportColorKey$lcsSupportString%&w support the Liberal Crime Squad");
     setColor(midGray);
     mvaddstrx(23, 0,
-        "  LCS activities will inspire supporters, but may alienate detractors.");
+        "  SCS activities will inspire supporters, but may alienate detractors.");
     mvaddstrx(24, 0,
         "  Avoiding violence will increase public support for your actions.");
 
@@ -56,9 +56,9 @@ Future<void> mediaOverview() async {
                 headline = "LCS Rampage $name";
               }
             case NewsStories.squadKilledInSiteAction:
-              headline = "Tragic LCS Strike";
+              headline = "Tragic SCS Strike";
             case NewsStories.ccsKilledInSiteAction:
-              headline = "CCS Squad KIA";
+              headline = "FCS Squad KIA";
             case NewsStories.ccsSiteAction:
               String name = "";
               if (ns.loc != null) {

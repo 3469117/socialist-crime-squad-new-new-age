@@ -149,10 +149,10 @@ Future<bool> loadGameMenu() async {
     erase();
     await pagedInterface(
         count: saveFiles.length,
-        headerPrompt: "Liberal Save Game Management System",
+        headerPrompt: "Socialist Save Game Management System",
         headerKey: {
           4: "IN GAME DATE",
-          20: "LCS LEADER",
+          20: "SCS LEADER",
           50: "LAST PLAYED",
           70: "VERSION",
         },
@@ -226,7 +226,7 @@ Future<bool> loadGameMenu() async {
 
 Future<bool> loadGame(SaveFile selectedSave) async {
   bool broken = selectedSave.gameState == null;
-  String brokenText = broken ? "Conservatively Broken " : "";
+  String brokenText = broken ? "Fascistly Broken " : "";
   erase();
   int y = 3;
   if (!broken && compareVersionStrings(selectedSave.version, "1.2.0") < 0) {
@@ -323,7 +323,7 @@ Future<SaveFile?> importSave() async {
     type: FileType.custom,
     allowedExtensions: ["json"],
     withData: true,
-    dialogTitle: "Select an LCS: New Age Save File",
+    dialogTitle: "Select an SCS: New Age Save File",
   );
   if (result != null) {
     Uint8List fileBytes = result.files.single.bytes!;

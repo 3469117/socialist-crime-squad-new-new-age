@@ -88,41 +88,41 @@ String squadStoryTextLocation(
       case SiteType.upscaleApartment:
         story += ", known for its rich and snooty residents.  ";
       case SiteType.barAndGrill:
-        story += ", a spawning ground of Wrong Conservative Ideas.  ";
+        story += ", a spawning ground of Wrong Fascist Ideas.  ";
       case SiteType.cosmeticsLab:
-        story += ", a Conservative animal rights abuser.  ";
+        story += ", a Fascist animal rights abuser.  ";
       case SiteType.geneticsLab:
-        story += ", a dangerous Conservative genetic research lab.  ";
+        story += ", a dangerous Fascist genetic research lab.  ";
       case SiteType.policeStation:
         story +=
-            ", headquarters of one of the most oppressive and Conservative police forces in the country.  ";
+            ", headquarters of one of the most oppressive and Fascist police forces in the country.  ";
       case SiteType.courthouse:
-        story += ", site of numerous Conservative Injustices.  ";
+        story += ", site of numerous Fascist Injustices.  ";
       case SiteType.prison:
         story +=
-            ", where innocent people are regularly beaten by Conservative guards.  ";
+            ", where innocent people are regularly beaten by Fascist guards.  ";
       case SiteType.intelligenceHQ:
         story +=
-            ", the Conservative headquarters of one of the biggest privacy violators in the world.  ";
+            ", the Fascist headquarters of one of the biggest privacy violators in the world.  ";
       case SiteType.armyBase:
         story +=
-            ", pride of Conservative torturers and warmongers everywhere.  ";
+            ", pride of Fascist torturers and warmongers everywhere.  ";
       case SiteType.sweatshop:
-        story += ", a Conservative sweatshop and human rights abuser.  ";
+        story += ", a Fascist sweatshop and human rights abuser.  ";
       case SiteType.dirtyIndustry:
         story +=
-            ", a factory whose Conservative smokestacks choke the city with deadly pollutants.  ";
+            ", a factory whose Fascist smokestacks choke the city with deadly pollutants.  ";
       case SiteType.nuclearPlant:
         story +=
-            ", also known to be a Conservative storage facility for radioactive waste.  ";
+            ", also known to be a Fascist storage facility for radioactive waste.  ";
       case SiteType.corporateHQ:
         story += ", where evil and Conservatism coagulate in the hallways.  ";
       case SiteType.ceoHouse:
         story +=
-            ", a building with enough square footage enough to house a hundred people if it weren't in Conservative Hands.  ";
+            ", a building with enough square footage enough to house a hundred people if it weren't in Fascist Hands.  ";
       case SiteType.amRadioStation:
       case SiteType.cableNewsStation:
-        story += ", known for its Extreme Conservative Bias.  ";
+        story += ", known for its Extreme Fascist Bias.  ";
       case SiteType.bank:
         story += ", the very symbol of economic inequality.  ";
       default:
@@ -144,14 +144,14 @@ String squadStoryTextOpening(NewsStory ns, bool ccs) {
         String briefly = ns.type == NewsStories.squadKilledInSiteAction
             ? "briefly "
             : "";
-        story += "A group calling itself the Liberal Crime Squad ";
+        story += "A group calling itself the Socialist Crime Squad ";
         story +=
             "burst ${briefly}onto the scene of political activism yesterday, according ";
         story += "to a spokesperson from the police department.";
         story += "&r";
       } else {
         story +=
-            "A group of terrorists calling themselves the Liberal Crime Squad ";
+            "A group of terrorists calling themselves the Socialist Crime Squad ";
         story += "went on a rampage yesterday, according ";
         story += "to a spokesperson from the police department.";
       }
@@ -249,21 +249,21 @@ String squadStoryTextOpening(NewsStory ns, bool ccs) {
   if (ns.type == NewsStories.squadKilledInSiteAction) {
     if (ns.publicationAlignment == DeepAlignment.eliteLiberal) {
       story +=
-          "Unfortunately, the LCS group was defeated by the forces of evil.";
+          "Unfortunately, the SCS group was defeated by the forces of evil.";
     } else if (ns.liberalSpin) {
-      story += "Everyone in the LCS group was arrested or killed.";
+      story += "Everyone in the SCS group was arrested or killed.";
     } else {
-      story += "Fortunately, the LCS thugs were stopped by brave citizens.";
+      story += "Fortunately, the SCS thugs were stopped by brave citizens.";
     }
   }
   if (ns.type == NewsStories.ccsKilledInSiteAction) {
     if (ns.publicationAlignment == DeepAlignment.archConservative) {
       story +=
-          "Unfortunately, the CCS patriots were defeated by the forces of evil.";
+          "Unfortunately, the FCS patriots were defeated by the forces of evil.";
     } else if (!ns.liberalSpin) {
-      story += "Everyone in the CCS group was arrested or killed.";
+      story += "Everyone in the FCS group was arrested or killed.";
     } else {
-      story += "Fortunately, the CCS brutes were stopped by brave citizens.";
+      story += "Fortunately, the FCS brutes were stopped by brave citizens.";
     }
   }
   story += "&r";

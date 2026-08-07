@@ -183,7 +183,7 @@ Map<Law, _DiscussionPoint> _discussionPoints = {
   Law.abortion: _DiscussionPoint(
       "Forced birth policies are about control, not life. After all, if it",
       "were about life, they'd fund healthcare and childcare.",
-      "Conservatives think women should just hold it in for nine months.",
+      "Fascists think women should just hold it in for nine months.",
       "If abortion is really legal, why aren't more women doing it?",
       "Abortion is murder."),
   Law.animalRights: _DiscussionPoint(

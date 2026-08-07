@@ -70,7 +70,7 @@ List<(String, String)> randomDogTalkGood = [
     "\"We need to recruit more dogs.\"",
     "\"Oh yeah? I'm a dog. What do you represent?\""
   ),
-  ("\"Wanna join the LCS?\"", "\"Do you have a good veteranary plan?\""),
+  ("\"Wanna join the SCS?\"", "\"Do you have a good veteranary plan?\""),
   ("\"Want me to untie you?\"", "\"Yes, please! This collar is painful!\""),
   (
     "\"You deserve better than this.\"",
@@ -80,7 +80,7 @@ List<(String, String)> randomDogTalkGood = [
     "\"Dogs are the best anything ever.\"",
     "\"Heheheh, you're funny. Okay, I won't rat you out.\""
   ),
-  ("\"Conservatives kick dogs!\"", "\"That IS disturbing. What can I do?\""),
+  ("\"Fascists kick dogs!\"", "\"That IS disturbing. What can I do?\""),
   (
     "\"All we are saying is give fleas a chance.\"",
     "\"We'll fight the fleas until our dying itch.\""
@@ -119,7 +119,7 @@ List<(String, String)> randomMonsterTalkGood = [
     "\"We need to recruit more genetic monsters.\"",
     "\"For what purpose do you seek our aid?\""
   ),
-  ("\"Wanna join the LCS?\"", "\"Maybe. Can we scare small children?\""),
+  ("\"Wanna join the SCS?\"", "\"Maybe. Can we scare small children?\""),
   (
     "\"You're free! Join us to liberate more!\"",
     "\"Is this what compassion is?\""

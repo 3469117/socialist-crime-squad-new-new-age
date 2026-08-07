@@ -295,7 +295,7 @@ Future<bool> heyIWantToRentARoom(Creature a, Creature tk) async {
         }
         mvaddstr(9, 1, "${a.name} says, ");
         mvaddstrc(10, 1, lightGreen,
-            "\"What's the price for the Liberal Crime Squad?\"");
+            "\"What's the price for the Socialist Crime Squad?\"");
 
         await getKey();
 
@@ -508,7 +508,7 @@ Future<bool> talkToBankTeller(Creature a, Creature tk) async {
         case 3:
           addstr("I HAVE A GUN. CASH PLEASE.");
         case 4:
-          addstr("THE LIBERAL CRIME SQUAD REQUESTS CASH.");
+          addstr("THE SOCIALIST CRIME SQUAD REQUESTS CASH.");
         case 5:
           addstr("I AM MAKING A WITHDRAWAL. ALL YOUR MONEY.");
         case 6:

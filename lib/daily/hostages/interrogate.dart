@@ -24,7 +24,7 @@ Future<void> handleFirmInterrogation(
   ].random} \"${[
     "What do you know?",
     "Where do you work?",
-    if (ccsActive) "What do you know about the CCS?",
+    if (ccsActive) "What do you know about the FCS?",
     "Give up your secrets!",
     "Tell us what you know!",
     "We need information!",

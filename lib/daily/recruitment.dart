@@ -76,10 +76,10 @@ List<String> _issueEventStrings = [
   "a documentary on privacy rights",
   "a collection of banned books",
   "a video about genetic engineering accidents",
-  "a Liberal policy paper inquiring into judicial decisions",
+  "a Socialist policy paper inquiring into judicial decisions",
   "a book profiling school shootings",
   "a hand-recorded video of unregulated sweatshops",
-  "a Liberal think-tank survey of top CEO salaries",
+  "a Socialist think-tank survey of top CEO salaries",
   "a documentary about modern feminism",
   "a documentary on the civil rights struggle",
   "a collection of studies on the health effects of marijuana",
@@ -178,7 +178,7 @@ Future<bool> completeRecruitMeeting(RecruitmentSession r, Creature p) async {
       addstr(" feels something needs to be done.");
     default:
       if (r.eagerness >= 4) {
-        addstr(" is ready to fight for the Liberal Cause.");
+        addstr(" is ready to fight for the Socialist Cause.");
       } else {
         addstr(" kind of regrets agreeing to this.");
       }

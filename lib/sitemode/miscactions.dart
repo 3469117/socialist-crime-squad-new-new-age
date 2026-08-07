@@ -363,10 +363,10 @@ String _mediaIssueDescription(View v) => switch (v) {
       View.immigration => "immigration",
       View.military => "military spending",
       View.amRadio => "AM radio shows",
-      View.cableNews => "Conservative media bias",
-      View.lcsKnown => "the LCS",
-      View.lcsLiked => "the LCS",
-      View.ccsHated => "the CCS",
+      View.cableNews => "Fascist media bias",
+      View.lcsKnown => "the SCS",
+      View.lcsLiked => "the SCS",
+      View.ccsHated => "the FCS",
       View.housing => "housing",
       View.healthcare => "healthcare",
       View.retirement => "retirement",
@@ -429,7 +429,7 @@ Future<bool> _mediaBroadcast(String takeover, View mediaView, String medium,
   }
 
   if (enemy > 0) {
-    await encounterMessage("The Conservatives in the room hurry the Squad, so ",
+    await encounterMessage("The Fascists in the room hurry the Squad, so ",
         line2: "the broadcast never happens.");
     return false;
   }

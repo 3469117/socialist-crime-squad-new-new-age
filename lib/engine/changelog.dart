@@ -98,7 +98,7 @@ class ChangelogWidgetState extends State<ChangelogWidget> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text(
-                      'Liberal Crime Squad: New Age Changelog',
+                      'Socialist Crime Squad: New Age Changelog',
                       style: TextStyle(
                         color: lightGreen,
                         fontSize: 20,

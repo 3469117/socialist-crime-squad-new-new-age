@@ -85,7 +85,7 @@ Future<void> runTelevisionNewsStories() async {
             str += showName;
             newsStories[n].headline = showName.toUpperCase();
             newsStories[n].body =
-                "A Cable News anchor just accidentally let a Liberal guest "
+                "A Cable News anchor just accidentally let a Socialist guest "
                 "finish a sentence.  Many viewers across the nation were "
                 "listening.";
             erase();
@@ -129,7 +129,7 @@ Future<void> runTelevisionNewsStories() async {
             mvaddstr(
               21,
               13,
-              "│   bright Liberal guest finish a sentence.  Many   │",
+              "│   bright Socialist guest finish a sentence.  Many   │",
             );
             mvaddstr(
               22,

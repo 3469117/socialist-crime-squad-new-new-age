@@ -281,7 +281,7 @@ Future<void> _siteModeAux() async {
             addstr(": GANG RESPONDING");
           default:
             if (activeSite!.controller == SiteController.ccs) {
-              addstr(": CCS RESPONDING");
+              addstr(": FCS RESPONDING");
             } else if (laws[Law.deathPenalty] ==
                     DeepAlignment.archConservative &&
                 laws[Law.policeReform] == DeepAlignment.archConservative) {
@@ -427,7 +427,7 @@ Future<void> _siteModeAux() async {
       }
       squad.clear();
 
-      addOptionText(9, 1, "C", "C - Reflect on your Conservative ineptitude");
+      addOptionText(9, 1, "C", "C - Reflect on your Fascist ineptitude");
     }
 
     //PRINT SITE MAP
@@ -636,7 +636,7 @@ Future<void> _siteModeAux() async {
           if (forcesp == -2) {
             clearSceneAreas();
 
-            mvaddstrc(9, 1, white, "Which Liberal will speak?");
+            mvaddstrc(9, 1, white, "Which Socialist will speak?");
             mvaddstr(9, 35, "Persuasion");
             mvaddstr(10, 35, "(Recruits/Max)");
             mvaddstr(9, 52, "Seduction");
@@ -883,11 +883,11 @@ Future<void> _siteModeAux() async {
 
           mvaddstrc(9, 1, white, "You free ");
           if (followers > 1) {
-            addstr("some Oppressed Liberals");
+            addstr("some Oppressed Socialists");
           } else {
-            addstr("an Oppressed Liberal");
+            addstr("an Oppressed Socialist");
           }
-          addstr(" from the Conservatives.");
+          addstr(" from the Fascists.");
 
           if (actgot < followers) {
             await getKey();
@@ -901,9 +901,9 @@ Future<void> _siteModeAux() async {
             } else if (followers - actgot > 1) {
               addstr("Some leave");
             } else if (actgot == 0) {
-              addstr("The Liberal leaves");
+              addstr("The Socialist leaves");
             } else {
-              addstr("One Liberal leaves");
+              addstr("One Socialist leaves");
             }
             addstr(" you, feeling safer getting out alone.");
             // 3 juice for every person you free who doesn't join up
@@ -1021,7 +1021,7 @@ Future<void> _siteModeAux() async {
               9,
               1,
               lightBlue,
-              "The squad sneaks past the conservatives!",
+              "The squad sneaks past the fascists!",
             );
 
             await getKey();
@@ -1186,7 +1186,7 @@ Future<void> _siteModeAux() async {
           //INFORM
           clearMessageArea();
 
-          mvaddstrc(9, 1, lightGreen, "The CCS has been broken!");
+          mvaddstrc(9, 1, lightGreen, "The FCS has been broken!");
 
           await getKey();
 
@@ -1514,9 +1514,9 @@ Future<void> _siteModeAux() async {
               9,
               1,
               lightGreen,
-              "The Conservatives have shrunk back under ",
+              "The Fascists have shrunk back under ",
             );
-            mvaddstr(10, 1, "the power of your Liberal Convictions!");
+            mvaddstr(10, 1, "the power of your Socialist Convictions!");
 
             await getKey();
 
@@ -1867,7 +1867,7 @@ Future<void> _resolveSite() async {
           mvaddstr(
             10,
             1,
-            "The Liberal is now at your command as a normal squad member.",
+            "The Socialist is now at your command as a normal squad member.",
           );
 
           p.base = squad[0].base;

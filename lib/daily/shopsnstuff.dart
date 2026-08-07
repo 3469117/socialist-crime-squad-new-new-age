@@ -30,15 +30,15 @@ Future<void> hospital(Site loc) async {
     locHeader();
     printParty();
 
-    addOptionText(10, 1, "F", "F - Go in and fix up Conservative wounds");
+    addOptionText(10, 1, "F", "F - Go in and fix up Fascist wounds");
     addOptionText(12, 1, "Enter", "Enter - Leave");
 
     bool showPartyPrompt =
         partysize > 0 && (activeSquadMemberIndex == -1 || partysize > 1);
     mvaddstrc(13, 1, showPartyPrompt ? lightGray : darkGray,
-        "# - Check the status of a squad Liberal");
+        "# - Check the status of a squad Socialist");
     bool showStatusPrompt = activeSquadMember != null;
-    addOptionText(14, 1, "0", "0 - Show the squad's Liberal status",
+    addOptionText(14, 1, "0", "0 - Show the squad's Socialist status",
         enabledWhen: showStatusPrompt);
 
     int c = await getKey();
@@ -152,7 +152,7 @@ Future<void> dealership(Site loc) async {
       }
     }
 
-    addOptionText(10, 1, "G", "G - Get a Liberal car",
+    addOptionText(10, 1, "G", "G - Get a Socialist car",
         enabledWhen: carToSell == null);
 
     move(11, 1);
@@ -171,7 +171,7 @@ Future<void> dealership(Site loc) async {
       } else {
          addOptionText(12, 1, "P", "P - Repaint car, replace plates and tags ($500)");
       }*/
-    addOptionText(15, 1, "0", "0 - Show the squad's Liberal status",
+    addOptionText(15, 1, "0", "0 - Show the squad's Socialist status",
         enabledWhen: activeSquadMember != null);
     addOptionText(16, 1, "B", "B - Choose a buyer",
         enabledWhen: partysize >= 2);
@@ -182,7 +182,7 @@ Future<void> dealership(Site loc) async {
     } else {
       setColor(darkGray);
     }
-    mvaddstr(15, 40, "# - Check the status of a squad Liberal");
+    mvaddstr(15, 40, "# - Check the status of a squad Socialist");
 
     int c = await getKey();
 
@@ -211,7 +211,7 @@ Future<void> dealership(Site loc) async {
       }
       while (true) {
         carchoice = await choiceprompt("Choose a vehicle", "", vehicleoption,
-            "Vehicle", true, "We don't need a Conservative car");
+            "Vehicle", true, "We don't need a Fascist car");
         if (carchoice != -1 && vehicleprice[carchoice] > ledger.funds) {
           mvaddstrc(1, 1, darkRed, "You don't have enough money!");
           carchoice = -1;
@@ -231,7 +231,7 @@ Future<void> dealership(Site loc) async {
           availablevehicle[carchoice].colors,
           "Color",
           true,
-          "These colors are Conservative");
+          "These colors are Fascist");
 
       if (colorchoice == -1) continue;
 
@@ -282,7 +282,7 @@ Future<int> chooseBuyerIndex(int buyer) async {
 
     move(8, 20);
     setColor(white);
-    addstr("Choose a Liberal squad member to SPEND.");
+    addstr("Choose a Socialist squad member to SPEND.");
 
     int c = await getKey();
 

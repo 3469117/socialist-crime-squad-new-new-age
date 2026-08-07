@@ -74,7 +74,7 @@ Future<void> handleRansomNote(
             "magazine clippings",
         "recording a video of ${cr.name} in captivity",
         "attaching a personal letter from ${cr.name} spelling "
-            "out the LCS's demands",
+            "out the SCS's demands",
         "recording audio of ${cr.name} reading a prepared statement",
       ].random}. The demand is set at \$${intr.ransomAmount}. It may take some time "
       "for a response...");

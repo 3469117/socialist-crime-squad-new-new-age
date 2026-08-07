@@ -28,7 +28,7 @@ Future<void> tryToPurgeSupremeCourt() async {
       12,
       6,
       white,
-      "The Elite Liberal Congress is proposing an ELITE LIBERAL AMENDMENT!",
+      "The Revolutionary Socialist Congress is proposing an ELITE LIBERAL AMENDMENT!",
     );
 
     await getKey();
@@ -49,7 +49,7 @@ Future<void> tryToPurgeSupremeCourt() async {
     } else {
       addstr(" is");
     }
-    addstr(" branded Arch-Conservative:");
+    addstr(" branded Arch-Fascist:");
 
     int y = 4;
 
@@ -67,9 +67,9 @@ Future<void> tryToPurgeSupremeCourt() async {
     addstr(" will");
     mvaddstr(y + 3, 0, "be deported to ");
     if (tossnum != 1) {
-      addstr("Conservative countries");
+      addstr("Fascist countries");
     } else {
-      addstr("a Conservative country");
+      addstr("a Fascist country");
     }
     addstr(" of the President's");
     mvaddstr(y + 4, 0, "choosing to be replaced by ");
@@ -136,7 +136,7 @@ Future<void> tryToPassTermLimits() async {
     mvaddstr(
       2,
       5,
-      "In light of the Conservative nature of entrenched politicians,",
+      "In light of the Fascist nature of entrenched politicians,",
     );
     mvaddstr(
       3,
@@ -199,7 +199,7 @@ Future<void> tryToRepealConstitution() async {
     mvaddstr(
       12,
       3,
-      "The Arch-Conservative Congress is proposing an ARCH-CONSERVATIVE AMENDMENT!",
+      "The Arch-Fascist Congress is proposing an ARCH-CONSERVATIVE AMENDMENT!",
     );
 
     await getKey();
@@ -320,20 +320,20 @@ Future<void> tryToRepealConstitution() async {
           //DATING AND REAGANIFIED
           await defeatMessages(
             "You went on vacation when the country was on the verge of collapse.",
-            "The Conservatives have made the world in their image.",
+            "The Fascists have made the world in their image.",
             "They'll round up the last of you eventually.  All is lost.",
             gentle:
-                "The Arch-Conservative Amendment passed while you were on vacation.",
+                "The Arch-Fascist Amendment passed while you were on vacation.",
           );
           yourScore = await saveHighScore(Ending.dating);
         case CantSeeReason.hiding:
           //HIDING AND REAGANIFIED
           await defeatMessages(
             "You went into hiding when the country was on the verge of collapse.",
-            "The Conservatives have made the world in their image.",
+            "The Fascists have made the world in their image.",
             "They'll round the last of you up eventually.  All is lost.",
             gentle:
-                "The Arch-Conservative Amendment passed while you were in hiding.",
+                "The Arch-Fascist Amendment passed while you were in hiding.",
           );
           yourScore = await saveHighScore(Ending.hiding);
         case CantSeeReason.prison:
@@ -343,7 +343,7 @@ Future<void> tryToRepealConstitution() async {
             "Your kind are never released these days.",
             "Ain't no sunshine...",
             gentle:
-                "The Arch-Conservative Amendment passed while you were in prison.",
+                "The Arch-Fascist Amendment passed while you were in prison.",
           );
           yourScore = await saveHighScore(Ending.prison);
         case CantSeeReason.disbanded:
@@ -353,7 +353,7 @@ Future<void> tryToRepealConstitution() async {
             "Freedom, equality, justice... they're just words now.",
             "The world grows dark...",
             gentle:
-                "The Arch-Conservative Amendment passed after the LCS disbanded.",
+                "The Arch-Fascist Amendment passed after the SCS disbanded.",
           );
           yourScore = await saveHighScore(Ending.disbandLoss);
         case CantSeeReason.hospital:
@@ -363,7 +363,7 @@ Future<void> tryToRepealConstitution() async {
             "They don't bring folks like you back anymore.",
             "The world is fading with you...",
             gentle:
-                "The Arch-Conservative Amendment passed while you were in the hospital.",
+                "The Arch-Fascist Amendment passed while you were in the hospital.",
           );
           yourScore = await saveHighScore(Ending.reaganified);
         case CantSeeReason.other:
@@ -371,10 +371,10 @@ Future<void> tryToRepealConstitution() async {
           //OTHER AND REAGANIFIED
           await defeatMessages(
             "You weren't there when the country was on the verge of collapse.",
-            "The Conservatives have made the world in their image.",
+            "The Fascists have made the world in their image.",
             "They'll round the last of you up eventually.  All is lost.",
             gentle:
-                "The Arch-Conservative Amendment passed while you were away.",
+                "The Arch-Fascist Amendment passed while you were away.",
           );
           yourScore = await saveHighScore(Ending.reaganified);
       }

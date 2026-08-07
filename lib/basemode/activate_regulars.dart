@@ -36,7 +36,7 @@ Future<void> activateRegulars() async {
   while (true) {
     erase();
     printFunds();
-    mvaddstr(0, 0, "Assign Tasks to Liberals");
+    mvaddstr(0, 0, "Assign Tasks to Socialists");
     makeDelimiter(y: 1);
     mvaddstr(1, 4, "CODE NAME");
     mvaddstr(1, 24, "SKILL");
@@ -141,7 +141,7 @@ Future<void> assignTask(Creature c) async {
     makeDelimiter();
     _y = 10;
     _highlightedActivity = c.activity.type;
-    _category(_activism, "A - Liberal Activism", state == Key.a, state != 0);
+    _category(_activism, "A - Socialist Activism", state == Key.a, state != 0);
     _category(_legal, "B - Legal Fundraising", state == Key.b, state != 0);
     _category(_illegal, "C - Illegal Fundraising", state == Key.c, state != 0);
     _category(
@@ -166,7 +166,7 @@ Future<void> assignTask(Creature c) async {
       grayOut: !canDisposeCorpses,
     );
     setColor(activeSafehouse?.siege.underSiege ?? false ? darkGray : lightGray);
-    addOptionText(_y++, 1, "g", "G - Equip This Liberal");
+    addOptionText(_y++, 1, "g", "G - Equip This Socialist");
     _activity(ActivityType.none, "X - Lay Low for Now", state != 0);
     addOptionText(19, 40, "?", "? - About the Selected Activity");
     addOptionText(20, 40, "Enter", "Enter - Confirm Selection");
@@ -292,7 +292,7 @@ void _subActivity(ActivityType activity, String desc, {bool greyOut = false}) {
 void _activismSubmenu(Creature c) {
   _y = 10;
   _subActivity(ActivityType.communityService, "1 - Community Service");
-  _subActivity(ActivityType.trouble, "2 - Liberal Disobedience");
+  _subActivity(ActivityType.trouble, "2 - Socialist Disobedience");
   _subActivity(ActivityType.graffiti, "3 - Graffiti");
   String needHackerDen = c.site?.compound.hackerDen != true
       ? " (Need Den)"
@@ -305,7 +305,7 @@ void _activismSubmenu(Creature c) {
   );
   _subActivity(
     ActivityType.writeGuardian,
-    "5 - Write Liberal Guardian Articles",
+    "5 - Write Socialist Guardian Articles",
   );
   String needVideoRoom = c.site?.compound.videoRoom != true
       ? " (Need Studio)"
@@ -436,7 +436,7 @@ void _acquisitionSubmenu(Creature c) {
 
   _y++;
   mvaddstrc(_y++, 40, midGray, "Laundry and mending clothing are");
-  mvaddstrc(_y++, 40, midGray, "handled by Liberals set to Lay Low.");
+  mvaddstrc(_y++, 40, midGray, "handled by Socialists set to Lay Low.");
 }
 
 Future<void> _acquisitionChoice(Creature c, int choice) async {
@@ -476,7 +476,7 @@ Future<void> _educationChoice(Creature c, int choice) async {
 
 void _teachingSubmenu() {
   _y = 10;
-  _subActivity(ActivityType.teachLiberalArts, "1 - Teach Liberal Arts");
+  _subActivity(ActivityType.teachLiberalArts, "1 - Teach Socialist Arts");
   _subActivity(ActivityType.teachCovert, "2 - Teach Covert Ops");
   _subActivity(ActivityType.teachFighting, "3 - Teach Fighting");
 }
@@ -494,7 +494,7 @@ void _medicalSubmenu(Creature c) {
     "1 - Go to the Hospital",
     greyOut: c.blood >= c.maxBlood,
   );
-  //_subActivity(ActivityType.augment, "2 - Augment a Liberal");
+  //_subActivity(ActivityType.augment, "2 - Augment a Socialist");
   _y++;
   mvaddstrc(_y++, 40, midGray, "Capable medics will always provide");
   mvaddstrc(_y++, 40, midGray, "medical care to themselves or others");
@@ -911,7 +911,7 @@ void _activityFooter(Creature cr) {
       addstr(" steal a car.");
       mvaddstrc(23, 3, midGray, "Uses Security and Street Smarts.");
     case ActivityType.streamGuardian:
-      addstr(" stream for the Liberal Guardian.");
+      addstr(" stream for the Socialist Guardian.");
       mvaddstrc(
         23,
         3,
@@ -946,7 +946,7 @@ void _activityFooter(Creature cr) {
       mvaddstr(
         24,
         3,
-        "Classes cost up to \$60/day to conduct. All Liberals able will attend.",
+        "Classes cost up to \$60/day to conduct. All Socialists able will attend.",
       );
     case ActivityType.teachFighting:
       mvaddstrc(
@@ -959,7 +959,7 @@ void _activityFooter(Creature cr) {
       mvaddstr(
         24,
         3,
-        "Classes cost up to \$100/day to conduct. All Liberals able will attend.",
+        "Classes cost up to \$100/day to conduct. All Socialists able will attend.",
       );
     case ActivityType.teachLiberalArts:
       mvaddstrc(
@@ -972,7 +972,7 @@ void _activityFooter(Creature cr) {
       mvaddstr(
         24,
         3,
-        "Classes cost up to \$20/day to conduct. All Liberals able will attend.",
+        "Classes cost up to \$20/day to conduct. All Socialists able will attend.",
       );
     case ActivityType.trouble:
       addstr(" hit the streets and cause trouble.");
@@ -985,7 +985,7 @@ void _activityFooter(Creature cr) {
     case ActivityType.wheelchair:
       addstr(" procure a wheelchair.");
     case ActivityType.writeGuardian:
-      addstr(" write articles for the Liberal Guardian.");
+      addstr(" write articles for the Socialist Guardian.");
       mvaddstrc(23, 3, midGray, "Uses Writing and various knowledge skills.");
     default:
       addstr(" report a bug to the developers: ${cr.activity.type.name}.");
@@ -998,9 +998,9 @@ enum BulkActivity {
     name: "Community Service",
     activityType: ActivityType.communityService,
   ),
-  liberalActivism(name: "Liberal Activism", activityType: ActivityType.trouble),
+  liberalActivism(name: "Socialist Activism", activityType: ActivityType.trouble),
   liberalGuardian(
-    name: "Liberal Guardian",
+    name: "Socialist Guardian",
     activityType: ActivityType.writeGuardian,
   ),
   legalFundraising(

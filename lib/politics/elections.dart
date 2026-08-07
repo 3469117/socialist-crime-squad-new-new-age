@@ -645,7 +645,7 @@ void _showWinner(List<int> change, double mood, int thresholdForVictory) {
   setColor(winner.color);
   switch (winner) {
     case DeepAlignment.archConservative:
-      addstr("The power of the Arch Conservative far right is growing...");
+      addstr("The power of the Fascist far right is growing...");
     case DeepAlignment.conservative:
       addstr("The power of the Republican Party is growing.");
     case DeepAlignment.moderate:
@@ -654,19 +654,19 @@ void _showWinner(List<int> change, double mood, int thresholdForVictory) {
         mvaddstr(22, 0, "But the political center is disappearing.");
       } else if (change[0] > 0) {
         mvaddstrc(22, 0, red,
-            "But the Arch Conservative far right still gained seats.");
+            "But the Fascist far right still gained seats.");
       }
     case DeepAlignment.liberal:
       addstr("The Democratic Party is gaining ground.");
       if (change[0] > 0) {
         mvaddstrc(22, 0, red,
-            "But the Arch Conservative far right also gained seats.");
+            "But the Fascist far right also gained seats.");
       }
     case DeepAlignment.eliteLiberal:
-      addstr("The Elite Liberal far left is growing!");
+      addstr("The Revolutionary Socialist far left is growing!");
       if (change[0] > 0) {
         mvaddstrc(22, 0, red,
-            "But the Arch Conservative far right also gained seats.");
+            "But the Fascist far right also gained seats.");
       }
   }
   setColor(lightGray);

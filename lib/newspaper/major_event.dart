@@ -535,7 +535,7 @@ MajorEventContent generateMajorEventContent(
               "religious groups.&r"
               "  The book, $bookTitle, is an immensely popular book by "
               "$nationality author $authorName.  Although the title is "
-              "adored by children worldwide, some conservatives feel that "
+              "adored by children worldwide, some fascists feel that "
               "the book $ridiculousBanReason.  In their complaint, the groups "
               "cited an incident involving a child that $childMisbehavior "
               "as key evidence of the dark nature of the book.&r"
@@ -664,7 +664,7 @@ MajorEventContent generateMajorEventContent(
               "program \"$showName\".&r"
               "  ${radioHost.last}'s monologue for the evening began the way "
               "that fans had come to expect, with attacks on the \"liberal "
-              "media establishment\" and the \"elite liberal agenda\".  But "
+              "media establishment\" and the \"elite socialist agenda\".  But "
               "when the radio icon said, \"$wildQuote\", a former fan of "
               "the show, ${fan.firstLast}, knew that \"$fanNameForHost "
               "had $lostHisMind. And after that, it just got worse and "
@@ -708,7 +708,7 @@ MajorEventContent generateMajorEventContent(
           "a peace sign",
           "a local sports team's mascot",
           "an American flag surrounded by hearts",
-          if (lcsInPublicEye) "the letters 'LCS'",
+          if (lcsInPublicEye) "the letters 'SCS'",
         ].random;
 
         return MajorEventContent(
@@ -1246,7 +1246,7 @@ MajorEventContent generateMajorEventContent(
                   "\"My Friend Has Two Dads\".&r"
                   "  \"I'm terrified.  I thought I could bring my kids into "
                   "the library and not have to worry about them being "
-                  "groomed by the liberal agenda to think gay people are "
+                  "groomed by the socialist agenda to think gay people are "
                   "human,\" said a local parent.  \"I have every right to "
                   "decide who and what my kids should hate, and it shakes "
                   "me to my core to think that this so-called 'library' "
@@ -1745,7 +1745,7 @@ MajorEventContent generateMajorEventContent(
                 "soulless elite to legalize the murder of children",
           _ =>
             "pass new laws to protect the most vulnerable children "
-                "in our society from being slaughtered by Liberals",
+                "in our society from being slaughtered by Socialists",
         };
         return MajorEventContent(
           headline: "CLINIC REGRET",

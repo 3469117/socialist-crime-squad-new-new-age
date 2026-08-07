@@ -52,7 +52,7 @@ Future<void> fundReport(bool disbanding) async {
       }
     }
 
-    mvaddstrc(0, 0, white, "Liberal Crime Squad: Funding Report");
+    mvaddstrc(0, 0, white, "Socialist Crime Squad: Funding Report");
 
     for (Income inc in Income.values) {
       if (ledger.income[inc] != 0) {
@@ -335,7 +335,7 @@ Future<LootType?> chooseSpecialEdition() async {
   LootType? lootTypeChosen;
   erase();
   await pagedInterface(
-    headerPrompt: "Do you want to publish secrets in the Liberal Guardian?",
+    headerPrompt: "Do you want to publish secrets in the Socialist Guardian?",
     headerKey: {4: "SECRETS POSSESSED"},
     backButtonText:
         "Enter - Now is not the time to attract this sort of attention",
@@ -444,7 +444,7 @@ Future<void> printNews(LootType li, Iterable<Creature> publishers) async {
   switch (li.idName) {
     case LootTypeIds.ceoPhotos:
       story =
-          "The Liberal Guardian runs a story featuring photos of a major CEO ";
+          "The Socialist Guardian runs a story featuring photos of a major CEO ";
       switch (lcsRandom(10)) {
         case 0:
           story += "sexually assaulting animals.";
@@ -491,7 +491,7 @@ Future<void> printNews(LootType li, Iterable<Creature> publishers) async {
       addparagraph(6, 1, story);
     case LootTypeIds.ceoLoveLetters:
       story =
-          "The Liberal Guardian runs a story featuring salacious love letters from a";
+          "The Socialist Guardian runs a story featuring salacious love letters from a";
       mvaddstr(7, 1, "major CEO ");
       switch (lcsRandom(8)) {
         case 0:
@@ -534,7 +534,7 @@ Future<void> printNews(LootType li, Iterable<Creature> publishers) async {
       }
     case LootTypeIds.ceoTaxPapers:
       story =
-          "The Liberal Guardian runs a story featuring a major CEO's tax papers ";
+          "The Socialist Guardian runs a story featuring a major CEO's tax papers ";
       switch (lcsRandom(1)) {
         default:
           story += "showing that he has engaged in consistent tax evasion.";
@@ -553,7 +553,7 @@ Future<void> printNews(LootType li, Iterable<Creature> publishers) async {
         addjuice(c, 20, 1000);
       }
     case LootTypeIds.corpFiles:
-      story = "The Liberal Guardian runs a story featuring Corporate files ";
+      story = "The Socialist Guardian runs a story featuring Corporate files ";
       switch (lcsRandom(8)) {
         case 0:
           story += "describing a genetic monster created in a lab.";
@@ -596,20 +596,20 @@ Future<void> printNews(LootType li, Iterable<Creature> publishers) async {
       }
     case LootTypeIds.ccsBackerList:
       story =
-          "The Liberal Guardian runs more than one thousand pages of documents about "
-          "the CCS organization, also revealing in extreme detail the names and "
-          "responsibilities of Conservative Crime Squad sympathizers and supporters "
+          "The Socialist Guardian runs more than one thousand pages of documents about "
+          "the FCS organization, also revealing in extreme detail the names and "
+          "responsibilities of Fascist Crime Squad sympathizers and supporters "
           "in the state and federal governments. Sections precisely document the "
           "extensive planning to create an extra-judicial death squad that would be "
-          "above prosecution, and could hunt down law-abiding Liberals and act "
+          "above prosecution, and could hunt down law-abiding Socialists and act "
           "as a foil when no other enemies were present to direct public energy "
           "against.\n\n"
-          "The scandal reaches into the heart of the Conservative leadership in the "
+          "The scandal reaches into the heart of the Fascist leadership in the "
           "country, and the full ramifications of this revelation may not be felt "
           "for months. One thing is clear, however, from the immediate public reaction "
           "toward the revelations, and the speed with which even AM Radio and Cable "
-          "News denounce the CCS.\n\n"
-          "This is the beginning of the end for the Conservative Crime Squad.";
+          "News denounce the FCS.\n\n"
+          "This is the beginning of the end for the Fascist Crime Squad.";
       startY = 5;
 
       issues.addAll([View.intelligence, View.ccsHated]);
@@ -618,13 +618,13 @@ Future<void> printNews(LootType li, Iterable<Creature> publishers) async {
     case LootTypeIds.intHqDisk:
     case LootTypeIds.secretDocuments:
       story =
-          "The Liberal Guardian runs a story featuring CIA and other intelligence files ";
+          "The Socialist Guardian runs a story featuring CIA and other intelligence files ";
       switch (lcsRandom(6)) {
         case 0:
           story += "documenting the overthrow of a government.";
         case 1:
           story +=
-              "documenting the planned assassination of a Liberal federal judge.";
+              "documenting the planned assassination of a Socialist federal judge.";
           issues.add(View.justices);
         case 2:
           story += "containing private information on innocent citizens.";
@@ -649,7 +649,7 @@ Future<void> printNews(LootType li, Iterable<Creature> publishers) async {
         c.offendedCIA++;
       }
     case LootTypeIds.policeRecords:
-      story = "The Liberal Guardian runs a story featuring police records ";
+      story = "The Socialist Guardian runs a story featuring police records ";
       switch (lcsRandom(7)) {
         case 0:
           story += "documenting human rights abuses by the force.";
@@ -680,13 +680,13 @@ Future<void> printNews(LootType li, Iterable<Creature> publishers) async {
           "\n\nThe cops hate this, but what else is new?  They're already on your ass.";
     case LootTypeIds.judgeFiles:
       story =
-          "The Liberal Guardian runs a story with evidence of a Conservative judge ";
+          "The Socialist Guardian runs a story with evidence of a Fascist judge ";
       switch (lcsRandom(2)) {
         case 0:
           story += "taking bribes to acquit murderers.";
         case 1:
           story +=
-              "promising Conservative rulings in exchange for appointments.";
+              "promising Fascist rulings in exchange for appointments.";
       }
       issues.add(View.justices);
       potency = reception(50);
@@ -696,7 +696,7 @@ Future<void> printNews(LootType li, Iterable<Creature> publishers) async {
         addjuice(c, 20, 1000);
       }
     case LootTypeIds.researchFiles:
-      story = "The Liberal Guardian runs a story featuring research papers ";
+      story = "The Socialist Guardian runs a story featuring research papers ";
       switch (lcsRandom(4)) {
         case 0:
           story += "documenting horrific animal rights abuses.";
@@ -718,7 +718,7 @@ Future<void> printNews(LootType li, Iterable<Creature> publishers) async {
         addjuice(c, 20, 1000);
       }
     case LootTypeIds.prisonFiles:
-      story = "The Liberal Guardian runs a story featuring prison documents ";
+      story = "The Socialist Guardian runs a story featuring prison documents ";
       switch (lcsRandom(6)) {
         case 0:
           story += "documenting human rights abuses by prison guards.";
@@ -746,18 +746,18 @@ Future<void> printNews(LootType li, Iterable<Creature> publishers) async {
         addjuice(c, 20, 1000);
       }
     case LootTypeIds.cableNewsFiles:
-      story = "The Liberal Guardian runs a story featuring cable news memos ";
+      story = "The Socialist Guardian runs a story featuring cable news memos ";
       switch (lcsRandom(7)) {
         case 0:
           story +=
               "mandating that any investigative news stories must be "
-              "approved by the network's Conservative commentators before they "
+              "approved by the network's Fascist commentators before they "
               "can be aired.";
         case 1:
-          story += "mandating negative coverage of Liberal politicians.";
+          story += "mandating negative coverage of Socialist politicians.";
         case 2:
           story +=
-              "planning to drum up a false scandal about a Liberal figure "
+              "planning to drum up a false scandal about a Socialist figure "
               "that they privately acknowledge to be unimpeachable.";
         case 3:
           story +=
@@ -770,8 +770,8 @@ Future<void> printNews(LootType li, Iterable<Creature> publishers) async {
           issues.add(View.civilRights);
         case 5:
           story +=
-              "searching for particularly ineffectual Liberal media personalities "
-              "to bring on opposite one of their Conservative hosts.";
+              "searching for particularly ineffectual Socialist media personalities "
+              "to bring on opposite one of their Fascist hosts.";
         case 6:
           story +=
               "intenarnally acknowledging that several of their recent stories "
@@ -781,13 +781,13 @@ Future<void> printNews(LootType li, Iterable<Creature> publishers) async {
       offendedAngryRuralMobs = true;
       potency = reception(50);
       story +=
-          "\n\nThis is bound to get the Conservative masses a little riled up...";
+          "\n\nThis is bound to get the Fascist masses a little riled up...";
       for (Creature c in publishers) {
         addjuice(c, 20, 1000);
         c.offendedAngryRuralMobs++;
       }
     case LootTypeIds.amRadioFiles:
-      story = "The Liberal Guardian runs a story featuring AM radio plans ";
+      story = "The Socialist Guardian runs a story featuring AM radio plans ";
       switch (lcsRandom(5)) {
         case 0:
           story +=
@@ -801,7 +801,7 @@ Future<void> printNews(LootType li, Iterable<Creature> publishers) async {
               "'stupid enough' to believe.";
         case 2:
           story +=
-              "planning to drum up a false scandal about a Liberal figure "
+              "planning to drum up a false scandal about a Socialist figure "
               "that they privately acknowledge to be unimpeachable.";
         case 3:
           story += "to systematically promote hostility toward Black people.";
@@ -817,13 +817,13 @@ Future<void> printNews(LootType li, Iterable<Creature> publishers) async {
       potency = reception(50);
       offendedAngryRuralMobs = true;
       story +=
-          "\n\nThis is bound to get the Conservative masses a little riled up...";
+          "\n\nThis is bound to get the Fascist masses a little riled up...";
       for (Creature c in publishers) {
         addjuice(c, 20, 1000);
         c.offendedAngryRuralMobs++;
       }
     case LootTypeIds.landlordPapers:
-      story = "The Liberal Guardian runs a story featuring landlord papers ";
+      story = "The Socialist Guardian runs a story featuring landlord papers ";
       switch (lcsRandom(7)) {
         case 0:
           story +=
@@ -862,7 +862,7 @@ Future<void> printNews(LootType li, Iterable<Creature> publishers) async {
       }
     case LootTypeIds.insuranceFraudEvidence:
       story =
-          "The Liberal Guardian runs a story featuring healthcare documents ";
+          "The Socialist Guardian runs a story featuring healthcare documents ";
       switch (lcsRandom(5)) {
         case 0:
           story +=
@@ -899,7 +899,7 @@ Future<void> printNews(LootType li, Iterable<Creature> publishers) async {
       }
     case LootTypeIds.elderAbuseEvidence:
       story =
-          "The Liberal Guardian runs a story featuring nursing home documents ";
+          "The Socialist Guardian runs a story featuring nursing home documents ";
       switch (lcsRandom(6)) {
         case 0:
           story += "documenting neglect caused by chronic understaffing.";
@@ -953,7 +953,7 @@ Future<void> printNews(LootType li, Iterable<Creature> publishers) async {
     LootTypeIds.ceoLoveLetters => "CEO LOVE LETTERS REVEALED",
     LootTypeIds.ceoTaxPapers => "CEO TAX EVASION UNCOVERED",
     LootTypeIds.corpFiles => "CORPORATE CORRUPTION EXPOSED",
-    LootTypeIds.ccsBackerList => "CCS GOVERNMENT TIES REVEALED",
+    LootTypeIds.ccsBackerList => "FCS GOVERNMENT TIES REVEALED",
     LootTypeIds.intHqDisk => "INTELLIGENCE FILES LEAKED",
     LootTypeIds.secretDocuments => "INTELLIGENCE DOCS LEAKED",
     LootTypeIds.policeRecords => "POLICE MISCONDUCT EXPOSED",

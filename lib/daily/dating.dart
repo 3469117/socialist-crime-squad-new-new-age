@@ -212,7 +212,7 @@ Future<bool> completeDate(DatingSession d, Creature p) async {
       " spends the night getting drunk alone.",
       " gets chased out by an angry mob.",
       " gets stuck washing dishes all night.",
-      " is rescued by a passing Elite Liberal.",
+      " is rescued by a passing Revolutionary Socialist.",
       " makes like a tree and leaves."
     ];
     const List<String> dateFailOnline = [
@@ -329,7 +329,7 @@ Future<bool> completeDate(DatingSession d, Creature p) async {
 
     addOptionText(14, 0, "D", "D - Break it off.");
     if (e.align == Alignment.conservative && !p.hospitalized && sameCity) {
-      addOptionText(15, 0, "E", "E - Just kidnap the Conservative.");
+      addOptionText(15, 0, "E", "E - Just kidnap the Fascist.");
     }
 
     int thingsincommon = countCommonInterests(p, e);
@@ -415,7 +415,7 @@ Future<bool> completeDate(DatingSession d, Creature p) async {
           weapon = p.weapon.getName(sidearm: true);
           addstr(" comes back from the bathroom toting the $weapon");
           move(18, 0);
-          addstr("and threatens to blow the Conservative's brains out!");
+          addstr("and threatens to blow the Fascist's brains out!");
 
           bonus = 5;
           ranged = true;
@@ -450,7 +450,7 @@ Future<bool> completeDate(DatingSession d, Creature p) async {
         Future<void> successfulKidnap(int y) async {
           move(y++, 0);
           addstr(p.name);
-          addstr(" kidnaps the Conservative!");
+          addstr(" kidnaps the Fascist!");
 
           await getKey();
 
@@ -523,7 +523,7 @@ Future<bool> completeDate(DatingSession d, Creature p) async {
             setColor(yellow);
             move(y++, 0);
             addstr("${p.name} breaks free after a wild struggle.");
-            mvaddstr(y++, 0, "Unfortunately, the Conservative escapes...");
+            mvaddstr(y++, 0, "Unfortunately, the Fascist escapes...");
 
             // Charge with kidnapping
             p.wantedForCrimes[Crime.kidnapping] =
@@ -556,7 +556,7 @@ Future<bool> completeDate(DatingSession d, Creature p) async {
               await getKey();
             }
             move(y++, 0);
-            addstr("The Liberal wakes up in the police station...");
+            addstr("The Socialist wakes up in the police station...");
 
             // Find the police station
             Site? ps =
@@ -718,7 +718,7 @@ Future<DateResult> dateResult(int aroll, int troll, DatingSession d, Creature e,
       setColor(white);
       move(0, 0);
       if (e.align != Alignment.liberal) {
-        addstr("The Liberal Rebirth of ");
+        addstr("The Socialist Rebirth of ");
       } else {
         addstr("The Radicalization of ");
       }

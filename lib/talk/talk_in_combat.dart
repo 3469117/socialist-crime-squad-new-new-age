@@ -73,7 +73,7 @@ Future<bool> talkInCombat(Creature liberal, Creature target) async {
       case 0:
         addstr("\"Back off or the hostage dies!\"");
       case 1:
-        addstr("\"Don't push the LCS!\"");
+        addstr("\"Don't push the SCS!\"");
       case 2:
         addstr("\"Hostage says you better leave!\"");
       case 3:
@@ -167,7 +167,7 @@ Future<bool> talkInCombat(Creature liberal, Creature target) async {
       }
       if (!noretreat || e == null) {
         clearMessageArea();
-        mvaddstrc(9, 1, white, "The ploy works! The Conservatives back off.");
+        mvaddstrc(9, 1, white, "The ploy works! The Fascists back off.");
         for (int i = encounter.length - 1; i >= 0; i--) {
           if (encounter[i].alive && encounter[i].isEnemy) {
             encounter.removeAt(i);
@@ -409,7 +409,7 @@ Future<bool> talkInCombat(Creature liberal, Creature target) async {
         case SiegeType.medicalDebtCollectors:
           addstr("pretends to be an accountant.");
         case SiegeType.none:
-          addstr("sniffs around for Liberals.");
+          addstr("sniffs around for Socialists.");
       }
     } else {
       //Special bluff messages for various uniforms
@@ -547,19 +547,19 @@ Future<void> intimidate(Creature liberal) async {
     addstr(
       [
         formattedSlogan,
-        "Run, you Conservative swine!",
-        "We're the Liberal Crime Squad!",
+        "Run, you Fascist swine!",
+        "We're the Socialist Crime Squad!",
         "Praying won't help you now!",
         "You fight like a dairy farmer!",
         "You're in the wrong place!",
-        "Don't mess with the LCS!",
+        "Don't mess with the SCS!",
         "You're in for it now!",
         "Go now or I'll kill you!",
         "Run away, and never return!",
         if (noProfanity) "[Please leave!]" else "Get the fuck out of here!",
         "I swear to Darwin I'll end you!",
         "Don't make me ${noProfanity ? "[be mean]" : "fuck you up"}!",
-        "I pity the fool who stands against the LCS!",
+        "I pity the fool who stands against the SCS!",
         "Anybody feel like dying a hero?",
       ].random,
     );

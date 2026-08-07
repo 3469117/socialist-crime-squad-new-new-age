@@ -20,17 +20,17 @@ Future<bool> liberalAgenda([AgendaVibe vibe = AgendaVibe.ongoing]) async {
   while (true) {
     erase();
     if (vibe == AgendaVibe.liberalVictory) {
-      mvaddstrc(0, 0, lightGreen, "The Triumph of the Liberal Agenda");
-      mvaddstr(23, 0, "The country has achieved Elite Liberal status!");
+      mvaddstrc(0, 0, lightGreen, "The Triumph of the Socialist Agenda");
+      mvaddstr(23, 0, "The country has achieved Revolutionary Socialist status!");
       addPageButtons(y: 24, x: 0);
       addOptionText(24, console.x + 4, "L", "L - View the high score list");
     } else if (vibe == AgendaVibe.conservativeVictory) {
-      mvaddstrc(0, 0, red, "The Abject Failure of the Liberal Agenda");
+      mvaddstrc(0, 0, red, "The Abject Failure of the Socialist Agenda");
       mvaddstr(23, 0, "The country has been Reaganified.");
       addPageButtons(y: 24, x: 0);
       addOptionText(24, console.x + 4, "L", "L - View the high score list");
     } else {
-      mvaddstrc(0, 0, white, "The Status of the Liberal Agenda");
+      mvaddstrc(0, 0, white, "The Status of the Socialist Agenda");
       addOptionText(24, 0, "D", "D - Disband and Wait");
       addPageButtons(y: 24, x: console.x + 4, short: true);
       addOptionText(24, console.x + 4, "Any other key", "Any Other Key - Exit");
@@ -71,7 +71,7 @@ Future<bool> _confirmDisband() async {
     "Climate Change",
     "Immigration Reform",
     "Human Rights",
-    "Liberal Feminism",
+    "Socialist Feminism",
     "Trans Rights",
     "Right To Privacy",
     "Legalized Marijuana",
@@ -88,7 +88,7 @@ Future<bool> _confirmDisband() async {
   mvaddstr(
     2,
     0,
-    "Disbanding scatters the Liberal Crime Squad, sending all of its members",
+    "Disbanding scatters the Socialist Crime Squad, sending all of its members",
   );
   mvaddstr(
     3,
@@ -104,7 +104,7 @@ Future<bool> _confirmDisband() async {
   mvaddstr(
     6,
     0,
-    "If at any time you determine that the Liberal Crime Squad will be needed",
+    "If at any time you determine that the Socialist Crime Squad will be needed",
   );
   mvaddstr(
     7,
@@ -123,7 +123,7 @@ Future<bool> _confirmDisband() async {
     13,
     0,
     white,
-    "Type this Liberal phrase to confirm (press a wrong letter to rethink it):",
+    "Type this Socialist phrase to confirm (press a wrong letter to rethink it):",
   );
 
   for (int pos = 0; pos < word.length;) {
@@ -275,15 +275,15 @@ void _printSingleLaw(AgendaVibe vibe, int i) {
 }
 
 void _alignmentKey(int y) {
-  mvaddstrc(y, 0, DeepAlignment.eliteLiberal.color, "Elite Liberal");
+  mvaddstrc(y, 0, DeepAlignment.eliteLiberal.color, "Revolutionary Socialist");
   addstrc(lightGray, "  -  ");
-  addstrc(DeepAlignment.liberal.color, "Liberal");
+  addstrc(DeepAlignment.liberal.color, "Socialist");
   addstrc(lightGray, "  -  ");
   addstrc(DeepAlignment.moderate.color, "moderate");
   addstrc(lightGray, "  -  ");
-  addstrc(DeepAlignment.conservative.color, "Conservative");
+  addstrc(DeepAlignment.conservative.color, "Fascist");
   addstrc(lightGray, "  -  ");
-  addstrc(DeepAlignment.archConservative.color, "Arch-Conservative");
+  addstrc(DeepAlignment.archConservative.color, "Arch-Fascist");
 }
 
 void _lawsPage(int start, AgendaVibe vibe) {
@@ -406,7 +406,7 @@ void _pollsPage(int start) {
       case View.genetics:
         addstr("support regulation of genetic research");
       case View.justices:
-        addstr("are for the appointment of Liberal Justices");
+        addstr("are for the appointment of Socialist Justices");
       case View.gunControl:
         addstr("are concerned about gun violence");
       case View.sweatshops:
@@ -428,21 +428,21 @@ void _pollsPage(int start) {
           addstr("want to legalize marijuana");
         }
       case View.immigration:
-        addstr("support Liberal immigration policy");
+        addstr("support Socialist immigration policy");
       case View.military:
         addstr("believe that military spending is too high");
       case View.prisons:
         addstr("want prisons to focus on rehabilitation");
       case View.amRadio:
-        addstr("find Conservative AM Radio distasteful");
+        addstr("find Fascist AM Radio distasteful");
       case View.cableNews:
-        addstr("do not trust Conservative Cable News");
+        addstr("do not trust Fascist Cable News");
       case View.lcsKnown:
-        addstr("have heard of the Liberal Crime Squad");
+        addstr("have heard of the Socialist Crime Squad");
       case View.lcsLiked:
-        addstr("consider the Liberal Crime Squad a force for good");
+        addstr("consider the Socialist Crime Squad a force for good");
       case View.ccsHated:
-        addstr("want the Conservative Crime Squad brought to justice");
+        addstr("want the Fascist Crime Squad brought to justice");
       case View.housing:
         addstr("want the government to provide affordable housing");
       case View.healthcare:
@@ -460,16 +460,16 @@ String _concernString(View view) {
       if (publicOpinion[View.lcsKnown]! < 50) {
         return "obscure radical groups";
       } else if (publicOpinion[View.lcsLiked]! > 50) {
-        return "the Liberal Crime Squad";
+        return "the Socialist Crime Squad";
       } else {
-        return "the LCS terrorists";
+        return "the SCS terrorists";
       }
     case View.amRadio:
     case View.cableNews:
       if (publicOpinion[View.amRadio]! + publicOpinion[View.cableNews]! > 100) {
-        return "Conservative media bias";
+        return "Fascist media bias";
       } else {
-        return "Liberal media bias";
+        return "Socialist media bias";
       }
     case View.lgbtRights:
       if (publicOpinion[view]! > 50) {
@@ -533,9 +533,9 @@ String _concernString(View view) {
       }
     case View.justices:
       if (publicOpinion[view]! > 50) {
-        return "appointing more Liberal justices";
+        return "appointing more Socialist justices";
       } else {
-        return "appointing more Conservative justices";
+        return "appointing more Fascist justices";
       }
     case View.gunControl:
       if (publicOpinion[view]! > 50) {
@@ -613,9 +613,9 @@ String _concernString(View view) {
       }
     case View.ccsHated:
       if (publicOpinion[view]! > 50) {
-        return "the CCS terrorists";
+        return "the FCS terrorists";
       } else {
-        return "the CCS patriots";
+        return "the FCS patriots";
       }
     case View.housing:
       if (publicOpinion[view]! > 50) {

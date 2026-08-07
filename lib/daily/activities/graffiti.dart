@@ -60,7 +60,7 @@ Future<void> doActivityGraffiti(List<Creature> graffiti) async {
         activity = "working on the mural";
         graffiti[s].activity.view = null;
       } else {
-        activity = "spraying an LCS tag";
+        activity = "spraying an SCS tag";
       }
 
       await showMessage(

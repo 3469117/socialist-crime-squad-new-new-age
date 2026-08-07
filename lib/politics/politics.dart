@@ -18,28 +18,28 @@ class Politics {
     Politics p = Politics();
     p.publicOpinion[View.lcsKnown] = 0;
     p.publicOpinion[View.lcsLiked] = 5;
-    p.laws[Law.abortion] = DeepAlignment.moderate;
+    p.laws[Law.abortion] = DeepAlignment.conservative;
     p.laws[Law.animalRights] = DeepAlignment.conservative;
-    p.laws[Law.policeReform] = DeepAlignment.conservative;
+    p.laws[Law.policeReform] = DeepAlignment.archConservative;
     p.laws[Law.privacy] = DeepAlignment.conservative;
     p.laws[Law.deathPenalty] = DeepAlignment.moderate;
     p.laws[Law.nuclearPower] = DeepAlignment.moderate;
     p.laws[Law.pollution] = DeepAlignment.conservative;
     p.laws[Law.labor] = DeepAlignment.conservative;
-    p.laws[Law.lgbtRights] = DeepAlignment.liberal;
+    p.laws[Law.lgbtRights] = DeepAlignment.moderate;
     p.laws[Law.corporate] = DeepAlignment.conservative;
-    p.laws[Law.freeSpeech] = DeepAlignment.liberal;
-    p.laws[Law.flagBurning] = DeepAlignment.eliteLiberal;
+    p.laws[Law.freeSpeech] = DeepAlignment.moderate;
+    p.laws[Law.flagBurning] = DeepAlignment.liberal;
     p.laws[Law.gunControl] = DeepAlignment.conservative;
-    p.laws[Law.taxes] = DeepAlignment.moderate;
+    p.laws[Law.taxes] = DeepAlignment.conservative;
     p.laws[Law.genderEquality] = DeepAlignment.moderate;
     p.laws[Law.civilRights] = DeepAlignment.moderate;
     p.laws[Law.drugs] = DeepAlignment.moderate;
-    p.laws[Law.immigration] = DeepAlignment.moderate;
-    p.laws[Law.elections] = DeepAlignment.liberal;
+    p.laws[Law.immigration] = DeepAlignment.conservative;
+    p.laws[Law.elections] = DeepAlignment.moderate;
     p.laws[Law.military] = DeepAlignment.conservative;
     p.laws[Law.prisons] = DeepAlignment.conservative;
-    p.laws[Law.torture] = DeepAlignment.liberal;
+    p.laws[Law.torture] = DeepAlignment.moderate;
     p.laws[Law.housing] = DeepAlignment.conservative;
     p.laws[Law.healthcare] = DeepAlignment.moderate;
     p.laws[Law.retirement] = DeepAlignment.moderate;
@@ -81,24 +81,24 @@ class Politics {
     for (Law l in Law.values) l: DeepAlignment.conservative
   };
   List<DeepAlignment> senate = List.generate(100, (s) {
-    if (s < 40) return DeepAlignment.archConservative;
-    if (s < 55) return DeepAlignment.conservative;
-    if (s < 65) return DeepAlignment.moderate;
-    if (s < 80) return DeepAlignment.liberal;
+    if (s < 18) return DeepAlignment.archConservative;
+    if (s < 53) return DeepAlignment.conservative;
+    if (s < 85) return DeepAlignment.moderate;
+    if (s < 98) return DeepAlignment.liberal;
     return DeepAlignment.eliteLiberal;
   });
   List<DeepAlignment> house = List.generate(435, (h) {
-    if (h < 170) return DeepAlignment.archConservative;
-    if (h < 230) return DeepAlignment.conservative;
-    if (h < 260) return DeepAlignment.moderate;
-    if (h < 310) return DeepAlignment.liberal;
+    if (h < 80) return DeepAlignment.archConservative;
+    if (h < 235) return DeepAlignment.conservative;
+    if (h < 375) return DeepAlignment.moderate;
+    if (h < 430) return DeepAlignment.liberal;
     return DeepAlignment.eliteLiberal;
   });
   List<DeepAlignment> court = List.generate(9, (j) {
     if (j < 2) return DeepAlignment.archConservative;
     if (j < 6) return DeepAlignment.conservative;
-    if (j < 8) return DeepAlignment.liberal;
-    return DeepAlignment.eliteLiberal;
+    if (j < 8) return DeepAlignment.moderate;
+    return DeepAlignment.liberal;
   });
   late List<FullName> courtName = court.map<FullName>((c) {
     if (c == DeepAlignment.archConservative) {
@@ -115,7 +115,7 @@ class Politics {
   };
   int execTerm = 1;
   PoliticalParty presidentParty = PoliticalParty.republican;
-  String oldPresidentName = "Donald J. Trump";
+  String oldPresidentName = "Joseph R. Biden Jr.";
   bool termLimitsPassed = false;
   bool supremeCourtPurged = false;
   int constitutionalAmendments = 27;

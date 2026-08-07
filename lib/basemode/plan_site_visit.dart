@@ -58,18 +58,18 @@ Future<void> planSiteVisit() async {
         addstrc(white, " (Current Location)");
       } else if (thisSite?.controller == SiteController.lcs) {
         if (thisSite!.heatProtection <= 5) {
-          addstrc(lightGreen, " (LCS Temp Shelter)");
+          addstrc(lightGreen, " (SCS Temp Shelter)");
         } else {
           if (thisSite.creaturesPresent.isEmpty &&
               !thisSite.compound.upgraded) {
             addstrc(lightGreen, " (Potential Safehouse)");
           } else {
-            addstrc(lightGreen, " (LCS Safehouse)");
+            addstrc(lightGreen, " (SCS Safehouse)");
           }
         }
       } else if (thisSite?.controller == SiteController.ccs &&
           (ccsInPublicEye || thisSite?.mapped == true)) {
-        addstrc(red, " (CCS Safehouse)");
+        addstrc(red, " (FCS Safehouse)");
       } else if (thisSite?.isClosed == true) {
         addstrc(red, " (Closed Down)");
       } else if (thisSite?.hasHighSecurity == true) {
@@ -106,7 +106,7 @@ Future<void> planSiteVisit() async {
     if (page + 1 < destinationList.length / 11) mvaddstr(20, 60, nextPageStr);
     if (area == squadLocation?.city) {
       addOptionText(
-          24, 1, "Enter", "Enter - The Squad is not yet Liberal enough");
+          24, 1, "Enter", "Enter - The Squad is not yet Socialist enough");
     } else {
       addOptionText(24, 1, "Enter", "Enter - Back one step");
     }

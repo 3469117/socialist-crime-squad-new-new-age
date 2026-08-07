@@ -40,20 +40,20 @@ Future<void> setupNewGame() async {
     ),
     (
       "The End of the World as We Know It",
-      "Liberalism is already forgotten.  Is it too late to fight back?",
+      "The center is collapsing.  Can the Fascists still be stopped?",
       red,
     ),
   ];
   final List<(String, String, Color)> ccsChoices = [
-    ("Clear Blue Skies", "The CCS will never appear.", lightGreen),
+    ("Clear Blue Skies", "The FCS will never appear.", lightGreen),
     (
       "Bad Blood",
-      "A rival CCS will form eventually and grow stronger over time.",
+      "A rival FCS will form eventually and grow stronger over time.",
       yellow,
     ),
     (
       "We Didn't Start The Fire",
-      "The CCS starts active and extremely strong.",
+      "The FCS starts active and extremely strong.",
       red,
     ),
   ];
@@ -82,12 +82,34 @@ Future<void> setupNewGame() async {
     addOptionText(y, 2, key, "$key - $category:");
     mvaddstrx(y, 35, "&$colorKey$name");
     setColor(midGray);
-    mvaddstr(y + 1, 6, description);
+
+    // SCS 2026: wrap option descriptions inside the 80-column game viewport.
+    // Each option has two rows available before the next option begins.
+    const int descriptionWidth = 72;
+    final words = description.split(" ");
+    var line = "";
+    var row = y + 1;
+
+    for (final word in words) {
+      final candidate = line.isEmpty ? word : "$line $word";
+      if (candidate.length > descriptionWidth && line.isNotEmpty) {
+        mvaddstr(row, 6, line);
+        row++;
+        line = word;
+        if (row > y + 2) break;
+      } else {
+        line = candidate;
+      }
+    }
+
+    if (line.isNotEmpty && row <= y + 2) {
+      mvaddstr(row, 6, line);
+    }
   }
 
   while (true) {
     erase();
-    mvaddstrc(4, 6, white, "New Game of Liberal Crime Squad: Gameplay Options");
+    mvaddstrc(4, 6, white, "New Game of Socialist Crime Squad: New New Age: Gameplay Options");
     cyclingOption(
       7,
       "A",
@@ -95,7 +117,7 @@ Future<void> setupNewGame() async {
       gameWorldChoices,
       gameWorld,
     );
-    cyclingOption(10, "B", "Conservative Crime Squad", ccsChoices, ccsOption);
+    cyclingOption(10, "B", "Fascist Crime Squad", ccsChoices, ccsOption);
     cyclingOption(13, "C", "Combat Difficulty", initiativeChoices, initiative);
 
     mvaddstrx(
@@ -230,7 +252,7 @@ Future<void> makeCharacter() async {
 
   while (true) {
     erase();
-    mvaddstrc(4, 6, white, "The Founder of the Liberal Crime Squad");
+    mvaddstrc(4, 6, white, "The Founder of Socialist Crime Squad: New New Age");
 
     mvaddstrc(7, 2, lightGray, "Given Name: ");
     addstrc(white, first[sex]!);
@@ -317,7 +339,7 @@ Future<void> makeCharacter() async {
   founder.gender = founder.genderAssignedAtBirth = sex;
   founder.properName = "${first[sex]!} $last";
   founder.name = founder.properName;
-  squads.add(Squad()..name = "The Liberal Crime Squad");
+  squads.add(Squad()..name = "The Socialist Crime Squad");
   founder.squad = squads.first;
   activeSquad = squads.first;
   pool.add(founder);
@@ -450,7 +472,7 @@ Future<void> aNewConservativeEra() async {
   mvaddstr(
     6,
     2,
-    "Following a series of violent protests from the far right, Conservative",
+    "Following a series of violent protests from the far right, Fascist",
   );
   mvaddstr(
     7,
@@ -471,17 +493,17 @@ Future<void> aNewConservativeEra() async {
   mvaddstr(
     11,
     2,
-    "With Conservatives having swept into power in the recent midterm elections,",
+    "With Fascists having swept into power in the recent midterm elections,",
   );
   mvaddstr(
     12,
     2,
-    "and a Conservative majority in the Supreme Court of the United States,",
+    "and a Fascist majority in the Supreme Court of the United States,",
   );
   mvaddstr(
     13,
     2,
-    "commentators are hailing it as the beginning of a new Conservative era.",
+    "commentators are hailing it as the beginning of a new Fascist era.",
   );
 
   move(15, 2);
@@ -489,16 +511,16 @@ Future<void> aNewConservativeEra() async {
   addstr(
     "President ${execName[Exec.president]!.firstLast} has asked the new Congress to move quickly",
   );
-  mvaddstr(16, 2, "to rubber stamp his radical Arch-Conservative agenda. ");
+  mvaddstr(16, 2, "to rubber stamp his radical Arch-Fascist agenda. ");
   setColor(lightGray);
   addstr("The left seems");
   mvaddstr(
     17,
     2,
-    "powerless to stop this imminent trampling of Liberal Sanity and Justice.",
+    "powerless to stop this imminent trampling of Socialist Sanity and Justice.",
   );
 
-  mvaddstr(19, 2, "In this dark time, the Liberal Crime Squad is born...");
+  mvaddstr(19, 2, "In this dark time, the Socialist Crime Squad is born...");
 
   await getKey();
 

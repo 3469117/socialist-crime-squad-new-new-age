@@ -411,7 +411,7 @@ Future<void> siegeCheck() async {
           if (ceoSleeper != null) {
             addstr(l.getName(includeCity: true));
           } else {
-            addstr("the LCS.");
+            addstr("the SCS.");
           }
           await getKey();
         }
@@ -430,7 +430,7 @@ Future<void> siegeCheck() async {
           1,
           "In a groundbreaking act of synergy, the Corporations have decided "
           "to diversify their operations into a micro-targeted deplatforming "
-          "campaign with the goal of downsizing the LCS "
+          "campaign with the goal of downsizing the SCS "
           "into a fine red mist.",
         );
         await getKey();
@@ -517,7 +517,7 @@ Future<void> siegeCheck() async {
           if (medicalSleeper != null) {
             message += l.getName(includeCity: true);
           } else {
-            message += "the LCS";
+            message += "the SCS";
           }
           message += " to secure payment of unpaid hospital bills.";
           setColor(white);
@@ -553,7 +553,7 @@ Future<void> siegeCheck() async {
           console.y + 1,
           1,
           "A gangly accountant climbs up onto one of the ambulances and "
-          "speaks into a loudspeaker: \"Liberal Crime Squad! We're here "
+          "speaks into a loudspeaker: \"Socialist Crime Squad! We're here "
           "to collect on your unpaid hospital bills! We have no political "
           "issue with you, we're not gonna try to bring you to justice "
           "or anything like that, but you owe us a buncha money and "
@@ -646,7 +646,7 @@ Future<void> siegeCheck() async {
             await getKey();
 
             erase();
-            mvaddstrc(0, 1, white, "CCS CAR BOMBING CASUALTY REPORT");
+            mvaddstrc(0, 1, white, "FCS CAR BOMBING CASUALTY REPORT");
 
             mvaddstr(2, 1, "KILLED: ");
             int killedY = 2;
@@ -696,7 +696,7 @@ Future<void> siegeCheck() async {
               8,
               1,
               red,
-              "CCS members pour out of the truck and shoot in the front doors!",
+              "FCS members pour out of the truck and shoot in the front doors!",
             );
             await getKey();
 
@@ -833,7 +833,7 @@ Future<void> siegeCheck() async {
           1,
           "Overnight, a fringe far-right social media account published a "
           "detailed conspiracy theory about a building where an enclave of "
-          "hundreds of Liberal elites were supposedly generating forgeries, "
+          "hundreds of Socialist elites were supposedly generating forgeries, "
           "deepfakes, and committing unspeakable crimes against innocent "
           "children.",
         );
@@ -923,7 +923,7 @@ Future<void> siegeTurn() async {
       int eaters = l.numberEating;
       if (l.compound.rations == 0 && eaters > 0) {
         starving = true;
-        await showMessage("Your Liberals are starving!");
+        await showMessage("Your Socialists are starving!");
       }
       if (l.compound.rations >= eaters) {
         l.compound.rations -= eaters;
@@ -1017,7 +1017,7 @@ Future<void> siegeTurn() async {
                   "Hit! One of the bombers slams into to the ground.",
                 );
                 await showMessage(
-                  "It's all over the TV. Everyone in the Liberal Crime Squad gains 20 juice!",
+                  "It's all over the TV. Everyone in the Socialist Crime Squad gains 20 juice!",
                 );
                 for (Creature p in pool) {
                   addjuice(p, 20, 1000);
@@ -1135,7 +1135,7 @@ Future<void> siegeTurn() async {
           ns.byline = "By ${repname.firstLast}";
           ns.publicationName = publicationName;
           ns.publicationAlignment = DeepAlignment.moderate;
-          ns.headline = "INTERVIEW: LCS UNDER SIEGE";
+          ns.headline = "INTERVIEW: SCS UNDER SIEGE";
 
           int best = 0;
           int bestvalue = -1000;
@@ -1570,14 +1570,14 @@ Future<void> fightHomelessCampSiege() async {
   mvaddstr(6, 11, "Some agitators are also turning out to resist with you.");
 
   mvaddstr(8, 11, "Your Squad has filled out to six members if any were ");
-  mvaddstr(9, 11, "available.  If you have a larger pool of Liberals, they");
+  mvaddstr(9, 11, "available.  If you have a larger pool of Socialists, they");
   mvaddstr(10, 11, "will provide cover fire and hang back until needed.");
 
   mvaddstrc(
     23,
     11,
     red,
-    "Press any key to Confront the Conservative Aggressors",
+    "Press any key to Confront the Fascist Aggressors",
   );
 
   await getKey();
@@ -1598,7 +1598,7 @@ Future<void> sallyForth() async {
     3,
     16,
     lightGray,
-    "You are about to exit the compound to lift the Conservative",
+    "You are about to exit the compound to lift the Fascist",
   );
   mvaddstr(4, 11, "siege on your safehouse.  The enemy is ready for you, and");
   mvaddstr(
@@ -1609,14 +1609,14 @@ Future<void> sallyForth() async {
   mvaddstr(6, 11, "encounter.");
 
   mvaddstr(8, 11, "Your Squad has filled out to six members if any were ");
-  mvaddstr(9, 11, "available.  If you have a larger pool of Liberals, they");
+  mvaddstr(9, 11, "available.  If you have a larger pool of Socialists, they");
   mvaddstr(10, 11, "will provide cover fire from the compound until needed.");
 
   mvaddstrc(
     23,
     11,
     red,
-    "Press any key to Confront the Conservative Aggressors",
+    "Press any key to Confront the Fascist Aggressors",
   );
 
   await getKey();
@@ -1689,14 +1689,14 @@ Future<void> escapeOrEngage() async {
     3,
     16,
     lightGray,
-    "You are about to engage Conservative forces in battle.",
+    "You are about to engage Fascist forces in battle.",
   );
   mvaddstr(
     4,
     11,
-    "You will find yourself in the Liberal safehouse, and it will",
+    "You will find yourself in the Socialist safehouse, and it will",
   );
-  mvaddstr(5, 11, "be swarming with Conservative units.  The Liberal Crime");
+  mvaddstr(5, 11, "be swarming with Fascist units.  The Socialist Crime");
   mvaddstr(
     6,
     11,
@@ -1710,21 +1710,21 @@ Future<void> escapeOrEngage() async {
   mvaddstr(
     8,
     11,
-    "off the Conservatives within the perimeter.  Either way you",
+    "off the Fascists within the perimeter.  Either way you",
   );
   mvaddstr(
     9,
     11,
     "choose, any equipment from the safehouse which isn't held by a",
   );
-  mvaddstr(10, 11, "Liberal will be scattered about the compound.  Save what");
+  mvaddstr(10, 11, "Socialist will be scattered about the compound.  Save what");
   mvaddstr(11, 11, "you can.  You might notice your Squad has filled out to");
   mvaddstr(
     12,
     11,
     "six members if any were available.  If you have a larger pool",
   );
-  mvaddstr(13, 11, "of Liberals, they will be traveling behind the Squad.");
+  mvaddstr(13, 11, "of Socialists, they will be traveling behind the Squad.");
   mvaddstr(14, 11, "There is a new button, (R)eorganize, which reflects this.");
   mvaddstr(15, 11, "Squad members in the back with firearms can provide cover");
   mvaddstr(
@@ -1746,7 +1746,7 @@ Future<void> escapeOrEngage() async {
     23,
     11,
     red,
-    "Press any key to Confront the Conservative Aggressors",
+    "Press any key to Confront the Fascist Aggressors",
   );
 
   await getKey();
@@ -1809,12 +1809,12 @@ Future<void> escapeSiege(bool won) async {
       3,
       16,
       lightGray,
-      "The Conservatives thought that the Liberal Crime Squad was",
+      "The Fascists thought that the Socialist Crime Squad was",
     );
     mvaddstr(
       4,
       11,
-      "finished, but once again, Conservative Thinking has proven",
+      "finished, but once again, Fascist Thinking has proven",
     );
     mvaddstr(5, 11, "itself to be based on Unsound Notions.");
     mvaddstr(
@@ -1832,7 +1832,7 @@ Future<void> escapeSiege(bool won) async {
     mvaddstr(
       10,
       11,
-      "given you some time to regroup, but the Conservatives will",
+      "given you some time to regroup, but the Fascists will",
     );
     mvaddstr(11, 11, "doubtless be preparing another assault.");
 
@@ -1922,14 +1922,14 @@ Future<void> conquerText() async {
         "you might consider abandoning this safe house for a safer location.";
   } else {
     text =
-        "The Conservative automatons have been driven back.  Unfortunately, "
+        "The Fascist automatons have been driven back.  Unfortunately, "
         "you will never truly be safe from these extremists until the "
-        "Liberal Agenda is realized.";
+        "Socialist Agenda is realized.";
   }
   setColor(lightGray);
   addparagraph(3, 11, x2: 69, text);
 
-  addOptionText(7, 19, "C", "Press C to Continue Liberally.");
+  addOptionText(7, 19, "C", "Press C to Continue Socialistly.");
 
   while (await getKey() != Key.c) {}
 }
@@ -1948,7 +1948,7 @@ Future<void> conquerTextCCS() async {
           "their victory.\n\n";
     } else if (ccsBossConverts > 0) {
       text +=
-          "The CCS Lieutenant lost in self-realization, the squad "
+          "The FCS Lieutenant lost in self-realization, the squad "
           "slips away.\n\n";
     } else if (ccsSiegeKills > 10) {
       text +=
@@ -1956,48 +1956,48 @@ Future<void> conquerTextCCS() async {
           "their victory.\n\n";
     } else {
       text +=
-          "The CCS Lieutenant lying dead at their feet, the squad "
+          "The FCS Lieutenant lying dead at their feet, the squad "
           "slips away.\n\n";
     }
     text +=
-        "The CCS Founder wasn't here, but for now, their power has been "
+        "The FCS Founder wasn't here, but for now, their power has been "
         "severely weakened.  Once the safehouse cools off, this will make a "
-        "fine base for our future Liberal operations.";
+        "fine base for our future Socialist operations.";
   } else {
     bool pacifist = false;
     if (ccsSiegeConverts > 10) {
       text +=
           "Music still ringing in their ears, the squad revels in "
           "their final victory.\n\n"
-          "As your Liberals speak to the former CCS members, it is increasingly "
-          "clear that this was the CCS's last safehouse.\n\n";
+          "As your Socialists speak to the former FCS members, it is increasingly "
+          "clear that this was the FCS's last safehouse.\n\n";
       pacifist = true;
     } else if (ccsBossConverts > 0) {
       text +=
-          "The CCS Founder lost in self-realization, the squad "
+          "The FCS Founder lost in self-realization, the squad "
           "slips away.\n\n"
           "With even its Founder swearing off Conservatism forever, the last "
-          "of the CCS's morale and confidence is shattered.\n\n";
+          "of the FCS's morale and confidence is shattered.\n\n";
       pacifist = true;
     } else if (ccsSiegeKills > 10) {
       text +=
           "Gunfire still ringing in their ears, the squad revels in their "
           "final victory.\n\n"
-          "As your Liberals pick through the remains of the safehouse, it is "
-          "increasingly clear that this was the CCS's last safehouse.\n\n";
+          "As your Socialists pick through the remains of the safehouse, it is "
+          "increasingly clear that this was the FCS's last safehouse.\n\n";
     } else {
       text +=
-          "The CCS Founder lying dead at their feet, the squad "
+          "The FCS Founder lying dead at their feet, the squad "
           "slips away.\n\n"
-          "With its leadership crushed by the forces of Liberalism, the last "
-          "of the CCS's morale and confidence is shattered.\n\n";
+          "With its leadership crushed by the forces of Socialism, the last "
+          "of the FCS's morale and confidence is shattered.\n\n";
     }
 
     text +=
         "The CCS has been completely ${pacifist ? "neutralized" : "destroyed"}.  Now wasn't there a "
         "revolution to attend to?\n\n";
     text +=
-        "+200 JUICE TO EVERYONE FOR ${pacifist ? "CONVERTING" : "ERADICATING"} THE CONSERVATIVE CRIME SQUAD";
+        "+200 JUICE TO EVERYONE FOR ${pacifist ? "CONVERTING" : "ERADICATING"} THE FASCIST CRIME SQUAD";
 
     for (Creature p in pool) {
       addjuice(p, 200, 1000);
@@ -2013,7 +2013,7 @@ Future<void> conquerTextCCS() async {
   setColor(lightGray);
   addparagraph(3, 11, x2: 69, text);
 
-  addOptionText(15, 19, "C", "Press C to Continue Liberally.");
+  addOptionText(15, 19, "C", "Press C to Continue Socialistly.");
 
   while (await getKey() != Key.c) {}
 
@@ -2033,18 +2033,18 @@ Future<void> ccsRemainingSafehouseIntel(List<Site> remaining) async {
     1,
     1,
     white,
-    "The LCS has captured intelligence on the remaining CCS operations.",
+    "The SCS has captured intelligence on the remaining FCS operations.",
   );
 
   int y = 3;
   bool anyHidden = false;
-  mvaddstr(y++, 1, "Remaining CCS safehouses:");
+  mvaddstr(y++, 1, "Remaining FCS safehouses:");
   for (Site s in remaining) {
     setColor(lightGray);
     mvaddstr(y++, 5, "${s.getName()} in ${s.city.getName()}");
     if (s.hidden) {
       anyHidden = true;
-      addstrc(red, " (hidden CCS safehouse)");
+      addstrc(red, " (hidden FCS safehouse)");
     }
   }
 
@@ -2056,21 +2056,21 @@ Future<void> ccsRemainingSafehouseIntel(List<Site> remaining) async {
       1,
       x2: 78,
       "Hidden locations cannot be directly attacked until they are revealed "
-      "by finding a CCS member in that city and either turning them to your "
+      "by finding a FCS member in that city and either turning them to your "
       "cause, or capturing and interrogating them for information.",
     );
     addparagraph(
       console.y + 1,
       1,
       x2: 78,
-      "The Conservative Crime Squad doesn't usually advertise its members, "
-      "but they can be found in cities where the CCS is active. CCS members "
+      "The Fascist Crime Squad doesn't usually advertise its members, "
+      "but they can be found in cities where the FCS is active. FCS members "
       "often have clothing and weapons that don't match their cover "
       "identities.",
     );
   }
 
-  addOptionText(23, 19, "C", "Press C to Continue Liberally.");
+  addOptionText(23, 19, "C", "Press C to Continue Socialistly.");
   while (await getKey() != Key.c) {}
 }
 

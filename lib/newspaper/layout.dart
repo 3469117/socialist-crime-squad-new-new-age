@@ -63,7 +63,7 @@ void conservativeStarTop() {
   setColor(black, background: bgColor);
   mvaddstr(0, 2, "SAVING AMERICA ONE BULLET AT A TIME");
   setColor(darkRed, background: bgColor);
-  print3x3NewsText(1, 1, "Conservative Star");
+  print3x3NewsText(1, 1, "Fascist Star");
   setColor(black, background: bgColor);
   mvaddstr(1, 68, "DEO VINDICE");
   mvaddstr(2, 68, "WE KNOW OUR");
@@ -108,7 +108,7 @@ void liberalGuardianTop() {
   setColor(black, background: bgColor);
   mvaddstr(0, 2, slogan.toUpperCase());
   setColor(green, background: bgColor);
-  print3x3NewsText(1, 1, "Liberal Guardian");
+  print3x3NewsText(1, 1, "Socialist Guardian");
   setColor(black, background: bgColor);
   mvaddstr(1, 70, "THE TRUTH");
   mvaddstr(2, 70, "IS ALWAYS");

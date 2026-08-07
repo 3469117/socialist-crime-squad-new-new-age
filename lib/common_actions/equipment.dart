@@ -66,10 +66,10 @@ Future<void> equip(List<Item>? loot) async {
       mvaddstr(17, 53, nextPageStr);
     }
 
-    mvaddstrc(19, 1, lightGray, "Press a letter to equip a Liberal item");
+    mvaddstrc(19, 1, lightGray, "Press a letter to equip a Socialist item");
     mvaddstr(20, 1,
-        "Press a number to drop that Squad member's Conservative weapon");
-    addOptionText(21, 1, "S", "S - Liberally Strip a Squad member");
+        "Press a number to drop that Squad member's Fascist weapon");
+    addOptionText(21, 1, "S", "S - Socialistly Strip a Squad member");
     addOptionText(
         22, 1, "Cursors", "Cursors - Increase or decrease ammo allocation");
 
@@ -117,11 +117,11 @@ Future<void> equip(List<Item>? loot) async {
         move(8, 20);
         setColor(white);
         if (increaseammo) {
-          addstr("Choose a Liberal squad member to receive ammo.");
+          addstr("Choose a Socialist squad member to receive ammo.");
         } else if (decreaseammo) {
-          addstr("Choose a Liberal squad member to drop ammo.");
+          addstr("Choose a Socialist squad member to drop ammo.");
         } else {
-          addstr("Choose a Liberal squad member to receive it.");
+          addstr("Choose a Socialist squad member to receive it.");
         }
 
         c = await getKey();
@@ -234,7 +234,7 @@ Future<void> equip(List<Item>? loot) async {
       if (choice) {
         move(8, 20);
         setColor(white);
-        addstr("Choose a Liberal squad member to strip down.");
+        addstr("Choose a Socialist squad member to strip down.");
 
         c = await getKey();
       }

@@ -44,10 +44,10 @@ int displayStoryHeader(NewsStory ns, View? header) {
           getLastNameForHeadline(politics.oldPresidentName), 5, ns);
       displayCenteredNewsFont("ASSASSINATED", 11, ns);
     case NewsStories.ccsNoBackers:
-      displayCenteredNewsFont("FBI HUNTS CCS", 5, ns);
+      displayCenteredNewsFont("FBI HUNTS FCS", 5, ns);
       y = 11;
     case NewsStories.ccsDefeated:
-      displayCenteredNewsFont("RAIDS END CCS", 5, ns);
+      displayCenteredNewsFont("RAIDS END FCS", 5, ns);
       y = 11;
     case NewsStories.carTheft:
     case NewsStories.arrestGoneWrong:
@@ -57,10 +57,10 @@ int displayStoryHeader(NewsStory ns, View? header) {
     case NewsStories.squadFledAttack:
       Location? nsloc = ns.loc;
       if ((nsloc is Site) && nsloc.type == SiteType.homelessEncampment) {
-        displayCenteredNewsFont("LCS ESCAPES", 5, ns);
+        displayCenteredNewsFont("SCS ESCAPES", 5, ns);
         displayCenteredNewsFont("POLICE SWEEP", 11, ns);
       } else {
-        displayCenteredNewsFont("LCS ESCAPES", 5, ns);
+        displayCenteredNewsFont("SCS ESCAPES", 5, ns);
         displayCenteredNewsFont("POLICE SIEGE", 11, ns);
       }
     case NewsStories.squadDefended:
@@ -70,17 +70,17 @@ int displayStoryHeader(NewsStory ns, View? header) {
         displayCenteredNewsFont("HOMELESS RIOT", 5, ns);
         displayCenteredNewsFont("REPELS COPS", 11, ns);
       } else {
-        displayCenteredNewsFont("LCS FIGHTS", 5, ns);
+        displayCenteredNewsFont("SCS FIGHTS", 5, ns);
         displayCenteredNewsFont("OFF COPS", 11, ns);
       }
     case NewsStories.squadKilledInSiegeAttack:
     case NewsStories.squadKilledInSiegeEscape:
       if (ns.publicationAlignment != DeepAlignment.eliteLiberal) {
-        displayCenteredNewsFont("LCS SIEGE", 5, ns);
+        displayCenteredNewsFont("SCS SIEGE", 5, ns);
         displayCenteredNewsFont("TRAGIC END", 11, ns);
       } else {
         displayCenteredNewsFont("POLICE KILL", 5, ns);
-        displayCenteredNewsFont("LCS MARTYRS", 11, ns);
+        displayCenteredNewsFont("SCS MARTYRS", 11, ns);
       }
     case NewsStories.ccsSiteAction:
     case NewsStories.ccsKilledInSiteAction:
@@ -89,9 +89,9 @@ int displayStoryHeader(NewsStory ns, View? header) {
         displayCenteredNewsFont("CRIME SQUAD", 11, ns);
       } else {
         if (!ns.liberalSpin) {
-          displayCenteredNewsFont("CCS STRIKES", 5, ns);
+          displayCenteredNewsFont("FCS STRIKES", 5, ns);
         } else {
-          displayCenteredNewsFont("CCS RAMPAGE", 5, ns);
+          displayCenteredNewsFont("FCS RAMPAGE", 5, ns);
         }
         y = 11;
       }
@@ -102,10 +102,10 @@ int displayStoryHeader(NewsStory ns, View? header) {
             if (ns.priority > 250) {
               y = 11;
               displayCenteredNewsFont(
-                  ["HUGE LCS HIT", "UNSTOPPABLE"].random, 5, ns);
+                  ["HUGE SCS HIT", "UNSTOPPABLE"].random, 5, ns);
             } else {
               y = 11;
-              displayCenteredNewsFont("LCS STRIKES", 5, ns);
+              displayCenteredNewsFont("SCS STRIKES", 5, ns);
             }
           } else {
             y = 11;
@@ -219,7 +219,7 @@ int displayStoryHeader(NewsStory ns, View? header) {
                       ns);
               }
             } else {
-              displayCenteredNewsFont(["LCS STRIKES"].random, 5, ns);
+              displayCenteredNewsFont(["SCS STRIKES"].random, 5, ns);
             }
           }
         } else {
@@ -228,7 +228,7 @@ int displayStoryHeader(NewsStory ns, View? header) {
         }
       } else {
         if (lcsInPublicEye && ns.priority < 250) {
-          displayCenteredNewsFont("LCS RAMPAGE", 5, ns);
+          displayCenteredNewsFont("SCS RAMPAGE", 5, ns);
           y = 11;
         } else {
           displayCenteredNewsFont("LIBERAL CRIME", 5, ns);

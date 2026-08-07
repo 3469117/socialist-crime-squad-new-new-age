@@ -132,7 +132,7 @@ void displaysinglead(bool liberalguardian, List<(int, int)> addplace,
           ad += "&cVisit The Vegan&r";
           ad += "&cCo-Op&r";
         case 1:
-          ad = "&cLiberal Defense Lawyer&r";
+          ad = "&cSocialist Defense Lawyer&r";
           ad += "&c";
           ad += "${lcsRandom(11 + 20)}";
           ad += " Years Experience&r&r";

@@ -399,6 +399,6 @@ Future<void> surrenderToMedicalIndustry(Site loc) async {
   );
 
   setColor(lightGray);
-  addOptionText(23, slipLeft, "C", "Press C to Continue Liberally.");
+  addOptionText(23, slipLeft, "C", "Press C to Continue Socialistly.");
   while (await getKey() != Key.c) {}
 }

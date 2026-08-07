@@ -31,7 +31,7 @@ class SembastStorage implements GameStorage {
   Future<Directory> _getAppDataDirectory() async {
     final appData = Platform.environment['APPDATA'];
     if (Platform.isWindows && appData != null) {
-      final appDir = Directory(join(appData, 'LCS New Age', 'lcs_new_age'));
+      final appDir = Directory(join(appData, 'SCS New Age', 'lcs_new_age'));
       if (!appDir.existsSync()) {
         await appDir.create(recursive: true);
       }

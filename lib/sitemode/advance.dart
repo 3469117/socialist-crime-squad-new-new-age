@@ -91,7 +91,7 @@ Future<void> creatureadvance() async {
 
         setColor(yellow);
         move(9, 1);
-        addstr("The Squad smells Conservative panic.");
+        addstr("The Squad smells Fascist panic.");
 
         printEncounter();
 

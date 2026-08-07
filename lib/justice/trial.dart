@@ -248,7 +248,7 @@ Future<void> trial(Creature g) async {
         case 0:
           addstr("${g.name}'s best friend from childhood on the jury.");
         case 1:
-          addstr("The jury is Flaming Liberal.");
+          addstr("The jury is Flaming Socialist.");
         case 2:
           addstr("A few of the jurors are closet Socialists.");
         case 3:
@@ -257,24 +257,24 @@ Future<void> trial(Creature g) async {
           );
       }
     } else if (jury <= -15) {
-      addstr("The jury is fairly Liberal.");
+      addstr("The jury is fairly Socialist.");
     } else if (jury < 15) {
       addstr("The jury is quite moderate.");
     } else if (jury < 29) {
-      addstr("The jury is a bit Conservative.");
+      addstr("The jury is a bit Fascist.");
     } else {
       setColor(yellow);
       switch (lcsRandom(4)) {
         case 0:
           addstr(
-            "Such a collection of Conservative jurors has never before been assembled.",
+            "Such a collection of Fascist jurors has never before been assembled.",
           );
         case 1:
-          addstr("One of the accepted jurors is a Conservative activist.");
+          addstr("One of the accepted jurors is a Fascist activist.");
         case 2:
           addstr("A few of the jurors are members of the KKK.");
         case 3:
-          addstr("The jury is frighteningly Conservative.");
+          addstr("The jury is frighteningly Fascist.");
       }
     }
 

@@ -242,7 +242,7 @@ Future<void> _ageThings() async {
           );
           if (canSeeThings) {
             await showMessage(
-              "Their Heart finally gave out.  The Liberal will be missed.",
+              "Their Heart finally gave out.  The Socialist will be missed.",
             );
           }
         }
@@ -535,7 +535,7 @@ Future<void> dispersalCheck() async {
               "${p.name} lost touch with the Liberal Crime Squad.",
             );
             await getKey();
-            mvaddstrc(9, 1, lightGreen, "The Liberal has gone into hiding...");
+            mvaddstrc(9, 1, lightGreen, "The Socialist has gone into hiding...");
             await getKey();
             logBlindEvent("${p.name} lost touch with the Liberal Crime Squad.");
           } else if (dispersalStatus[p] == DispersalTypes.abandonLCS) {
@@ -657,7 +657,7 @@ Future<Creature?> _promoteSubordinates(Creature cr) async {
       10,
       1,
       "${newboss.name} is the new leader "
-      "of the Liberal Crime Squad!",
+      "of the Socialist Crime Squad!",
     );
     await getKey();
 
