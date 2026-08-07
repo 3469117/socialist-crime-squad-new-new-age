@@ -507,7 +507,7 @@ Future<void> printNews(LootType li, Iterable<Creature> publishers) async {
         case 3:
           story += "to himself.  They're very steamy.";
         case 4:
-          story += "implying that he has enslaved his houseservants.";
+          story += "implying that he has enslaved his domestic workers.";
           issues.add(View.sweatshops);
         case 5:
           story += "to the FDA official overseeing the CEO's products.";

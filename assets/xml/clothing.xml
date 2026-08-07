@@ -714,8 +714,8 @@
   <clothingtype idname="CLOTHING_SERVANTUNIFORM">
     <make_difficulty>5</make_difficulty>
     <make_price>20</make_price>
-    <name>Servant Uniform</name>
-    <shortname>Servant Unif.</shortname>
+    <name>Domestic Worker Uniform</name>
+    <shortname>Domestic Unif.</shortname>
     <fencevalue>40</fencevalue>
     <professionalism>2</professionalism>
     <culture>FORMAL</culture>

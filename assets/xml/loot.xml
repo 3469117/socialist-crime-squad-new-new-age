@@ -114,7 +114,7 @@
     </loottype>
 
     <loottype idname="LOOT_CCS_BACKERLIST">
-        <name>CCS Backer List</name>
+        <name>FCS Backer List</name>
         <stackable>true</stackable>
         <no_quick_fencing>true</no_quick_fencing>
         <fencevalue>2000</fencevalue>

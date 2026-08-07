@@ -638,7 +638,7 @@ Future<void> displayStory(NewsStory ns, View? header) async {
           story +=
               "We have no idea who did this, or why, or how it happened.  "
               "It's a complete mystery.  A bug in the game even.  "
-              "We're working closely with the programmers to find out what happened.\"";
+              "We're working closely with the software developers to find out what happened.\"";
         case SiegeType.cia:
           if (!liberalguardian) {
             if (ns.siegebodycount > 1) {

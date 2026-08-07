@@ -365,7 +365,7 @@ Elements marked as hardcoded may have their values overridden by the game.
         </social_attack>
     </creaturetype>
     <creaturetype idname="CREATURE_WORKER_SERVANT">
-        <type_name>Servant</type_name>
+        <type_name>Domestic Worker</type_name>
         <!-- Hardcoded to Slave for C+ labor and corporate laws. -->
         <armor>CLOTHING_SERVANTUNIFORM</armor>
         <age>MATURE</age>
@@ -420,7 +420,7 @@ Elements marked as hardcoded may have their values overridden by the game.
         <talkreceptive>1</talkreceptive>
     </creaturetype>
     <creaturetype idname="CREATURE_WORKER_SECRETARY">
-        <type_name>Secretary</type_name>
+        <type_name>Administrative Assistant</type_name>
         <weapon>CIVILIAN</weapon>
         <armor>CLOTHING_CLOTHES</armor>
         <age>MATURE</age>
@@ -729,7 +729,7 @@ Elements marked as hardcoded may have their values overridden by the game.
         <edgelord>true</edgelord>
     </creaturetype>
     <creaturetype idname="CREATURE_JUDGE_LIBERAL">
-        <type_name>Liberal Judge</type_name>
+        <type_name>Socialist Judge</type_name>
         <weapon>WEAPON_GAVEL</weapon>
         <weapon>WEAPON_NONE</weapon>
         <armor>CLOTHING_BLACKROBE</armor>
@@ -1064,7 +1064,7 @@ Elements marked as hardcoded may have their values overridden by the game.
         <recruit_activity_difficulty>4</recruit_activity_difficulty>
     </creaturetype>
     <creaturetype idname="CREATURE_HSDROPOUT">
-        <type_name>Highschool Dropout</type_name>
+        <type_name>High School Dropout</type_name>
         <weapon>CIVILIAN</weapon>
         <armor>CLOTHING_STREETWEAR</armor>
         <age>TEENAGER</age>
@@ -1229,7 +1229,7 @@ Elements marked as hardcoded may have their values overridden by the game.
         </attributes>
     </creaturetype>
     <creaturetype idname="CREATURE_TELEMARKETER">
-        <type_name>Telemarketer</type_name>
+        <type_name>Call Center Worker</type_name>
         <weapon>CIVILIAN</weapon>
         <armor>CLOTHING_CLOTHES</armor>
         <age>YOUNGADULT</age>
@@ -1355,7 +1355,7 @@ Elements marked as hardcoded may have their values overridden by the game.
         <money>20-50</money>
     </creaturetype>
     <creaturetype idname="CREATURE_GARBAGEMAN">
-        <type_name>Sanitary Worker</type_name>
+        <type_name>Sanitation Worker</type_name>
         <weapon>CIVILIAN</weapon>
         <armor>CLOTHING_WORKCLOTHES</armor>
         <age>MATURE</age>
@@ -1427,7 +1427,7 @@ Elements marked as hardcoded may have their values overridden by the game.
         </skills>
     </creaturetype>
     <creaturetype idname="CREATURE_MERC">
-        <type_name>Private Military</type_name>
+        <type_name>Private Military Contractor</type_name>
         <weapon>WEAPON_M4</weapon>
         <weapon>WEAPON_AK102</weapon>
         <armor>CLOTHING_PMC</armor>
@@ -1632,7 +1632,7 @@ Elements marked as hardcoded may have their values overridden by the game.
         </skills>
     </creaturetype>
     <creaturetype idname="CREATURE_PROGRAMMER">
-        <type_name>Programmer</type_name>
+        <type_name>Software Developer</type_name>
         <weapon>CIVILIAN</weapon>
         <armor>CLOTHING_CLOTHES</armor>
         <age>MATURE</age>
@@ -1963,7 +1963,7 @@ Elements marked as hardcoded may have their values overridden by the game.
         <recruit_activity_difficulty>4</recruit_activity_difficulty>
     </creaturetype>
     <creaturetype idname="CREATURE_NURSING_HOME_ADMIN">
-        <type_name>Nursing Home Admin</type_name>
+        <type_name>Nursing Home Administrator</type_name>
         <alignment>CONSERVATIVE</alignment>
         <armor>CLOTHING_EXPENSIVESUIT</armor>
         <age>MIDDLEAGED</age>
@@ -2015,7 +2015,7 @@ Elements marked as hardcoded may have their values overridden by the game.
         </social_attack>
     </creaturetype>
     <creaturetype idname="CREATURE_DIETICIAN">
-        <type_name>Dietician</type_name>
+        <type_name>Dietitian</type_name>
         <armor>CLOTHING_CLOTHES</armor>
         <age>GRADUATE</age>
         <gender>FEMALE BIAS</gender>
@@ -2026,7 +2026,7 @@ Elements marked as hardcoded may have their values overridden by the game.
         <recruit_activity_difficulty>4</recruit_activity_difficulty>
     </creaturetype>
     <creaturetype idname="CREATURE_PHYSICAL_THERAPIST">
-        <type_name>Physio</type_name>
+        <type_name>Physical Therapist</type_name>
         <armor>CLOTHING_SCRUBS</armor>
         <age>GRADUATE</age>
         <skills>
@@ -2059,7 +2059,7 @@ Elements marked as hardcoded may have their values overridden by the game.
         <talkreceptive>1</talkreceptive>
     </creaturetype>
     <creaturetype idname="CREATURE_CCS_VIGILANTE">
-        <type_name>CCS Member</type_name>
+        <type_name>FCS Member</type_name>
         <!-- <encounter_name> Hardcoded -->
         <!-- <weapon> Hardcoded -->
         <!-- <armor> Hardcoded -->
@@ -2095,7 +2095,7 @@ Elements marked as hardcoded may have their values overridden by the game.
         <edgelord>true</edgelord>
     </creaturetype>
     <creaturetype idname="CREATURE_CCS_ARCHCONSERVATIVE">
-        <type_name>CCS Leader</type_name>
+        <type_name>FCS Leader</type_name>
         <!-- <encounter_name> Hardcoded -->
         <weapon>WEAPON_AA12</weapon>
         <armor>CLOTHING_HEAVYARMOR</armor>

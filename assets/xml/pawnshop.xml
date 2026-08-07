@@ -4,7 +4,7 @@
     <exit>Leave</exit>
 
     <department>
-        <entry>Conservative Guns</entry>
+        <entry>Fascist Guns</entry>
         <letter>g</letter>
         <ui>weapons</ui>
         <item>
@@ -108,7 +108,7 @@
     </department>
 
     <department>
-        <entry>Liberal Tools</entry>
+        <entry>Socialist Tools</entry>
         <letter>t</letter>
         <ui>weapons</ui>
         <item>
