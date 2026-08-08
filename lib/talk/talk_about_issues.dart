@@ -292,11 +292,11 @@ Map<Law, _DiscussionPoint> _discussionPoints = {
       "We shouldn't rest until we have truly open borders.",
       "Immigration deeply and fundamentally undermines our economy and culture."),
   Law.elections: _DiscussionPoint(
-      "Political favors are bought and sold for campaign contributions,",
-      "and the voting system enforces two party dominance.",
-      "The politicians are just tools of the corporations!",
-      "Politicians who self-finance their campaigns essentially buy their office.",
-      "Election finance law is the worst kind of suppression of political speech."),
+      "Super PACs and dark-money groups turn billionaire wealth into political power,",
+      "and ballot-access rules reinforce two-party dominance.",
+      "The politicians are just sponsored content for billionaires!",
+      "Private campaign spending should be replaced by public election funding.",
+      "Campaign finance limits are censorship disguised as election reform."),
   Law.military: _DiscussionPoint(
       "We spend billions on weapons while schools and hospitals beg for funding.",
       null,

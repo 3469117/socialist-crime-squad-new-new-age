@@ -374,7 +374,7 @@ Future<void> supremeCourt() async {
 
     if (canSeeThings) {
       mvaddstr(
-          4, 0, "After much debate and televised testimony, a new justice,");
+          4, 0, "After nationally streamed confirmation hearings, a new justice,");
       move(5, 0);
       addstr("the Honorable ");
       addstrc(politics.court[j].color, politics.courtName[j].firstLast);

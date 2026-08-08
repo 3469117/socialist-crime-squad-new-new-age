@@ -69,7 +69,7 @@ Future<void> presidentialElection() async {
     setColor(lightGray);
     move(2, 0);
     addstr(
-        "After a long primary campaign, the people have rallied around two leaders...");
+        "After a long primary season, two major-party nominees face the voters...");
   }
 
   //Primaries
@@ -174,9 +174,9 @@ Future<void> presidentialElection() async {
       } else if (oneIn(2)) {
         addstr("Ret. General ");
       } else if (oneIn(2)) {
-        addstr("Mr. ");
+        addstr("Mayor ");
       } else {
-        addstr("Mrs. ");
+        addstr("Attorney General ");
       }
 
       addstr("${nomineeName[party]!}, ${nomineeAlign[party]!.veryShort}");
@@ -645,11 +645,11 @@ void _showWinner(List<int> change, double mood, int thresholdForVictory) {
   setColor(winner.color);
   switch (winner) {
     case DeepAlignment.archConservative:
-      addstr("The power of the Fascist far right is growing...");
+      addstr("Fascist candidates are gaining ground...");
     case DeepAlignment.conservative:
-      addstr("The power of the Republican Party is growing.");
+      addstr("The reactionary Republican right is gaining ground.");
     case DeepAlignment.moderate:
-      addstr("The balance of power has largely held.");
+      addstr("The liberal center is holding the balance of power.");
       if (change[0] > 0 && change[4] > 0) {
         mvaddstr(22, 0, "But the political center is disappearing.");
       } else if (change[0] > 0) {
@@ -657,13 +657,13 @@ void _showWinner(List<int> change, double mood, int thresholdForVictory) {
             "But the Fascist far right still gained seats.");
       }
     case DeepAlignment.liberal:
-      addstr("The Democratic Party is gaining ground.");
+      addstr("Socialist candidates are gaining ground.");
       if (change[0] > 0) {
         mvaddstrc(22, 0, red,
             "But the Fascist far right also gained seats.");
       }
     case DeepAlignment.eliteLiberal:
-      addstr("The Revolutionary Socialist far left is growing!");
+      addstr("Revolutionary Socialist candidates are gaining ground!");
       if (change[0] > 0) {
         mvaddstrc(22, 0, red,
             "But the Fascist far right also gained seats.");

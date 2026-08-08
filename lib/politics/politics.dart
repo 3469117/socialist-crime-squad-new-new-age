@@ -115,7 +115,7 @@ class Politics {
   };
   int execTerm = 1;
   PoliticalParty presidentParty = PoliticalParty.republican;
-  String oldPresidentName = "Joseph R. Biden Jr.";
+  String oldPresidentName = "Former President";
   bool termLimitsPassed = false;
   bool supremeCourtPurged = false;
   int constitutionalAmendments = 27;

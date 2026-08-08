@@ -349,9 +349,9 @@ String billName(Law l, bool liberal) {
       }
     case Law.elections:
       if (liberal) {
-        return "Fight Political Corruption";
+        return "Ban Dark Money in Elections";
       } else {
-        return "Deregulate Political Fundraising";
+        return "Expand Unlimited Campaign Spending";
       }
     case Law.military:
       if (liberal) {

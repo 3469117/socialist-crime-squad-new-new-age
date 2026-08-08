@@ -463,6 +463,7 @@ Future<void> makeCharacter() async {
 
 Future<void> aNewConservativeEra() async {
   FullName oldPresident = generateFullName(Gender.whiteMalePatriarch);
+  politics.oldPresidentName = oldPresident.firstLast;
 
   erase();
   mvaddstrc(2, 2, white, "A NEW FASCIST ERA");
@@ -493,7 +494,7 @@ Future<void> aNewConservativeEra() async {
   mvaddstr(
     11,
     2,
-    "With Fascists having swept into power in the recent midterm elections,",
+    "With Fascists holding majorities in both chambers of Congress,",
   );
   mvaddstr(
     12,
