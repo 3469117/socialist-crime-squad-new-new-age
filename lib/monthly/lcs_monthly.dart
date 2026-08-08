@@ -960,8 +960,8 @@ Future<void> printNews(LootType li, Iterable<Creature> publishers) async {
     LootTypeIds.judgeFiles => "JUDICIAL CORRUPTION REVEALED",
     LootTypeIds.researchFiles => "RESEARCH ABUSES UNCOVERED",
     LootTypeIds.prisonFiles => "PRISON ABUSES EXPOSED",
-    LootTypeIds.cableNewsFiles => "CABLE NEWS BIAS REVEALED",
-    LootTypeIds.amRadioFiles => "AM RADIO PROPAGANDA EXPOSED",
+    LootTypeIds.cableNewsFiles => "LEGACY MEDIA BIAS REVEALED",
+    LootTypeIds.amRadioFiles => "ALGORITHMIC PROPAGANDA EXPOSED",
     _ => "SOCIALIST GUARDIAN EXPOSÉ",
   };
 

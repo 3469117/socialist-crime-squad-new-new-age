@@ -1106,8 +1106,8 @@ Future<void> siegeTurn() async {
           String newsType = [
             "news program",
             "news magazine",
-            "website",
-            "scandal rag",
+            "digital outlet",
+            "viral tabloid",
             "newspaper",
           ].random;
           String newsNameA = [

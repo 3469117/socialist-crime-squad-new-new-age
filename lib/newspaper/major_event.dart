@@ -656,16 +656,16 @@ MajorEventContent generateMajorEventContent(
         ].random;
 
         return MajorEventContent(
-          headline: "AM IMPLOSION",
+          headline: "TALK RADIO IMPLOSION",
           storyText:
-              "${randomCityName()} - Well-known AM radio personality "
+              "${randomCityName()} - Well-known talk radio host "
               "${radioHost.firstLast} went off for fifteen minutes in an "
-              "inexplicable rant two nights ago during the syndicated radio "
+              "inexplicable rant two nights ago during the syndicated talk "
               "program \"$showName\".&r"
               "  ${radioHost.last}'s monologue for the evening began the way "
               "that fans had come to expect, with attacks on the \"liberal "
               "media establishment\" and the \"elite socialist agenda\".  But "
-              "when the radio icon said, \"$wildQuote\", a former fan of "
+              "when the talk radio host said, \"$wildQuote\", a former fan of "
               "the show, ${fan.firstLast}, knew that \"$fanNameForHost "
               "had $lostHisMind. And after that, it just got worse and "
               "worse.\"&r"
@@ -673,7 +673,7 @@ MajorEventContent generateMajorEventContent(
               "the damage might already be done.  According to a poll completed "
               "yesterday, fully half of the host's most loyal supporters have "
               "decided to leave the program for saner pastures.  Of these, "
-              "many said that they would be switching over to the FM band.&r",
+              "many said they had unsubscribed and switched to podcasts and other shows.&r",
         );
       case View.immigration:
         const List<String> countries = [

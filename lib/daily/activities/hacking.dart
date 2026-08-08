@@ -93,7 +93,7 @@ Future<void> doActivityHacking(List<Creature> hack) async {
     const targets = [
       "corporate website",
       "Fascist forum",
-      "Fascist blog",
+      "Fascist propaganda site",
       "news website",
       "government website"
     ];

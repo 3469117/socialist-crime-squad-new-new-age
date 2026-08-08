@@ -815,7 +815,7 @@ Future<DateResult> dateResult(int aroll, int troll, DatingSession d, Creature e,
       case 5:
         addstr(" to go to a birthday party.");
       case 6:
-        addstr(" to recharge ${e.gender.hisHer} cell phone.");
+        addstr(" to recharge ${e.gender.hisHer} smartphone.");
     }
     move(y++, 0);
     addstr("${e.gender.heSheCap} did still promise to meet up again tomorrow.");
