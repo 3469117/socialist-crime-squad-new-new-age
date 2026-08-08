@@ -5,7 +5,7 @@
 Socialists, Liberals, Reactionaries, and Fascists in a heightened contemporary
 United States.
 
-**Current version:** `v0.2.0`
+**Current version:** `v0.2.1`
 
 > SCS is in active early development. Expect incomplete conversions, inherited
 > LCS terminology, balance issues, bugs, and substantial changes between versions.
