@@ -818,6 +818,59 @@ Future<void> displayStory(NewsStory ns, View? header) async {
   } while (!isBackKey(c));
 }
 
+bool _isAsciiNewsLetter(String letter) {
+  if (letter.isEmpty) return false;
+  int code = letter.codeUnitAt(0);
+  return code >= 'A'.codeUnitAt(0) && code <= 'Z'.codeUnitAt(0);
+}
+
+bool _canRenderBlockNewsText(String str) {
+  for (int i = 0; i < str.length; i++) {
+    String c = str[i];
+    if (!_isAsciiNewsLetter(c) && c != ' ' && c != '\'') return false;
+  }
+  return true;
+}
+
+int _blockNewsTextWidth(String str, int glyphWidth) {
+  int width = -1;
+  for (int i = 0; i < str.length; i++) {
+    String c = str[i];
+    if (_isAsciiNewsLetter(c)) {
+      width += glyphWidth + 1;
+    } else if (c == '\'') {
+      width += 2;
+    } else {
+      width += glyphWidth > 3 ? 3 : 2;
+    }
+  }
+  return max(0, width);
+}
+
+int _bigNewsTextWidth(String str) {
+  int width = -1;
+  for (int i = 0; i < str.length; i++) {
+    String c = str[i];
+    if (_isAsciiNewsLetter(c)) {
+      width += 6;
+    } else if (c == '\'') {
+      width += 4;
+    } else {
+      width += 3;
+    }
+  }
+  return max(0, width);
+}
+
+void _displayPlainNewsHeadline(String str, int y, NewsStory ns) {
+  String display = str;
+  if (display.length > 76) {
+    display = "${display.substring(0, 73)}...";
+  }
+  setColor(black, background: ns.publication.backgroundColor);
+  mvaddstrCenter(y + 2, display);
+}
+
 void displayCenteredNewsFont(
   String str,
   int y,
@@ -829,71 +882,83 @@ void displayCenteredNewsFont(
   } else {
     ns.headline += " $str";
   }
-  int width = -1;
-  int s;
-  bool isLetter(String letter) =>
-      letter.codePoint >= 'A'.codePoint && letter.codePoint <= 'Z'.codePoint;
-  for (s = 0; s < str.length; s++) {
-    if (isLetter(str[s].toUpperCase())) {
-      width += 6;
-    } else if (str[s] == '\'') {
-      width += 4;
-    } else {
-      width += 3;
+
+  String display = str.toUpperCase();
+  const int maxBlockWidth = 77;
+
+  // The custom block-letter alphabets only contain A-Z and apostrophe.
+  // Dynamic names can contain accents or hyphens, so fall back to normal
+  // text rather than indexing a missing glyph and crashing.
+  if (!_canRenderBlockNewsText(display)) {
+    _displayPlainNewsHeadline(display, y, ns);
+    return;
+  }
+
+  if (useBigFont == true) {
+    int width = _bigNewsTextWidth(display);
+    if (width <= maxBlockWidth) {
+      int x = 39 - width ~/ 2;
+      for (int s = 0; s < display.length; s++) {
+        String c = display[s];
+        if (_isAsciiNewsLetter(c) || c == '\'') {
+          int p = _isAsciiNewsLetter(c)
+              ? c.codeUnitAt(0) - 'A'.codeUnitAt(0)
+              : 26;
+          int lim = c == '\'' ? 4 : 6;
+          if (s == display.length - 1) lim--;
+          for (int x2 = 0; x2 < lim; x2++) {
+            for (int y2 = 0; y2 < 7; y2++) {
+              move(y + y2, x + x2);
+              if (x2 == 5) {
+                setColor(
+                  ns.publication.backgroundColor,
+                  background: ns.publication.backgroundColor,
+                );
+                addchar(' ');
+              } else {
+                drawCPCGlyph(
+                  bigletters[p][x2][y2],
+                  remapLightGray: ns.publication.backgroundColor,
+                );
+              }
+            }
+          }
+          refresh();
+          x += lim;
+        } else {
+          setColor(
+            ns.publication.backgroundColor,
+            background: ns.publication.backgroundColor,
+          );
+          for (int x2 = 0; x2 < 3; x2++) {
+            for (int y2 = 0; y2 < 7; y2++) {
+              move(y + y2, x + x2);
+              addchar(' ');
+            }
+          }
+          x += 3;
+        }
+      }
+      return;
     }
   }
 
-  int x = 39 - width ~/ 2;
+  int width5 = _blockNewsTextWidth(display, 5);
+  int width4 = _blockNewsTextWidth(display, 4);
+  int width3 = _blockNewsTextWidth(display, 3);
 
-  if (useBigFont == true) {
-    for (s = 0; s < str.length; s++) {
-      if (isLetter(str[s]) || str[s] == '\'') {
-        int p;
-        if (isLetter(str[s])) {
-          p = str[s].codePoint - 'A'.codePoint;
-        } else {
-          p = 26;
-        }
-        int lim = 6;
-        if (str[s] == '\'') lim = 4;
-        if (s == str.length - 1) lim--;
-        for (int x2 = 0; x2 < lim; x2++) {
-          for (int y2 = 0; y2 < 7; y2++) {
-            move(y + y2, x + x2);
-            if (x2 == 5) {
-              setColor(
-                ns.publication.backgroundColor,
-                background: ns.publication.backgroundColor,
-              );
-              addchar(' ');
-            } else {
-              drawCPCGlyph(
-                bigletters[p][x2][y2],
-                remapLightGray: ns.publication.backgroundColor,
-              );
-            }
-          }
-        }
-        refresh();
-        x += lim;
-      } else {
-        setColor(
-          ns.publication.backgroundColor,
-          background: ns.publication.backgroundColor,
-        );
-        for (int x2 = 0; x2 < 3; x2++) {
-          for (int y2 = 0; y2 < 7; y2++) {
-            move(y + y2, x + x2);
-            addchar(' ');
-          }
-        }
-        x += 3;
-      }
-    }
+  setColor(black, background: ns.publication.backgroundColor);
+  if (width5 <= maxBlockWidth) {
+    int x = 39 - width5 ~/ 2;
+    print5x5NewsText(y, x, display);
+  } else if (width4 <= maxBlockWidth) {
+    int x = 39 - width4 ~/ 2;
+    print4x5NewsText(y, x, display);
+  } else if (width3 <= maxBlockWidth) {
+    int x = 39 - width3 ~/ 2;
+    print3x5NewsText(y, x, display);
   } else {
-    // Print using 4x5 font
-    setColor(black, background: ns.publication.backgroundColor);
-    print5x5NewsText(y, x, str);
+    _displayPlainNewsHeadline(display, y, ns);
   }
 }
 

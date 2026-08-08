@@ -95,11 +95,12 @@ void amRadioTop() {
   mvaddstrc(0, 1, black, bg: bgColor, " LATEST NEWS ");
   addstrc(UnitedStatesFlag.blue, bg: bgColor, "  TUNE IN NOW   SHOP   ABOUT");
   setColor(black, background: bgColor);
-  print3x3NewsText(1, 1, "THE ");
+  print3x3NewsText(1, 1, "THE");
   setColor(darkRed, background: bgColor);
-  print3x3NewsText(1, 15, "TALK RADIO");
+  print3x3NewsText(1, 15, "TALK");
+  print3x3NewsText(1, 32, "RADIO");
   setColor(black, background: bgColor);
-  print3x3NewsText(1, 47, "NETWORK");
+  print3x3NewsText(1, 52, "NETWORK");
   _addDivider(Publication.amRadio);
 }
 
@@ -110,8 +111,8 @@ void liberalGuardianTop() {
   setColor(green, background: bgColor);
   print3x3NewsText(1, 1, "Socialist Guardian");
   setColor(black, background: bgColor);
-  mvaddstr(1, 70, "THE TRUTH");
-  mvaddstr(2, 70, "IS ALWAYS");
+  mvaddstr(1, 71, "THE TRUTH");
+  mvaddstr(2, 71, "IS ALWAYS");
   mvaddstr(3, 75, "FREE");
   _addDivider(Publication.liberalGuardian);
 }
