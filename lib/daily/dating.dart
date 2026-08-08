@@ -732,7 +732,13 @@ Future<DateResult> dateResult(int aroll, int troll, DatingSession d, Creature e,
       addstr(
           "If you do not enter anything, ${e.gender.heShe} will keep ${e.gender.hisHer} old name.");
 
-      e.name = await enterName(4, 0, e.properName, prefill: true);
+      e.name = await enterName(
+        4,
+        0,
+        e.properName,
+        prefill: true,
+        maxLength: maxCodeNameLength,
+      );
 
       pool.add(e);
 

@@ -457,8 +457,19 @@ Future<void> makeCharacter() async {
   await aNewConservativeEra();
 
   erase();
-  mvaddstrc(0, 0, white, "What is your name to the people?");
-  founder.name = await enterName(2, 0, founder.properName, prefill: true);
+  mvaddstrc(
+    0,
+    0,
+    white,
+    "What is your name to the people? ($maxCodeNameLength characters max)",
+  );
+  founder.name = await enterName(
+    2,
+    0,
+    founder.properName,
+    prefill: true,
+    maxLength: maxCodeNameLength,
+  );
 }
 
 Future<void> aNewConservativeEra() async {

@@ -279,8 +279,19 @@ extension CodePointExtension on String {
   }
 }
 
-Future<String> mvgetstr(int y, int x, {String? starting}) async {
+const int maxCodeNameLength = 20;
+
+String truncateForDisplay(String value, int maxLength) =>
+    value.length <= maxLength ? value : value.substring(0, maxLength);
+
+Future<String> mvgetstr(
+  int y,
+  int x, {
+  String? starting,
+  int? maxLength,
+}) async {
   String s = starting ?? "";
+  if (maxLength != null) s = truncateForDisplay(s, maxLength);
   mvaddstr(y, x, "$s▂");
   while (true) {
     String c = await getKeyCaseSensitive();
@@ -293,16 +304,29 @@ Future<String> mvgetstr(int y, int x, {String? starting}) async {
         s = s.substring(0, s.length - 1);
         mvaddstr(y, x + s.length, "▂ ");
       }
-    } else if (c.length == 1) {
+    } else if (c.length == 1 &&
+        (maxLength == null || s.length < maxLength)) {
       s += c;
       mvaddstr(y, x, "$s▂");
     }
   }
 }
 
-Future<String> enterName(int y, int x, String fallback,
-    {bool prefill = false}) async {
-  String s = await mvgetstr(y, x, starting: prefill ? fallback : null);
-  if (s.isEmpty) return fallback;
+Future<String> enterName(
+  int y,
+  int x,
+  String fallback, {
+  bool prefill = false,
+  int? maxLength,
+}) async {
+  String safeFallback =
+      maxLength == null ? fallback : truncateForDisplay(fallback, maxLength);
+  String s = await mvgetstr(
+    y,
+    x,
+    starting: prefill ? safeFallback : null,
+    maxLength: maxLength,
+  );
+  if (s.isEmpty) return safeFallback;
   return s;
 }

@@ -45,7 +45,12 @@ Future<void> activateSleepers() async {
     for (Creature tempp in temppool.skip(page * 9).take(9)) {
       setColor(lightGray);
       String letter = letterAPlus((y - 2) ~/ 2);
-      addOptionText(y, 0, letter, "$letter - ${tempp.name}");
+      addOptionText(
+        y,
+        0,
+        letter,
+        "$letter - ${truncateForDisplay(tempp.name, maxCodeNameLength)}",
+      );
 
       mvaddstr(y, 24, tempp.type.name);
 
@@ -311,7 +316,12 @@ Future<void> activateSleepersBulk() async {
         p++, y++) {
       Creature tempp = temppool[p];
       String letter = letterAPlus(p - page * 19);
-      addOptionText(y, 0, letter, "$letter - ${tempp.name}");
+      addOptionText(
+        y,
+        0,
+        letter,
+        "$letter - ${truncateForDisplay(tempp.name, 16)}",
+      );
       setColor(lightGray);
       mvaddstr(y, 20, tempp.type.name);
 

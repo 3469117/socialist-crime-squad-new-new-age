@@ -506,7 +506,13 @@ Future<void> kidnaptransfer(Creature cr, {Creature? kidnapper}) async {
   addstr(cr.type.name);
   addstr(" in ${cr.gender.hisHer} presence?");
 
-  cr.name = await enterName(4, 0, cr.properName, prefill: true);
+  cr.name = await enterName(
+    4,
+    0,
+    cr.properName,
+    prefill: true,
+    maxLength: maxCodeNameLength,
+  );
 
   pool.add(cr);
   stats.kidnappings++;

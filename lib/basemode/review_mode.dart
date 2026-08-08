@@ -1,5 +1,4 @@
 /* base - review and reorganize liberals */
-import 'dart:math';
 import 'dart:ui';
 
 import 'package:collection/collection.dart';
@@ -280,7 +279,12 @@ Future<void> reviewMode(ReviewMode mode) async {
       Creature tempp = temppool[p];
       setColor(lightGray);
       String letter = letterAPlus(y - 2);
-      addOptionText(y, 0, letter, "$letter - ${tempp.name}");
+      addOptionText(
+        y,
+        0,
+        letter,
+        "$letter - ${truncateForDisplay(tempp.name, maxCodeNameLength)}",
+      );
 
       bool bright = false;
       int skill = 0;
@@ -512,7 +516,12 @@ Future<void> reviewMode(ReviewMode mode) async {
             mvaddstr(24, 0,
                 "                                                                                "); // 80 spaces
 
-            tempp.name = await enterName(24, 0, tempp.name);
+            tempp.name = await enterName(
+              24,
+              0,
+              tempp.name,
+              maxLength: maxCodeNameLength,
+            );
           } else if (c == Key.g && tempp.align == Alignment.liberal) {
             List<Gender> genders = [
               Gender.male,
@@ -804,7 +813,7 @@ Future<void> assembleSquad(Squad? cursquad) async {
       }
 
       addOptionText(y, 2, letter,
-          "$letter - ${tempp.name.substring(0, min(tempp.name.length, 20))}",
+          "$letter - ${truncateForDisplay(tempp.name, maxCodeNameLength)}",
           enabledWhen: isAtCurrentSquadLocation,
           baseColorKey: isCurrentSquadMember ? "C" : "m");
 
@@ -991,7 +1000,9 @@ Future<void> assignNewBasesToTheSquadless() async {
         setColor(lightGray);
       }
       mvaddchar(y, 0, letterAPlus(y - 2));
-      addstr(" - ${tempp.name}");
+      addstr(
+        " - ${truncateForDisplay(tempp.name, maxCodeNameLength)}",
+      );
 
       mvaddstr(
           y, 25, tempp.base?.getName(short: true, includeCity: true) ?? "Away");

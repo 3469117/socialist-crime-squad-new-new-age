@@ -286,7 +286,12 @@ Future<void> fullCreatureInfoScreen(Creature cr) async {
       mvaddstr(24, 0,
           "                                                                                "); // 80 spaces
 
-      cr.name = await enterName(24, 0, cr.name);
+      cr.name = await enterName(
+        24,
+        0,
+        cr.name,
+        maxLength: maxCodeNameLength,
+      );
     } else if (c == Key.g) {
       List<Gender> genders = [Gender.male, Gender.female, Gender.nonbinary];
       if (cr.cannotDetransition) {

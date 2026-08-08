@@ -32,7 +32,8 @@ void printParty({
     });
     for (int p = 0; p < party.length; p++) {
       addOptionText(p + 2, 0, String.fromCharCode('1'.codePoint + p),
-          "${String.fromCharCode('1'.codePoint + p)} ${party[p].name}",
+          "${String.fromCharCode('1'.codePoint + p)} "
+          "${truncateForDisplay(party[p].name, maxCodeNameLength)}",
           baseColorKey: ColorKey.white);
       if (party[p].isHoldingBody) addstrc(pink, "+H");
       printSkillSummary(p + 2, 23, party[p], showWeaponSkill: true);

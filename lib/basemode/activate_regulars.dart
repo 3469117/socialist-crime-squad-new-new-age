@@ -47,7 +47,12 @@ Future<void> activateRegulars() async {
     for (int p = page * 19; p < tempPool.length && p < (page + 1) * 19; p++) {
       Creature c = tempPool[p];
       String key = letterAPlus(y - 2);
-      addOptionText(y, 0, key, "$key - ${c.name}");
+      addOptionText(
+        y,
+        0,
+        key,
+        "$key - ${truncateForDisplay(c.name, maxCodeNameLength)}",
+      );
       printSkillSummary(y, 24, c, showWeaponSkill: false);
       printHealthStat(y, 32, c, small: true);
       mvaddstrc(
