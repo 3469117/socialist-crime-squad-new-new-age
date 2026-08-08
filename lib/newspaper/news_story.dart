@@ -30,6 +30,12 @@ enum Publication {
   final String name;
   final DeepAlignment alignment;
   final Color backgroundColor;
+
+  String get displayName => switch (this) {
+        Publication.cableNews => "News Network",
+        Publication.amRadio => "Talk Radio",
+        _ => name,
+      };
 }
 
 @JsonSerializable()
@@ -88,6 +94,12 @@ class NewsStory {
     _publication = p;
     publicationName = p.name;
     publicationAlignment = p.alignment;
+  }
+
+  String get displayPublicationName {
+    Publication? knownPublication = Publication.values
+        .firstWhereOrNull((element) => element.name == publicationName);
+    return knownPublication?.displayName ?? publicationName;
   }
 
   @JsonKey(includeToJson: true, includeFromJson: true)

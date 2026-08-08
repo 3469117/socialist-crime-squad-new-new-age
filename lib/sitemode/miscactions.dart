@@ -362,7 +362,7 @@ String _mediaIssueDescription(View v) => switch (v) {
       View.drugs => "drug laws",
       View.immigration => "immigration",
       View.military => "military spending",
-      View.amRadio => "AM radio shows",
+      View.amRadio => "talk radio",
       View.cableNews => "Fascist media bias",
       View.lcsKnown => "the SCS",
       View.lcsLiked => "the SCS",
@@ -394,11 +394,11 @@ int _mediaSegmentPower() {
 
 Future<bool> tvBroadcast() async {
   return await _mediaBroadcast(
-      "camera", View.cableNews, "TV", "viewers", CreatureTypeIds.newsAnchor);
+      "camera", View.cableNews, "live video", "viewers", CreatureTypeIds.newsAnchor);
 }
 
 Future<bool> radioBroadcast() async {
-  return await _mediaBroadcast("microphone", View.amRadio, "radio", "listeners",
+  return await _mediaBroadcast("microphone", View.amRadio, "talk radio", "listeners",
       CreatureTypeIds.radioPersonality);
 }
 

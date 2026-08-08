@@ -62,7 +62,7 @@ Future<void> runTelevisionNewsStories() async {
             }
           case View.cableNews:
             newsStories[n].publication = Publication.cableNews;
-            String str = "Tonight on a Cable News channel: ";
+            String str = "Tonight on a major news network: ";
             String showName = [
               "Inside",
               "Hard",
@@ -85,7 +85,7 @@ Future<void> runTelevisionNewsStories() async {
             str += showName;
             newsStories[n].headline = showName.toUpperCase();
             newsStories[n].body =
-                "A Cable News anchor just accidentally let a Socialist guest "
+                "A news network anchor just accidentally let a Socialist guest "
                 "finish a sentence.  Many viewers across the nation were "
                 "listening.";
             erase();
@@ -124,7 +124,7 @@ Future<void> runTelevisionNewsStories() async {
             mvaddstr(
               20,
               13,
-              "│     A Cable News anchor just accidentally let a   │",
+              "│     A news network anchor just accidentally let a │",
             );
             mvaddstr(
               21,
@@ -188,7 +188,7 @@ Future<void> runTelevisionNewsStories() async {
             newsStories[n].publication = Publication.cableNews;
             newsStories[n].headline = "NEW ANCHOR";
             newsStories[n].body =
-                "A major Cable News channel has hired a slick new anchor "
+                "A major news network has hired a slick new anchor "
                 "for one of its news shows.  Guided by impressive "
                 "advertising, America tunes in.";
             await movie.loadmovie("anchor.cmv");
@@ -202,7 +202,7 @@ Future<void> runTelevisionNewsStories() async {
             mvaddstr(
               20,
               13,
-              "│     A major Cable News channel has hired a slick  │",
+              "│       A major news network hired a slick anchor   │",
             );
             mvaddstr(
               21,

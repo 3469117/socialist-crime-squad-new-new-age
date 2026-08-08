@@ -100,14 +100,14 @@
     </loottype>
 
     <loottype idname="LOOT_AMRADIOFILES">
-        <name>AM Radio Memos</name>
+        <name>Talk Radio Memos</name>
         <stackable>true</stackable>
         <no_quick_fencing>true</no_quick_fencing>
         <fencevalue>250</fencevalue>
     </loottype>
 
     <loottype idname="LOOT_CABLENEWSFILES">
-        <name>Cable News Memos</name>
+        <name>News Network Memos</name>
         <stackable>true</stackable>
         <no_quick_fencing>true</no_quick_fencing>
         <fencevalue>250</fencevalue>

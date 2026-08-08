@@ -305,14 +305,14 @@ void _activismSubmenu(Creature c) {
   );
   _subActivity(
     ActivityType.writeGuardian,
-    "5 - Write Socialist Guardian Articles",
+    "5 - Publish Socialist Guardian Stories",
   );
   String needVideoRoom = c.site?.compound.videoRoom != true
       ? " (Need Studio)"
       : "";
   _subActivity(
     ActivityType.streamGuardian,
-    "6 - Stream Guardian TV$needVideoRoom",
+    "6 - Livestream for Guardian$needVideoRoom",
     greyOut: c.site?.compound.videoRoom != true,
   );
 }
@@ -911,7 +911,7 @@ void _activityFooter(Creature cr) {
       addstr(" steal a car.");
       mvaddstrc(23, 3, midGray, "Uses Security and Street Smarts.");
     case ActivityType.streamGuardian:
-      addstr(" stream for the Socialist Guardian.");
+      addstr(" livestream for the Socialist Guardian.");
       mvaddstrc(
         23,
         3,
@@ -985,7 +985,7 @@ void _activityFooter(Creature cr) {
     case ActivityType.wheelchair:
       addstr(" procure a wheelchair.");
     case ActivityType.writeGuardian:
-      addstr(" write articles for the Socialist Guardian.");
+      addstr(" publish stories for the Socialist Guardian.");
       mvaddstrc(23, 3, midGray, "Uses Writing and various knowledge skills.");
     default:
       addstr(" report a bug to the developers: ${cr.activity.type.name}.");

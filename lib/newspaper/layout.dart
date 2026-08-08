@@ -80,7 +80,7 @@ void cableNewsTop() {
   addstrc(black, bg: bgColor, "  POLITICS   OPINION   SPORTS   MONEY   MORE");
   print3x3NewsText(1, 1, "Balanced");
   setColor(darkRed, background: bgColor);
-  print3x3NewsText(1, 35, "Cable News");
+  print3x3NewsText(1, 35, "News Net");
   setColor(white, background: UnitedStatesFlag.red);
   mvaddstr(1, 73, " ZERO ");
   setColor(black, background: UnitedStatesFlag.white);
@@ -97,7 +97,7 @@ void amRadioTop() {
   setColor(black, background: bgColor);
   print3x3NewsText(1, 1, "THE ");
   setColor(darkRed, background: bgColor);
-  print3x3NewsText(1, 15, "AM RADIO");
+  print3x3NewsText(1, 15, "TALK RADIO");
   setColor(black, background: bgColor);
   print3x3NewsText(1, 47, "NETWORK");
   _addDivider(Publication.amRadio);

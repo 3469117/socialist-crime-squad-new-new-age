@@ -607,7 +607,7 @@ Future<void> printNews(LootType li, Iterable<Creature> publishers) async {
           "The scandal reaches into the heart of the Fascist leadership in the "
           "country, and the full ramifications of this revelation may not be felt "
           "for months. One thing is clear, however, from the immediate public reaction "
-          "toward the revelations, and the speed with which even AM Radio and Cable "
+          "toward the revelations, and the speed with which even Talk Radio and major news "
           "News denounce the FCS.\n\n"
           "This is the beginning of the end for the Fascist Crime Squad.";
       startY = 5;
@@ -746,7 +746,7 @@ Future<void> printNews(LootType li, Iterable<Creature> publishers) async {
         addjuice(c, 20, 1000);
       }
     case LootTypeIds.cableNewsFiles:
-      story = "The Socialist Guardian runs a story featuring cable news memos ";
+      story = "The Socialist Guardian runs a story featuring news network memos ";
       switch (lcsRandom(7)) {
         case 0:
           story +=
@@ -787,7 +787,7 @@ Future<void> printNews(LootType li, Iterable<Creature> publishers) async {
         c.offendedAngryRuralMobs++;
       }
     case LootTypeIds.amRadioFiles:
-      story = "The Socialist Guardian runs a story featuring AM radio plans ";
+      story = "The Socialist Guardian runs a story featuring talk radio plans ";
       switch (lcsRandom(5)) {
         case 0:
           story +=

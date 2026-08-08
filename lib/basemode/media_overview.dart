@@ -37,7 +37,7 @@ Future<void> mediaOverview() async {
     await pagedInterface(
       headerPrompt: "Media Overview",
       headerKey: {4: "HEADLINE", 40: "DATE", 53: "SOURCE", 72: "IMPACT"},
-      footerPrompt: "Press a Letter to read a news article",
+      footerPrompt: "Press a Letter to open a media story",
       count: gameState.newsArchive.length,
       pageSize: 17,
       lineBuilder: (y, key, index) {
@@ -87,7 +87,7 @@ Future<void> mediaOverview() async {
         String headlineColorKey =
             ns.unread ? ColorKey.lightBlue : ColorKey.lightGray;
         addOptionText(y, 0, key, "$key - &$headlineColorKey$headline");
-        mvaddstrc(y, 53, ns.publicationAlignment.color, ns.publicationName);
+        mvaddstrc(y, 53, ns.publicationAlignment.color, ns.displayPublicationName);
         if (totalImpact > 0) {
           mvaddstrc(y, 72, lightGreen, "+${totalImpact.toStringAsFixed(1)}%");
         } else if (totalImpact < 0) {
@@ -117,7 +117,7 @@ Future<void> readNewsStory(NewsStory ns) async {
   ns.unread = false;
   erase();
   setColor(ns.publicationAlignment.color);
-  mvaddstrc(0, 0, ns.publicationAlignment.color, ns.publicationName);
+  mvaddstrc(0, 0, ns.publicationAlignment.color, ns.displayPublicationName);
   if (ns.headline.isNotEmpty) {
     addstrc(lightGray, " - ");
     addstrc(white, ns.headline);

@@ -471,7 +471,7 @@ MajorEventContent generateMajorEventContent(
           headline: "THE FBI FILES",
           storyText:
               "Washington, DC - The FBI might be keeping tabs on you.  "
-              "This newspaper yesterday received a collection of files from "
+              "This news outlet yesterday received a collection of files from "
               "a source in the Federal Bureau of Investigations.  The files "
               "contain information on which people have been attending "
               "demonstrations, organizing unions, working for liberal "
@@ -1063,7 +1063,7 @@ MajorEventContent generateMajorEventContent(
                   "list of crimes under police torture, only for the "
                   "alleged murder victim, ${supposedVictim.firstLast}, to "
                   "turn up alive.  A media investigation by a local "
-                  "newspaper revealed similar forced confessions, and in "
+                  "news outlet revealed similar forced confessions, and in "
                   "the subsequent scandal, several other suspects had their "
                   "convictions overturned on appeal despite supposedly "
                   "confessing to the crimes they were accused of.&r"

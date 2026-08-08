@@ -434,9 +434,9 @@ void _pollsPage(int start) {
       case View.prisons:
         addstr("want prisons to focus on rehabilitation");
       case View.amRadio:
-        addstr("find Fascist AM Radio distasteful");
+        addstr("find Fascist talk radio distasteful");
       case View.cableNews:
-        addstr("do not trust Fascist Cable News");
+        addstr("do not trust Fascist news networks");
       case View.lcsKnown:
         addstr("have heard of the Socialist Crime Squad");
       case View.lcsLiked:

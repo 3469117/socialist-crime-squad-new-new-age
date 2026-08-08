@@ -65,17 +65,17 @@ Future<void> helpOnActivity(ActivityType type) async {
           "and avoiding the crime being traced back to your hackers.\n\n"
           "Due to its high risk, hacking can increase Juice up to a cap of 200.");
     case ActivityType.writeGuardian:
-      _head("=== Write for the Socialist Guardian ===");
-      _body("The Socialist Guardian is the SCS's media presence. In another era, "
-          "it would have been a printed newspaper, but in New Age you have a "
-          "multimedia website.\n\n"
-          "Writing for the Socialist Guardian puts articles up on the website.  "
+      _head("=== Publish for the Socialist Guardian ===");
+      _body("The Socialist Guardian is the SCS's independent media platform. "
+          "It publishes reporting, leaks, commentary, and live video through a "
+          "modern digital feed.\n\n"
+          "Publishing for the Socialist Guardian puts stories onto the platform.  "
           "That's fine. It's is a safe but slow way to influence public "
           "opinion on a wide variety of issues. It costs nothing to throw "
-          "some blog posts up on the internet, but it will take a long time "
+          "posts and analysis into the feed, but it will take a long time "
           "to make any real difference.\n\n"
           "For a 4x more effective version of this activity, consider setting up "
-          "a streaming room in an abandoned warehouse to do some video "
+          "a streaming room in an abandoned warehouse to produce live video "
           "streaming.\n\n"
           "The greatest power of the Socialist Guardian comes when you publish "
           "a special edition. This requires you to have collected "
@@ -86,12 +86,12 @@ Future<void> helpOnActivity(ActivityType type) async {
           "there isn't much point without them. Writers are better than "
           "streamers for maximizing the impact of a special edition.");
     case ActivityType.streamGuardian:
-      _head("=== Stream for the Socialist Guardian ===");
-      _body("The Socialist Guardian is the SCS's media presence. In another era, "
-          "it would have been a printed newspaper, but in New Age you have a "
-          "multimedia website.\n\n"
-          "Streaming for the Socialist Guardian uses the platform to host "
-          "video streams where you engage directly with the audience while "
+      _head("=== Livestream for the Socialist Guardian ===");
+      _body("The Socialist Guardian is the SCS's independent media platform. "
+          "It publishes reporting, leaks, commentary, and live video through a "
+          "modern digital feed.\n\n"
+          "Livestreaming for the Socialist Guardian uses the platform to produce "
+          "live video where you engage directly with the audience while "
           "debating issues. It's four times as effective as writing articles, "
           "but you'll still need to defang the Fascist Media Machine "
           "before your message can really cut through the propaganda.\n\n"

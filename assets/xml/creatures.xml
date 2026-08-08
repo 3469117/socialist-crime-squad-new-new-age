@@ -845,7 +845,7 @@ Elements marked as hardcoded may have their values overridden by the game.
         <bodyguard>true</bodyguard>
     </creaturetype>
     <creaturetype idname="CREATURE_RADIOPERSONALITY">
-        <type_name>Radio Personality</type_name>
+        <type_name>Talk Radio Host</type_name>
         <weapon>WEAPON_NONE</weapon>
         <armor>CLOTHING_EXPENSIVESUIT</armor>
         <age>MATURE</age>
@@ -875,7 +875,7 @@ Elements marked as hardcoded may have their values overridden by the game.
         </social_attack>
     </creaturetype>
     <creaturetype idname="CREATURE_NEWSANCHOR">
-        <type_name>Cable News Anchor</type_name>
+        <type_name>News Network Anchor</type_name>
         <weapon>WEAPON_NONE</weapon>
         <armor>CLOTHING_EXPENSIVESUIT</armor>
         <age>MATURE</age>

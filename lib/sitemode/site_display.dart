@@ -127,9 +127,9 @@ void printSiteMap(int x, int y, int z) {
     case TileSpecial.nursingHomePatient:
       str = "Patient's Room";
     case TileSpecial.radioBroadcastStudio:
-      str = "Radio Broadcast Room";
+      str = "Talk Radio Studio";
     case TileSpecial.cableBroadcastStudio:
-      str = "News Broadcast Studio";
+      str = "Live News Studio";
     case TileSpecial.apartmentLandlord:
       str = "Landlord's Office";
     case TileSpecial.signOne:
@@ -499,9 +499,9 @@ void printSiteMapSmall(int x, int y, int z) {
     case TileSpecial.insuranceClaimsTerminal:
       str = "Claims Terminal";
     case TileSpecial.radioBroadcastStudio:
-      str = "Radio Broadcast Room";
+      str = "Talk Radio Studio";
     case TileSpecial.cableBroadcastStudio:
-      str = "News Broadcast Studio";
+      str = "Live News Studio";
     case TileSpecial.apartmentLandlord:
       str = "Landlord's Office";
     case TileSpecial.signOne:

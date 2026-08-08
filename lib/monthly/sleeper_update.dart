@@ -373,9 +373,9 @@ Future<void> sleeperSpy(Creature cr, Map<View, int> libpower) async {
       await leak(LootTypeIds.prisonFiles, "internal prison records");
     case CreatureTypeIds.newsAnchor:
       await leak(
-          LootTypeIds.cableNewsFiles, "proof of systemic Cable News bias");
+          LootTypeIds.cableNewsFiles, "proof of systemic news network bias");
     case CreatureTypeIds.radioPersonality:
-      await leak(LootTypeIds.amRadioFiles, "proof of systemic AM Radio bias");
+      await leak(LootTypeIds.amRadioFiles, "proof of systemic talk radio bias");
     case CreatureTypeIds.labTech:
     case CreatureTypeIds.eminentScientist:
       await leak(LootTypeIds.researchFiles, "internal animal research reports");
@@ -403,10 +403,10 @@ Future<void> sleeperSpy(Creature cr, Map<View, int> libpower) async {
       switch (cr.workSite?.type) {
         case SiteType.amRadioStation:
           await leak(
-              LootTypeIds.amRadioFiles, "proof of systemic AM Radio bias");
+              LootTypeIds.amRadioFiles, "proof of systemic talk radio bias");
         case SiteType.cableNewsStation:
           await leak(
-              LootTypeIds.cableNewsFiles, "proof of systemic Cable News bias");
+              LootTypeIds.cableNewsFiles, "proof of systemic news network bias");
         case SiteType.whiteHouse:
         case SiteType.intelligenceHQ:
           await leak(LootTypeIds.secretDocuments, "secret intelligence files");

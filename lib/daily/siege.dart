@@ -1216,7 +1216,7 @@ Future<void> siegeTurn() async {
           } else if (segmentpower < 50) {
             String paragraph =
                 "The discussion was exciting and dynamic. "
-                "Even the Cable News and AM Radio spend days talking about it.";
+                "Even the news networks and talk radio spend days talking about it.";
             newsBody += "\n\n$paragraph";
             addparagraph(console.y + 1, 1, paragraph);
           } else {
