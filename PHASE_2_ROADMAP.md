@@ -1,6 +1,11 @@
 # Phase 2 Roadmap — Engine Conversion
 
-Phase 1 is intentionally conservative at the code level. Phase 2 should make the setting mechanically socialist rather than merely relabeling the original left-right simulation.
+**Status after v0.2.0:** the first terminology and contemporary-world conversion
+milestones are complete. This roadmap now tracks the deeper mechanical conversion
+planned for v0.3.0 and later.
+
+The next phase should make the setting mechanically socialist rather than merely
+relabeling the original left-right simulation.
 
 ## 1. Class and workplace model
 

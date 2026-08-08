@@ -5,7 +5,7 @@
 Socialists, Liberals, Reactionaries, and Fascists in a heightened contemporary
 United States.
 
-**Current version:** `v0.1.4`
+**Current version:** `v0.2.0`
 
 > SCS is in active early development. Expect incomplete conversions, inherited
 > LCS terminology, balance issues, bugs, and substantial changes between versions.
@@ -29,31 +29,32 @@ either extreme.
 
 ## Development
 
-The current release represents the first working SCS baseline.
+Version 0.2.0 is the first broad contemporary-world conversion milestone.
 
 Implemented so far includes:
 
-- Socialist / Liberal / Reactionary / Fascist political framing
-- Socialist Crime Squad and Fascist Crime Squad terminology
-- Reworked political issue and law descriptions
-- Updated political starting conditions
-- Updated media terminology
+- Fascist / Reactionary / Liberal / Socialist / Revolutionary Socialist political framing
+- Socialist Crime Squad and Fascist Crime Squad player-facing identity
+- Reworked political issue, law, campaign-finance, and election descriptions
+- Updated 2026 political starting conditions and institutional presentation
+- Contemporary occupation and character labels
+- Modernized locations and everyday infrastructure
+- Talk Radio, News Network, and Socialist Guardian media presentation
+- Safer adaptive block-headline rendering for the in-game media system
 - Revised title, credits, statistics, and presentation
-- Initial 2026-era setting conversion
 - Preservation of much of the original game's underlying mechanics and save structure
 
-This is not intended to remain a simple terminology swap.
+This is not intended to remain a simple terminology swap. The next development
+milestones move from world conversion into new mechanics.
 
 Planned development includes:
 
-- Labor organizing
-- Unions and strikes
-- Class and economic position
-- Tenant organizing
-- Mutual aid
-- Worker ownership
-- Modern social and algorithmic media
-- Contemporary occupations and locations
+- Labor organizing, unions, and strikes
+- Class, workplace, and economic-position systems
+- Tenant organizing and mutual aid
+- Worker and cooperative ownership
+- Algorithmic-media, virality, and platform mechanics
+- New 2026 sites and occupation archetypes
 - Expanded political and electoral systems
 - Additional 2020s-era issues and institutions
 
