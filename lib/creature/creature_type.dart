@@ -199,8 +199,8 @@ class CreatureTypeIds {
   static const String physicalTherapist = "CREATURE_PHYSICAL_THERAPIST";
   static const String nursingHomeAttendant = "CREATURE_NURSING_HOME_ATTENDANT";
   static const String socialWorker = "CREATURE_SOCIAL_WORKER";
-  static const String ccsArchConservative = "CREATURE_FCS_ARCHCONSERVATIVE";
-  static const String ccsVigilante = "CREATURE_FCS_VIGILANTE";
+  static const String ccsArchConservative = "CREATURE_CCS_ARCHCONSERVATIVE";
+  static const String ccsVigilante = "CREATURE_CCS_VIGILANTE";
   static const String sewerWorker = "CREATURE_SEWERWORKER";
   static const String collegeStudent = "CREATURE_COLLEGESTUDENT";
   static const String musician = "CREATURE_MUSICIAN";

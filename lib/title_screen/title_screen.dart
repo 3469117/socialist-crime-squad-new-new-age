@@ -332,7 +332,7 @@ void printTitleScreen(HighScores? highScores) {
   setColor(lightGreen);
   const leftTitle = "SOCIALIST CRIME SQUAD:";
   const rightTitle = " NEW NEW AGE";
-  final titleX = (80 - (leftTitle.length + rightTitle.length)) ~/ 2;
+  const titleX = (80 - (leftTitle.length + rightTitle.length)) ~/ 2;
   setColor(lightGreen);
   mvaddstr(2, titleX, leftTitle);
   setColor(lightBlue);
