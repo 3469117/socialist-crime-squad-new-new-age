@@ -11,6 +11,7 @@ import 'package:lcs_new_age/daily/activities/fundraising.dart';
 import 'package:lcs_new_age/daily/activities/graffiti.dart';
 import 'package:lcs_new_age/daily/activities/guardian.dart';
 import 'package:lcs_new_age/daily/activities/hacking.dart';
+import 'package:lcs_new_age/daily/activities/labor_organizing.dart';
 import 'package:lcs_new_age/daily/activities/learning.dart';
 import 'package:lcs_new_age/daily/activities/recruiting.dart';
 import 'package:lcs_new_age/daily/activities/sleeper_join_lcs.dart';
@@ -172,6 +173,11 @@ Future<void> soloActivities(bool disbanding) async {
           if (politics.publicOpinion[View.lcsKnown]! > lcsRandom(100)) {
             changePublicOpinion(View.lcsLiked, 1, noPublicInterest: true);
           }
+        }
+      case ActivityType.organizeWorkers:
+        if (disbanding) continue;
+        for (Creature p in people) {
+          await doActivityOrganizeWorkers(p);
         }
       case ActivityType.hacking:
         if (disbanding) continue;

@@ -52,6 +52,14 @@ void main() {
         expect(pool, isNotEmpty,
             reason: 'No LCS members loaded from $fileName');
 
+        // v0.3.0 adds per-site labor organizing progress. Older saves have no
+        // such key, so every legacy site must deserialize to the default state.
+        for (final site in gameState.sites) {
+          expect(site.laborOrganizingProgress, 0,
+              reason: '${site.name} in $fileName did not default labor '
+                  'organizing progress to zero.');
+        }
+
         // Regression guard: a regular member's home base must always resolve to
         // an LCS-controlled safehouse. The pre-1.5.0 migration appends new
         // sites into the middle of the cities->districts->sites order, so any

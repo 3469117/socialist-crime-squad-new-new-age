@@ -54,6 +54,8 @@ class Activity {
         return "Making ${flagType?.shortName ?? "a bug"}";
       case ActivityType.visit:
         return "Visiting ${location?.name ?? "a bug"}";
+      case ActivityType.organizeWorkers:
+        return "Organizing ${location?.name ?? "a workplace"}";
       case ActivityType.study:
         return "Practice ${skill?.displayName ?? "a bug"}";
       case ActivityType.takeClass:
@@ -73,6 +75,7 @@ enum ActivityType {
   trouble("Causing Trouble", lightGreen),
   graffiti("Spraying Graffiti", lightGreen),
   communityService("Community Service", blue),
+  organizeWorkers("Organizing Workers", lightGreen),
   sellArt("Selling Art", lightBlue),
   sellMusic("Selling Music", lightBlue),
   sellTshirts("Selling T-shirts", lightBlue),

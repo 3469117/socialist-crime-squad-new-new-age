@@ -933,17 +933,25 @@ void prepareEncounter(
           CreatureTypeIds.janitor: 10,
           CreatureTypeIds.secretary: 10,
           CreatureTypeIds.engineer: 10,
-          if (laws[Law.labor] == DeepAlignment.archConservative)
+          if (activeSite?.isUnionized == true)
+            CreatureTypeIds.unionWorker: 160,
+          if (activeSite?.isUnionized != true &&
+              laws[Law.labor] == DeepAlignment.archConservative)
             CreatureTypeIds.childLaborer: 160,
-          if (laws[Law.labor] == DeepAlignment.conservative)
+          if (activeSite?.isUnionized != true &&
+              laws[Law.labor] == DeepAlignment.conservative)
             CreatureTypeIds.nonUnionWorker: 160,
-          if (laws[Law.labor] == DeepAlignment.moderate)
+          if (activeSite?.isUnionized != true &&
+              laws[Law.labor] == DeepAlignment.moderate)
             CreatureTypeIds.nonUnionWorker: 80,
-          if (laws[Law.labor] == DeepAlignment.liberal)
+          if (activeSite?.isUnionized != true &&
+              laws[Law.labor] == DeepAlignment.liberal)
             CreatureTypeIds.nonUnionWorker: 50,
-          if (laws[Law.labor] == DeepAlignment.liberal)
+          if (activeSite?.isUnionized != true &&
+              laws[Law.labor] == DeepAlignment.liberal)
             CreatureTypeIds.unionWorker: 110,
-          if (laws[Law.labor] == DeepAlignment.eliteLiberal)
+          if (activeSite?.isUnionized != true &&
+              laws[Law.labor] == DeepAlignment.eliteLiberal)
             CreatureTypeIds.unionWorker: 160,
         });
       case SiteType.corporateHQ:

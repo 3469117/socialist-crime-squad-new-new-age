@@ -60,6 +60,42 @@ class Site extends Location {
   int extraHeatFromCIA = 0;
   @JsonKey(defaultValue: 0)
   int extraHeatFromCCS = 0;
+
+  @JsonKey(defaultValue: 0)
+  int laborOrganizingProgress = 0;
+
+  bool get supportsLaborOrganizing => switch (type) {
+        SiteType.departmentStore ||
+        SiteType.carDealership ||
+        SiteType.sweatshop ||
+        SiteType.dirtyIndustry ||
+        SiteType.nuclearPlant ||
+        SiteType.corporateHQ ||
+        SiteType.amRadioStation ||
+        SiteType.cableNewsStation ||
+        SiteType.barAndGrill ||
+        SiteType.bank ||
+        SiteType.insuranceOffice ||
+        SiteType.nursingHome =>
+          true,
+        _ => false,
+      };
+
+  bool get isUnionized => laborOrganizingProgress >= 100;
+
+  String get laborOrganizingStatus {
+    if (isUnionized) return "Unionized";
+    if (laborOrganizingProgress > 0) return "Organizing";
+    return "Unorganized";
+  }
+
+  void addLaborOrganizingProgress(int amount) {
+    laborOrganizingProgress = min(
+      100,
+      max(0, laborOrganizingProgress + amount),
+    );
+  }
+
   int get extraHeatFromCCSTarget {
     if (!ccsActive || !lcsInPublicEye) return 0;
     int ccsReach = ccsState.index;

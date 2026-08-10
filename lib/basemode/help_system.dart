@@ -64,6 +64,22 @@ Future<void> helpOnActivity(ActivityType type) async {
           "Computers is necessary for both making a successful hacking attempt "
           "and avoiding the crime being traced back to your hackers.\n\n"
           "Due to its high risk, hacking can increase Juice up to a cap of 200.");
+    case ActivityType.organizeWorkers:
+      _head("=== Organize Workers ===");
+      _body("Organize Workers sends a Socialist into a local private-sector "
+          "workplace to build worker support for a union. Each successful day "
+          "adds progress to that specific workplace. At 100%, the workplace "
+          "becomes unionized and stays that way.\n\n"
+          "Persuasion is the primary skill for organizing. Business knowledge "
+          "also helps an organizer understand management, workplace structure, "
+          "and the economic arguments workers will face. Both skills improve "
+          "through organizing work.\n\n"
+          "National labor law affects how quickly a drive can advance. "
+          "Reactionary and Fascist labor law makes organizing harder, while "
+          "Socialist labor law makes it easier.\n\n"
+          "For now, unionization is a persistent workplace state. Later labor "
+          "systems will build strikes, bargaining, employer retaliation, and "
+          "other consequences on top of it.");
     case ActivityType.writeGuardian:
       _head("=== Publish for the Socialist Guardian ===");
       _body("The Socialist Guardian is the SCS's independent media platform. "

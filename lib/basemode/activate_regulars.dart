@@ -16,6 +16,7 @@ import 'package:lcs_new_age/gamestate/squad.dart';
 import 'package:lcs_new_age/items/armor_upgrade.dart';
 import 'package:lcs_new_age/items/clothing_type.dart';
 import 'package:lcs_new_age/items/flag_type.dart';
+import 'package:lcs_new_age/location/site.dart';
 import 'package:lcs_new_age/politics/alignment.dart';
 import 'package:lcs_new_age/utils/colors.dart';
 import 'package:lcs_new_age/utils/interface_options.dart';
@@ -92,6 +93,7 @@ List<ActivityType> _activism = [
   ActivityType.graffiti,
   ActivityType.hacking,
   ActivityType.writeGuardian,
+  ActivityType.organizeWorkers,
 ];
 
 List<ActivityType> _legal = [
@@ -230,7 +232,7 @@ Future<void> assignTask(Creature c) async {
     }
     if (key >= Key.num0 && key <= Key.num9) {
       if (state == Key.a) {
-        _activismChoice(c, key - Key.num0);
+        await _activismChoice(c, key - Key.num0);
       } else if (state == Key.b) {
         _legalChoice(c, key - Key.num0);
       } else if (state == Key.c) {
@@ -320,9 +322,10 @@ void _activismSubmenu(Creature c) {
     "6 - Livestream for Guardian$needVideoRoom",
     greyOut: c.site?.compound.videoRoom != true,
   );
+  _subActivity(ActivityType.organizeWorkers, "7 - Organize Workers");
 }
 
-void _activismChoice(Creature c, int choice) {
+Future<void> _activismChoice(Creature c, int choice) async {
   if (choice == 1) c.activity = Activity(ActivityType.communityService);
   if (choice == 2) c.activity = Activity(ActivityType.trouble);
   if (choice == 3) c.activity = Activity(ActivityType.graffiti);
@@ -335,6 +338,62 @@ void _activismChoice(Creature c, int choice) {
   if (choice == 6 && c.site?.compound.videoRoom == true) {
     c.activity = Activity(ActivityType.streamGuardian);
   }
+  if (choice == 7) {
+    await _selectLaborOrganizingTarget(c);
+  }
+}
+
+Future<void> _selectLaborOrganizingTarget(Creature c) async {
+  var city = c.site?.city ?? c.base?.city;
+  if (city == null) {
+    await showMessage("${c.name} has no local workplaces to organize.");
+    return;
+  }
+
+  List<Site> workplaces = city.sites
+      .where(
+        (site) =>
+            site.supportsLaborOrganizing &&
+            site.controller == SiteController.unaligned,
+      )
+      .toList()
+    ..sort((a, b) => a.name.compareTo(b.name));
+
+  if (workplaces.isEmpty) {
+    await showMessage("There are no eligible workplaces in ${city.name}.");
+    return;
+  }
+
+  await pagedInterface(
+    headerPrompt: "Which workplace will ${c.name} organize?",
+    headerKey: {4: "WORKPLACE", 45: "STATUS", 64: "PROGRESS"},
+    footerPrompt: "Press a Letter to select a workplace",
+    pageSize: 18,
+    count: workplaces.length,
+    lineBuilder: (y, key, index) {
+      Site workplace = workplaces[index];
+      addOptionText(
+        y,
+        0,
+        key,
+        "$key - ${truncateForDisplay(workplace.name, 38)}",
+      );
+      mvaddstr(y, 45, workplace.laborOrganizingStatus);
+      mvaddstr(y, 67, "${workplace.laborOrganizingProgress}%");
+    },
+    onChoice: (index) async {
+      Site workplace = workplaces[index];
+      if (workplace.isUnionized) {
+        await showMessage("${workplace.name} is already unionized.");
+        return false;
+      }
+      c.activity = Activity(
+        ActivityType.organizeWorkers,
+        idString: workplace.idString,
+      );
+      return true;
+    },
+  );
 }
 
 void _activismDefault(Creature c, {bool noCommunityService = false}) {
@@ -989,6 +1048,12 @@ void _activityFooter(Creature cr) {
       );
     case ActivityType.wheelchair:
       addstr(" procure a wheelchair.");
+    case ActivityType.organizeWorkers:
+      addstr(
+        " organize workers at "
+        "${cr.activity.location?.name ?? "a local workplace"}.",
+      );
+      mvaddstrc(23, 3, midGray, "Uses Persuasion and Business.");
     case ActivityType.writeGuardian:
       addstr(" publish stories for the Socialist Guardian.");
       mvaddstrc(23, 3, midGray, "Uses Writing and various knowledge skills.");
