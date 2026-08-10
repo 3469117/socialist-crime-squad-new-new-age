@@ -107,6 +107,16 @@ class Site extends Location {
   int laborUnionLocalStrength = 0;
   @JsonKey(defaultValue: 0)
   int laborUnionDuesLastMonth = 0;
+  @JsonKey(defaultValue: 0)
+  int laborGrievanceDemand = 0;
+  @JsonKey(defaultValue: 0)
+  int laborGrievanceProgress = 0;
+  @JsonKey(defaultValue: 0)
+  int laborGrievanceMonthsOpen = 0;
+  @JsonKey(defaultValue: 0)
+  int laborGrievancesWon = 0;
+  @JsonKey(defaultValue: 0)
+  int laborGrievancesLost = 0;
 
   static const int laborDemandNone = 0;
   static const int laborDemandHigherWages = 1;
@@ -348,6 +358,73 @@ class Site extends Location {
     };
     addLaborEmployerResistance(-resistanceReduction);
     addLaborUnionLocalStrength(3);
+  }
+
+  bool get hasActiveLaborGrievance =>
+      laborGrievanceDemand != laborDemandNone;
+
+  String get laborGrievanceName => laborDemandNameFor(laborGrievanceDemand);
+
+  String get laborGrievanceShortName => switch (laborGrievanceDemand) {
+        laborDemandHigherWages => "Wages",
+        laborDemandBetterConditions => "Conditions",
+        laborDemandJobSecurity => "Job Security",
+        laborDemandUnionProtections => "Union Rights",
+        _ => "None",
+      };
+
+  void startLaborGrievance(int demand) {
+    if (!isUnionized || hasActiveLaborGrievance || !hasLaborDemand(demand)) {
+      return;
+    }
+    laborGrievanceDemand = demand;
+    laborGrievanceProgress = 0;
+    laborGrievanceMonthsOpen = 0;
+  }
+
+  void addLaborGrievanceProgress(int amount) {
+    laborGrievanceProgress = min(100, max(0, laborGrievanceProgress + amount));
+  }
+
+  void advanceLaborGrievanceMonth() {
+    if (hasActiveLaborGrievance) laborGrievanceMonthsOpen++;
+  }
+
+  void resolveLaborGrievance() {
+    if (!hasActiveLaborGrievance) return;
+    int resolvedDemand = laborGrievanceDemand;
+    laborGrievancesWon++;
+    int resistanceReduction = switch (resolvedDemand) {
+      laborDemandHigherWages => 6,
+      laborDemandBetterConditions => 8,
+      laborDemandJobSecurity => 10,
+      laborDemandUnionProtections => 15,
+      _ => 5,
+    };
+    int localGain = switch (resolvedDemand) {
+      laborDemandHigherWages => 2,
+      laborDemandBetterConditions => 3,
+      laborDemandJobSecurity => 4,
+      laborDemandUnionProtections => 5,
+      _ => 2,
+    };
+    addLaborEmployerResistance(-resistanceReduction);
+    addLaborUnionLocalStrength(localGain);
+    clearLaborGrievance();
+  }
+
+  void loseLaborGrievance() {
+    if (!hasActiveLaborGrievance) return;
+    laborGrievancesLost++;
+    addLaborEmployerResistance(8);
+    addLaborUnionLocalStrength(-5);
+    clearLaborGrievance();
+  }
+
+  void clearLaborGrievance() {
+    laborGrievanceDemand = laborDemandNone;
+    laborGrievanceProgress = 0;
+    laborGrievanceMonthsOpen = 0;
   }
 
   bool get canStartLaborStrike =>

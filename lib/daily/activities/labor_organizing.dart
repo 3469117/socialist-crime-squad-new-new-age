@@ -777,6 +777,115 @@ Future<void> doActivityBuildUnionLocal(
   }
 }
 
+Future<void> doActivityPursueUnionGrievance(
+  List<Creature> organizers,
+) async {
+  if (organizers.isEmpty) return;
+
+  Creature businessLead = organizers.first;
+  Creature persuasionLead = organizers.first;
+  for (Creature organizer in organizers.skip(1)) {
+    if (organizer.skill(Skill.business) >
+        businessLead.skill(Skill.business)) {
+      businessLead = organizer;
+    }
+    if (organizer.skill(Skill.persuasion) >
+        persuasionLead.skill(Skill.persuasion)) {
+      persuasionLead = organizer;
+    }
+  }
+
+  Site? workplace = businessLead.activity.location;
+  if (workplace == null ||
+      !workplace.supportsLaborOrganizing ||
+      workplace.controller != SiteController.unaligned ||
+      !workplace.isUnionized ||
+      !workplace.hasActiveLaborGrievance) {
+    _clearLaborActivities(organizers);
+    return;
+  }
+
+  workplace.establishLaborUnionLocal();
+  int lawModifier = switch (laws[Law.labor]!) {
+    DeepAlignment.archConservative => -4,
+    DeepAlignment.conservative => -2,
+    DeepAlignment.moderate => 0,
+    DeepAlignment.liberal => 2,
+    DeepAlignment.eliteLiberal => 4,
+  };
+  int protectionBonus =
+      workplace.hasLaborDemand(Site.laborDemandUnionProtections) ? 3 : 0;
+  int teamBonus = (organizers.length - 1).clamp(0, 4);
+  int localSupport = workplace.laborUnionLocalStrengthForEffects ~/ 20;
+  int demandDifficulty =
+      workplace.laborDemandDifficultyFor(workplace.laborGrievanceDemand) ~/ 2;
+
+  int unionRoll = businessLead.skillRoll(Skill.business) +
+      persuasionLead.skill(Skill.persuasion) ~/ 2 +
+      localSupport +
+      lawModifier +
+      protectionBonus +
+      teamBonus;
+  int employerDifficulty = 9 +
+      workplace.laborUnionBustStrength +
+      workplace.laborEmployerResistance ~/ 20 +
+      demandDifficulty;
+  int margin = unionRoll - employerDifficulty;
+
+  for (Creature organizer in organizers) {
+    organizer.train(Skill.business, 8);
+    organizer.train(Skill.persuasion, 6);
+  }
+
+  if (margin < 0) {
+    if (margin <= -5) workplace.addLaborEmployerResistance(1);
+    await showMessage(
+      "Management at ${workplace.name} stalls the union's "
+      "${workplace.laborGrievanceName} grievance. The case remains open at "
+      "${workplace.laborGrievanceProgress}% progress.",
+    );
+    return;
+  }
+
+  int beforeProgress = workplace.laborGrievanceProgress;
+  int progress = (8 + margin).clamp(6, 20);
+  workplace.addLaborGrievanceProgress(progress);
+  workplace.addLaborEmployerResistance(-1);
+
+  if (workplace.laborGrievanceProgress >= 100) {
+    int demand = workplace.laborGrievanceDemand;
+    String issue = workplace.laborGrievanceName;
+    workplace.resolveLaborGrievance();
+    for (Creature organizer in organizers) {
+      addjuice(organizer, 4, 100);
+      organizer.activity = Activity.none();
+    }
+    await showMessage(
+      _laborGrievanceSettlementMessage(workplace, demand, issue),
+    );
+    return;
+  }
+
+  int finalProgress = workplace.laborGrievanceProgress;
+  if (beforeProgress < 25 && finalProgress >= 25) {
+    await showMessage(
+      "Stewards at ${workplace.name} have documented the "
+      "${workplace.laborGrievanceName} grievance and forced management to "
+      "answer the union's case.",
+    );
+  } else if (beforeProgress < 50 && finalProgress >= 50) {
+    await showMessage(
+      "The grievance at ${workplace.name} has reached formal review. "
+      "Management is under growing pressure to honor the contract.",
+    );
+  } else if (beforeProgress < 75 && finalProgress >= 75) {
+    await showMessage(
+      "The union at ${workplace.name} is close to winning its "
+      "${workplace.laborGrievanceName} grievance.",
+    );
+  }
+}
+
 Future<void> doActivitySupportStrikeRelief(
   List<Creature> supporters,
 ) async {
@@ -1126,10 +1235,39 @@ Future<void> _resolveStrikePoliceIntervention(
   }
 }
 
-void _clearLaborStrikeActivities(List<Creature> organizers) {
+void _clearLaborActivities(List<Creature> organizers) {
   for (Creature organizer in organizers) {
     organizer.activity = Activity.none();
   }
+}
+
+void _clearLaborStrikeActivities(List<Creature> organizers) {
+  _clearLaborActivities(organizers);
+}
+
+String _laborGrievanceSettlementMessage(
+  Site workplace,
+  int demand,
+  String issue,
+) {
+  String remedy = switch (demand) {
+    Site.laborDemandHigherWages =>
+      "Management repays withheld wages and restores the negotiated pay "
+          "schedule.",
+    Site.laborDemandBetterConditions =>
+      "Management corrects the documented scheduling and workplace-condition "
+          "violations.",
+    Site.laborDemandJobSecurity =>
+      "Management rescinds the unjust discipline and restores the contract's "
+          "just-cause protections.",
+    Site.laborDemandUnionProtections =>
+      "Management stops interfering with stewards and restores the union's "
+          "contractual access and representation rights.",
+    _ => "Management agrees to remedy the contract violation.",
+  };
+  return "The union at ${workplace.name} wins its $issue grievance. $remedy "
+      "The victory strengthens the local and makes management less willing "
+      "to violate the agreement again.";
 }
 
 String _laborSettlementMessage(Site workplace, String demand) {

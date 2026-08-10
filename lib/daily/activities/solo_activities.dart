@@ -127,6 +127,19 @@ Future<void> soloActivities(bool disbanding) async {
         await doActivityBuildUnionLocal(team);
       }
     }
+
+    List<Creature>? grievanceWorkers = activities.remove(
+      ActivityType.pursueUnionGrievance,
+    );
+    if (grievanceWorkers != null) {
+      Map<String?, List<Creature>> grievanceTeams = {};
+      for (Creature p in grievanceWorkers) {
+        grievanceTeams.putIfAbsent(p.activity.idString, () => []).add(p);
+      }
+      for (List<Creature> team in grievanceTeams.values) {
+        await doActivityPursueUnionGrievance(team);
+      }
+    }
   }
 
   for (MapEntry entry in activities.entries) {

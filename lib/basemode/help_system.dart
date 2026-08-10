@@ -193,6 +193,25 @@ Future<void> helpOnActivity(ActivityType type) async {
           "Monthly dues go directly into that workplace union local's "
           "reserve, not the SCS treasury. The reserve is the same fund "
           "used automatically to support workers during a strike.");
+    case ActivityType.pursueUnionGrievance:
+      _head("=== Pursue Union Grievance ===");
+      _body("A collective bargaining agreement only matters if management "
+          "honors it. Each month, employers may violate contract terms that "
+          "the workplace union has already secured. Strong union locals are "
+          "more likely to detect those violations, while favorable labor law "
+          "and Union Protections make violations less common.\n\n"
+          "A documented grievance identifies which contract term is being "
+          "violated: Higher Wages, Better Conditions, Job Security, or Union "
+          "Protections. Pursue Grievance assigns Socialists to help stewards "
+          "document the case, confront management, and enforce the agreement. "
+          "Business leads the case, Persuasion builds worker pressure, local "
+          "strength supports both, and additional Socialists provide a small "
+          "team bonus.\n\n"
+          "Winning a grievance forces management to remedy the violation, "
+          "strengthens the local, and reduces employer resistance. Grievances "
+          "that remain unresolved for several months are lost: management "
+          "grows bolder and the union local loses strength. Previously secured "
+          "contract demands are not erased by a lost grievance.");
     case ActivityType.writeGuardian:
       _head("=== Publish for the Socialist Guardian ===");
       _body("The Socialist Guardian is the SCS's independent media platform. "

@@ -64,6 +64,8 @@ class Activity {
         return "Providing strike relief at ${location?.name ?? "a workplace"}";
       case ActivityType.buildUnionLocal:
         return "Building the union local at ${location?.name ?? "a workplace"}";
+      case ActivityType.pursueUnionGrievance:
+        return "Pursuing a grievance at ${location?.name ?? "a workplace"}";
       case ActivityType.study:
         return "Practice ${skill?.displayName ?? "a bug"}";
       case ActivityType.takeClass:
@@ -88,6 +90,7 @@ enum ActivityType {
   supportLaborStrike("Supporting Labor Strike", lightGreen),
   supportStrikeRelief("Providing Strike Relief", lightGreen),
   buildUnionLocal("Building Union Local", lightGreen),
+  pursueUnionGrievance("Pursuing Union Grievance", lightGreen),
   sellArt("Selling Art", lightBlue),
   sellMusic("Selling Music", lightBlue),
   sellTshirts("Selling T-shirts", lightBlue),

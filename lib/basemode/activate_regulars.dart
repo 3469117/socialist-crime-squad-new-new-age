@@ -101,6 +101,7 @@ List<ActivityType> _unionActivities = [
   ActivityType.supportLaborStrike,
   ActivityType.supportStrikeRelief,
   ActivityType.buildUnionLocal,
+  ActivityType.pursueUnionGrievance,
 ];
 
 List<ActivityType> _activism = [
@@ -393,6 +394,10 @@ void _unionActivitySubmenu() {
     ActivityType.buildUnionLocal,
     "5 - Build Union Local",
   );
+  _subActivity(
+    ActivityType.pursueUnionGrievance,
+    "6 - Pursue Grievance",
+  );
   _y++;
   mvaddstrc(_y++, 40, midGray, "Esc/Space - Back to Socialist Activism");
 }
@@ -427,6 +432,9 @@ Future<void> _unionActivityChoice(Creature c, int choice) async {
   }
   if (choice == 5) {
     await _selectUnionLocalTarget(c);
+  }
+  if (choice == 6) {
+    await _selectLaborGrievanceTarget(c);
   }
 }
 
@@ -836,6 +844,78 @@ Future<void> _selectUnionLocalTarget(Creature c) async {
 
       c.activity = Activity(
         ActivityType.buildUnionLocal,
+        idString: workplace.idString,
+      );
+      return true;
+    },
+  );
+}
+
+Future<void> _selectLaborGrievanceTarget(Creature c) async {
+  var city = c.site?.city ?? c.base?.city;
+  if (city == null) {
+    await showMessage("${c.name} has no local union grievances to pursue.");
+    return;
+  }
+
+  List<Site> workplaces = city.sites
+      .where(
+        (site) =>
+            site.supportsLaborOrganizing &&
+            site.controller == SiteController.unaligned &&
+            site.isUnionized &&
+            site.hasActiveLaborGrievance,
+      )
+      .toList()
+    ..sort((a, b) => a.name.compareTo(b.name));
+
+  if (workplaces.isEmpty) {
+    await showMessage(
+      "There are no documented contract grievances in this city.",
+    );
+    return;
+  }
+
+  await pagedInterface(
+    headerPrompt: "Which union grievance will ${c.name} pursue?",
+    headerKey: {
+      4: "WORKPLACE",
+      29: "ISSUE",
+      47: "PROGRESS",
+      59: "AGE",
+      68: "LOCAL",
+    },
+    footerPrompt: "Press a Letter to pursue a contract grievance",
+    pageSize: 18,
+    count: workplaces.length,
+    lineBuilder: (y, key, index) {
+      Site workplace = workplaces[index];
+      addOptionText(
+        y,
+        0,
+        key,
+        "$key - ${truncateForDisplay(workplace.name, 22)}",
+      );
+      mvaddstr(
+        y,
+        29,
+        truncateForDisplay(workplace.laborGrievanceShortName, 15),
+      );
+      mvaddstr(y, 47, "${workplace.laborGrievanceProgress}%");
+      mvaddstr(y, 59, "${workplace.laborGrievanceMonthsOpen} mo");
+      mvaddstr(y, 68, "${workplace.laborUnionLocalStrengthForEffects}%");
+    },
+    onChoice: (index) async {
+      Site workplace = workplaces[index];
+      if (!workplace.hasActiveLaborGrievance) {
+        await showMessage(
+          "The grievance at ${workplace.name} has already been resolved.",
+        );
+        return false;
+      }
+
+      c.activity = Activity(
+        ActivityType.pursueUnionGrievance,
         idString: workplace.idString,
       );
       return true;
@@ -1527,6 +1607,12 @@ void _activityFooter(Creature cr) {
     case ActivityType.buildUnionLocal:
       addstr(" strengthen a recognized workplace union local.");
       mvaddstrc(23, 3, midGray, "Uses Persuasion and Business.");
+    case ActivityType.pursueUnionGrievance:
+      addstr(
+        " enforce the union contract at "
+        "${cr.activity.location?.name ?? "a local workplace"}.",
+      );
+      mvaddstrc(23, 3, midGray, "Uses Business and Persuasion.");
     case ActivityType.writeGuardian:
       addstr(" publish stories for the Socialist Guardian.");
       mvaddstrc(23, 3, midGray, "Uses Writing and various knowledge skills.");

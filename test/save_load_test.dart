@@ -124,6 +124,21 @@ void main() {
           expect(site.laborUnionDuesLastMonth, 0,
               reason: '${site.name} in $fileName did not default monthly '
                   'union dues to zero.');
+          expect(site.laborGrievanceDemand, 0,
+              reason: '${site.name} in $fileName did not default grievance '
+                  'demand to zero.');
+          expect(site.laborGrievanceProgress, 0,
+              reason: '${site.name} in $fileName did not default grievance '
+                  'progress to zero.');
+          expect(site.laborGrievanceMonthsOpen, 0,
+              reason: '${site.name} in $fileName did not default grievance '
+                  'age to zero.');
+          expect(site.laborGrievancesWon, 0,
+              reason: '${site.name} in $fileName did not default grievance '
+                  'wins to zero.');
+          expect(site.laborGrievancesLost, 0,
+              reason: '${site.name} in $fileName did not default grievance '
+                  'losses to zero.');
         }
 
         // Regression guard: a regular member's home base must always resolve to
