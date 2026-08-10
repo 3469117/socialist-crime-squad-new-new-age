@@ -133,6 +133,9 @@ void main() {
           expect(site.laborGrievanceMonthsOpen, 0,
               reason: '${site.name} in $fileName did not default grievance '
                   'age to zero.');
+          expect(site.laborGrievanceLegalReview, false,
+              reason: '${site.name} in $fileName did not default grievance '
+                  'legal-review state to false.');
           expect(site.laborGrievancesWon, 0,
               reason: '${site.name} in $fileName did not default grievance '
                   'wins to zero.');

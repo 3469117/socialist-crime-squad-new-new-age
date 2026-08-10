@@ -108,6 +108,13 @@ Future<void> helpOnActivity(ActivityType type) async {
           "apply additional pressure.\n\n"
           "Each settlement permanently adds that demand to the workplace's "
           "collective bargaining agreement and reduces employer resistance. "
+          "The terms also have continuing effects: Higher Wages increases "
+          "monthly dues and makes strike hardship easier to absorb; Better "
+          "Conditions helps locals develop and reduces hardship during a "
+          "walkout; Job Security makes replacement-worker campaigns less "
+          "effective and cushions the organizational damage of a lost strike; "
+          "Union Protections strengthens grievance enforcement and defenses "
+          "against strike repression.\n\n"
           "Once all four demands are secured, the contract is complete. At an "
           "impasse, use Support Strike & Picket to escalate the dispute.");
     case ActivityType.supportLaborStrike:
@@ -208,10 +215,19 @@ Future<void> helpOnActivity(ActivityType type) async {
           "strength supports both, and additional Socialists provide a small "
           "team bonus.\n\n"
           "Winning a grievance forces management to remedy the violation, "
-          "strengthens the local, and reduces employer resistance. Grievances "
-          "that remain unresolved for several months are lost: management "
-          "grows bolder and the union local loses strength. Previously secured "
-          "contract demands are not erased by a lost grievance.");
+          "strengthens the local, and reduces employer resistance. If a "
+          "workplace grievance remains unresolved for two monthly cycles, it "
+          "escalates automatically to a legal remedy rather than simply "
+          "disappearing. A union with Union Protections uses contract "
+          "arbitration; other unions go before the labor board.\n\n"
+          "The legal forum issues a binding decision on the following monthly "
+          "cycle. Grievance progress, local strength, employer resistance, and "
+          "labor law all affect that outcome. Contract arbitration is less "
+          "exposed to national political swings than a labor-board case. Keep "
+          "using Pursue Grievance during legal review to strengthen the record "
+          "before the ruling. Losing a case weakens the local and emboldens "
+          "management, but previously secured contract demands are never "
+          "erased by a lost grievance.");
     case ActivityType.writeGuardian:
       _head("=== Publish for the Socialist Guardian ===");
       _body("The Socialist Guardian is the SCS's independent media platform. "

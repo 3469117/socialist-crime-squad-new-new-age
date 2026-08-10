@@ -880,10 +880,11 @@ Future<void> _selectLaborGrievanceTarget(Creature c) async {
     headerPrompt: "Which union grievance will ${c.name} pursue?",
     headerKey: {
       4: "WORKPLACE",
-      29: "ISSUE",
-      47: "PROGRESS",
-      59: "AGE",
-      68: "LOCAL",
+      27: "ISSUE",
+      42: "STAGE",
+      55: "PROG",
+      64: "AGE",
+      72: "LOCAL",
     },
     footerPrompt: "Press a Letter to pursue a contract grievance",
     pageSize: 18,
@@ -894,16 +895,21 @@ Future<void> _selectLaborGrievanceTarget(Creature c) async {
         y,
         0,
         key,
-        "$key - ${truncateForDisplay(workplace.name, 22)}",
+        "$key - ${truncateForDisplay(workplace.name, 20)}",
       );
       mvaddstr(
         y,
-        29,
-        truncateForDisplay(workplace.laborGrievanceShortName, 15),
+        27,
+        truncateForDisplay(workplace.laborGrievanceShortName, 14),
       );
-      mvaddstr(y, 47, "${workplace.laborGrievanceProgress}%");
-      mvaddstr(y, 59, "${workplace.laborGrievanceMonthsOpen} mo");
-      mvaddstr(y, 68, "${workplace.laborUnionLocalStrengthForEffects}%");
+      mvaddstr(
+        y,
+        42,
+        truncateForDisplay(workplace.laborGrievanceStageShortName, 12),
+      );
+      mvaddstr(y, 55, "${workplace.laborGrievanceProgress}%");
+      mvaddstr(y, 64, "${workplace.laborGrievanceMonthsOpen} mo");
+      mvaddstr(y, 72, "${workplace.laborUnionLocalStrengthForEffects}%");
     },
     onChoice: (index) async {
       Site workplace = workplaces[index];

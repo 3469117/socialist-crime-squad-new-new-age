@@ -23,7 +23,8 @@ Future<void> advanceLaborUnionLocals() async {
     if (site.laborStrikeActive) duesPercent = duesPercent * 60 ~/ 100;
 
     int dues = site.laborUnionMonthlyDuesBase * duesPercent ~/ 100;
-    dues = dues.clamp(25, 1000);
+    dues = dues * site.laborUnionDuesContractPercent ~/ 100;
+    dues = dues.clamp(25, 1250);
     int beforeFund = site.laborStrikeFund;
     site.addLaborStrikeFund(dues);
     int collected = site.laborStrikeFund - beforeFund;
@@ -49,12 +50,23 @@ Future<void> _advanceLaborGrievances(Site site) async {
 
   if (site.hasActiveLaborGrievance) {
     site.advanceLaborGrievanceMonth();
-    if (site.laborGrievanceMonthsOpen >= 3) {
-      String issue = site.laborGrievanceName;
-      site.loseLaborGrievance();
+    if (site.laborGrievanceLegalReview) {
+      if (site.laborGrievanceMonthsOpen >= 3) {
+        await _resolveLaborGrievanceLegalReview(site);
+      }
+      return;
+    }
+
+    if (site.laborGrievanceMonthsOpen >= 2) {
+      site.escalateLaborGrievanceToLegalReview();
+      String forum = site.laborGrievanceUsesArbitration
+          ? "contract arbitration"
+          : "the labor board";
       await showMessageOrLog(
-        "The union at ${site.name} lets its $issue grievance go unresolved. "
-        "Management grows bolder and the local loses organizational strength.",
+        "Management at ${site.name} has not resolved the union's "
+        "${site.laborGrievanceName} grievance. The case escalates to $forum. "
+        "Additional grievance work can strengthen the record before a "
+        "binding decision next month.",
       );
     }
     return;
@@ -105,6 +117,56 @@ Future<void> _advanceLaborGrievances(Site site) async {
   site.startLaborGrievance(demand);
   site.addLaborEmployerResistance(2);
   await showMessageOrLog(_laborViolationMessage(site, demand));
+}
+
+
+Future<void> _resolveLaborGrievanceLegalReview(Site site) async {
+  if (!site.hasActiveLaborGrievance || !site.laborGrievanceLegalReview) return;
+
+  int lawModifier = switch (laws[Law.labor]!) {
+    DeepAlignment.archConservative => -18,
+    DeepAlignment.conservative => -9,
+    DeepAlignment.moderate => 0,
+    DeepAlignment.liberal => 9,
+    DeepAlignment.eliteLiberal => 18,
+  };
+  if (site.laborGrievanceUsesArbitration) {
+    lawModifier ~/= 2;
+  }
+
+  int forumBonus = site.laborGrievanceUsesArbitration ? 12 : 0;
+  int unionCase = site.laborGrievanceProgress +
+      site.laborUnionLocalStrengthForEffects ~/ 2 +
+      lawModifier +
+      forumBonus +
+      lcsRandom(30);
+  int employerCase = 45 +
+      site.laborUnionBustStrength * 3 +
+      site.laborEmployerResistance ~/ 3 +
+      lcsRandom(20);
+
+  String issue = site.laborGrievanceName;
+  bool arbitration = site.laborGrievanceUsesArbitration;
+  String forum = arbitration ? "The arbitrator" : "The labor board";
+  if (unionCase >= employerCase) {
+    site.resolveLaborGrievance();
+    await showMessageOrLog(
+      "$forum rules for the union at ${site.name} on its $issue grievance. "
+      "Management is ordered to remedy the contract violation, and the "
+      "enforcement victory strengthens the local.",
+    );
+    return;
+  }
+
+  site.loseLaborGrievance();
+  String reason = arbitration
+      ? "The arbitrator accepts management's defense"
+      : "The labor board declines to sustain the union's charge";
+  await showMessageOrLog(
+    "$reason at ${site.name}. The $issue grievance is lost, management grows "
+    "bolder, and the local loses strength. The underlying contract term "
+    "remains in force.",
+  );
 }
 
 String _laborViolationMessage(Site site, int demand) => switch (demand) {

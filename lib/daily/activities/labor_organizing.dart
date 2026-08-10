@@ -745,7 +745,10 @@ Future<void> doActivityBuildUnionLocal(
       workplace.laborEmployerResistance ~/ 30 +
       localStrength ~/ 25;
   int margin = unionRoll - difficulty;
-  int growth = margin >= 0 ? (2 + margin ~/ 3 + teamBonus ~/ 2).clamp(2, 7) : 1;
+  int contractGrowthBonus = workplace.laborBetterConditionsLocalGrowthBonus;
+  int growth = margin >= 0
+      ? (2 + margin ~/ 3 + teamBonus ~/ 2 + contractGrowthBonus).clamp(2, 8)
+      : 1;
   int beforeStrength = workplace.laborUnionLocalStrength;
   workplace.addLaborUnionLocalStrength(growth);
 
@@ -806,6 +809,7 @@ Future<void> doActivityPursueUnionGrievance(
   }
 
   workplace.establishLaborUnionLocal();
+  bool legalReview = workplace.laborGrievanceLegalReview;
   int lawModifier = switch (laws[Law.labor]!) {
     DeepAlignment.archConservative => -4,
     DeepAlignment.conservative => -2,
@@ -813,8 +817,14 @@ Future<void> doActivityPursueUnionGrievance(
     DeepAlignment.liberal => 2,
     DeepAlignment.eliteLiberal => 4,
   };
+  if (legalReview && workplace.laborGrievanceUsesArbitration) {
+    lawModifier ~/= 2;
+  }
   int protectionBonus =
       workplace.hasLaborDemand(Site.laborDemandUnionProtections) ? 3 : 0;
+  if (legalReview && workplace.laborGrievanceUsesArbitration) {
+    protectionBonus += 4;
+  }
   int teamBonus = (organizers.length - 1).clamp(0, 4);
   int localSupport = workplace.laborUnionLocalStrengthForEffects ~/ 20;
   int demandDifficulty =
@@ -826,7 +836,7 @@ Future<void> doActivityPursueUnionGrievance(
       lawModifier +
       protectionBonus +
       teamBonus;
-  int employerDifficulty = 9 +
+  int employerDifficulty = (legalReview ? 11 : 9) +
       workplace.laborUnionBustStrength +
       workplace.laborEmployerResistance ~/ 20 +
       demandDifficulty;
@@ -839,35 +849,58 @@ Future<void> doActivityPursueUnionGrievance(
 
   if (margin < 0) {
     if (margin <= -5) workplace.addLaborEmployerResistance(1);
+    String forum = workplace.laborGrievanceUsesArbitration
+        ? "arbitration"
+        : "labor-board review";
+    String stageText = legalReview
+        ? "The union's $forum case does not advance today"
+        : "Management stalls the union's grievance";
     await showMessage(
-      "Management at ${workplace.name} stalls the union's "
-      "${workplace.laborGrievanceName} grievance. The case remains open at "
+      "$stageText at ${workplace.name}. The "
+      "${workplace.laborGrievanceName} case remains at "
       "${workplace.laborGrievanceProgress}% progress.",
     );
     return;
   }
 
   int beforeProgress = workplace.laborGrievanceProgress;
-  int progress = (8 + margin).clamp(6, 20);
+  int progress = legalReview
+      ? (10 + margin).clamp(8, 24)
+      : (8 + margin).clamp(6, 20);
   workplace.addLaborGrievanceProgress(progress);
   workplace.addLaborEmployerResistance(-1);
 
   if (workplace.laborGrievanceProgress >= 100) {
     int demand = workplace.laborGrievanceDemand;
     String issue = workplace.laborGrievanceName;
+    String forum = workplace.laborGrievanceLegalForumName;
     workplace.resolveLaborGrievance();
     for (Creature organizer in organizers) {
       addjuice(organizer, 4, 100);
       organizer.activity = Activity.none();
     }
     await showMessage(
-      _laborGrievanceSettlementMessage(workplace, demand, issue),
+      _laborGrievanceSettlementMessage(
+        workplace,
+        demand,
+        issue,
+        legalReview: legalReview,
+        forum: forum,
+      ),
     );
     return;
   }
 
   int finalProgress = workplace.laborGrievanceProgress;
-  if (beforeProgress < 25 && finalProgress >= 25) {
+  if (legalReview && beforeProgress < 75 && finalProgress >= 75) {
+    String forum = workplace.laborGrievanceUsesArbitration
+        ? "arbitration record"
+        : "labor-board record";
+    await showMessage(
+      "The union at ${workplace.name} has built a strong $forum for its "
+      "${workplace.laborGrievanceName} grievance ahead of a binding decision.",
+    );
+  } else if (beforeProgress < 25 && finalProgress >= 25) {
     await showMessage(
       "Stewards at ${workplace.name} have documented the "
       "${workplace.laborGrievanceName} grievance and forced management to "
@@ -947,6 +980,8 @@ Future<bool> _applyStrikeSustainability(Site workplace) async {
               workplace.laborStrikePolicePressure ~/ 2 +
               workplace.laborStrikeArrests * 10)
           .clamp(50, 350);
+  dailyNeed =
+      (dailyNeed * workplace.laborStrikeSupportNeedPercent ~/ 100).clamp(40, 350);
   int reliefSpent = workplace.spendLaborStrikeFund(dailyNeed);
   int aidCoverage = reliefSpent * 100 ~/ dailyNeed;
   int beforeHardship = workplace.laborStrikeHardship;
@@ -958,7 +993,8 @@ Future<bool> _applyStrikeSustainability(Site workplace) async {
               workplace.laborStrikePolicePressure ~/ 30 +
               (workplace.laborStrikeInjunction ? 1 : 0) -
               aidCoverage ~/ 20 -
-              workplace.laborStrikeSolidarity ~/ 40)
+              workplace.laborStrikeSolidarity ~/ 40 -
+              workplace.laborBetterConditionsHardshipReduction)
           .clamp(-2, 12);
   workplace.addLaborStrikeHardship(hardshipGain);
 
@@ -1025,6 +1061,7 @@ Future<void> _resolveReplacementWorkers(
 
   int contractProtection =
       workplace.hasLaborDemand(Site.laborDemandUnionProtections) ? 12 : 0;
+  contractProtection += workplace.laborJobSecurityReplacementProtection;
   int chance =
       (12 +
               workplace.laborUnionBustStrength * 4 +
@@ -1072,6 +1109,9 @@ Future<void> _resolveReplacementWorkers(
   }
 
   int gain = (8 + (employerDifficulty - unionRoll) * 2).clamp(8, 22);
+  if (workplace.hasLaborDemand(Site.laborDemandJobSecurity)) {
+    gain = (gain * 75 ~/ 100).clamp(6, 16);
+  }
   int beforeCoverage = workplace.laborReplacementWorkerCoverage;
   workplace.addLaborReplacementWorkerCoverage(gain);
   int added = workplace.laborReplacementWorkerCoverage - beforeCoverage;
@@ -1248,8 +1288,10 @@ void _clearLaborStrikeActivities(List<Creature> organizers) {
 String _laborGrievanceSettlementMessage(
   Site workplace,
   int demand,
-  String issue,
-) {
+  String issue, {
+  bool legalReview = false,
+  String forum = "",
+}) {
   String remedy = switch (demand) {
     Site.laborDemandHigherWages =>
       "Management repays withheld wages and restores the negotiated pay "
@@ -1265,9 +1307,12 @@ String _laborGrievanceSettlementMessage(
           "contractual access and representation rights.",
     _ => "Management agrees to remedy the contract violation.",
   };
-  return "The union at ${workplace.name} wins its $issue grievance. $remedy "
-      "The victory strengthens the local and makes management less willing "
-      "to violate the agreement again.";
+  String resolution = legalReview
+      ? "The union at ${workplace.name} wins its $issue grievance through "
+          "$forum. "
+      : "The union at ${workplace.name} wins its $issue grievance. ";
+  return "$resolution$remedy The victory strengthens the local and makes "
+      "management less willing to violate the agreement again.";
 }
 
 String _laborSettlementMessage(Site workplace, String demand) {

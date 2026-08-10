@@ -113,6 +113,8 @@ class Site extends Location {
   int laborGrievanceProgress = 0;
   @JsonKey(defaultValue: 0)
   int laborGrievanceMonthsOpen = 0;
+  @JsonKey(defaultValue: false)
+  bool laborGrievanceLegalReview = false;
   @JsonKey(defaultValue: 0)
   int laborGrievancesWon = 0;
   @JsonKey(defaultValue: 0)
@@ -177,6 +179,24 @@ class Site extends Location {
         laborUnionLocalStrengthForEffects * 4 +
         laborContractDemandCount * 50;
   }
+
+  int get laborUnionDuesContractPercent =>
+      hasLaborDemand(laborDemandHigherWages) ? 125 : 100;
+
+  int get laborStrikeSupportNeedPercent =>
+      hasLaborDemand(laborDemandHigherWages) ? 85 : 100;
+
+  int get laborBetterConditionsHardshipReduction =>
+      hasLaborDemand(laborDemandBetterConditions) ? 1 : 0;
+
+  int get laborBetterConditionsLocalGrowthBonus =>
+      hasLaborDemand(laborDemandBetterConditions) ? 1 : 0;
+
+  int get laborJobSecurityReplacementProtection =>
+      hasLaborDemand(laborDemandJobSecurity) ? 10 : 0;
+
+  int get laborStrikeDefeatLocalStrengthLoss =>
+      hasLaborDemand(laborDemandJobSecurity) ? 2 : 5;
 
   String get laborOrganizingStatus {
     if (isUnionized) return "Unionized";
@@ -373,6 +393,17 @@ class Site extends Location {
         _ => "None",
       };
 
+  bool get laborGrievanceUsesArbitration => laborGrievanceLegalReview &&
+      hasLaborDemand(laborDemandUnionProtections);
+
+  String get laborGrievanceLegalForumName =>
+      laborGrievanceUsesArbitration ? "contract arbitration" : "labor board";
+
+  String get laborGrievanceStageShortName {
+    if (!laborGrievanceLegalReview) return "Workplace";
+    return laborGrievanceUsesArbitration ? "Arbitration" : "Board";
+  }
+
   void startLaborGrievance(int demand) {
     if (!isUnionized || hasActiveLaborGrievance || !hasLaborDemand(demand)) {
       return;
@@ -380,6 +411,7 @@ class Site extends Location {
     laborGrievanceDemand = demand;
     laborGrievanceProgress = 0;
     laborGrievanceMonthsOpen = 0;
+    laborGrievanceLegalReview = false;
   }
 
   void addLaborGrievanceProgress(int amount) {
@@ -388,6 +420,11 @@ class Site extends Location {
 
   void advanceLaborGrievanceMonth() {
     if (hasActiveLaborGrievance) laborGrievanceMonthsOpen++;
+  }
+
+  void escalateLaborGrievanceToLegalReview() {
+    if (!hasActiveLaborGrievance) return;
+    laborGrievanceLegalReview = true;
   }
 
   void resolveLaborGrievance() {
@@ -425,6 +462,7 @@ class Site extends Location {
     laborGrievanceDemand = laborDemandNone;
     laborGrievanceProgress = 0;
     laborGrievanceMonthsOpen = 0;
+    laborGrievanceLegalReview = false;
   }
 
   bool get canStartLaborStrike =>
@@ -479,13 +517,16 @@ class Site extends Location {
     establishLaborUnionLocal();
     laborStrikeActive = true;
     laborStrikePressure = 0;
+    int conditionsPicketBonus =
+        hasLaborDemand(laborDemandBetterConditions) ? 3 : 0;
     laborPicketStrength = min(
       75,
       max(
         25,
         35 +
             laborBargainingProgress ~/ 4 +
-            laborUnionLocalStrengthForEffects ~/ 5 -
+            laborUnionLocalStrengthForEffects ~/ 5 +
+            conditionsPicketBonus -
             laborEmployerResistance ~/ 10,
       ),
     );
@@ -494,13 +535,16 @@ class Site extends Location {
     laborStrikeInjunction = false;
     laborStrikePolicePressure = 0;
     laborStrikeHardship = 0;
+    int jobSecuritySolidarityBonus =
+        hasLaborDemand(laborDemandJobSecurity) ? 5 : 0;
     laborStrikeSolidarity = min(
       75,
       max(
         35,
         45 +
             laborBargainingProgress ~/ 4 +
-            laborUnionLocalStrengthForEffects ~/ 5 -
+            laborUnionLocalStrengthForEffects ~/ 5 +
+            jobSecuritySolidarityBonus -
             laborEmployerResistance ~/ 10,
       ),
     );
@@ -569,7 +613,7 @@ class Site extends Location {
     laborBargainingStalledRounds = 0;
     laborBargainingProgress = max(0, laborBargainingProgress - 20);
     addLaborEmployerResistance(10);
-    addLaborUnionLocalStrength(-5);
+    addLaborUnionLocalStrength(-laborStrikeDefeatLocalStrengthLoss);
     _clearLaborStrikeCountermeasures();
   }
 
