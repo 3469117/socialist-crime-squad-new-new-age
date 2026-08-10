@@ -65,6 +65,10 @@ class Site extends Location {
   int laborOrganizingProgress = 0;
   @JsonKey(defaultValue: 0)
   int laborEmployerResistance = 0;
+  @JsonKey(defaultValue: 0)
+  int laborRetaliationIncidents = 0;
+  @JsonKey(defaultValue: 0)
+  int laborWorkersFired = 0;
 
   bool get supportsLaborOrganizing => switch (type) {
         SiteType.departmentStore ||
@@ -128,6 +132,11 @@ class Site extends Location {
       100,
       max(0, laborEmployerResistance + amount),
     );
+  }
+
+  void recordLaborRetaliation({bool firedWorker = false}) {
+    laborRetaliationIncidents++;
+    if (firedWorker) laborWorkersFired++;
   }
 
   int get extraHeatFromCCSTarget {

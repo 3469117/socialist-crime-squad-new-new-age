@@ -61,6 +61,12 @@ void main() {
           expect(site.laborEmployerResistance, 0,
               reason: '${site.name} in $fileName did not default employer '
                   'resistance to zero.');
+          expect(site.laborRetaliationIncidents, 0,
+              reason: '${site.name} in $fileName did not default retaliation '
+                  'incidents to zero.');
+          expect(site.laborWorkersFired, 0,
+              reason: '${site.name} in $fileName did not default fired-worker '
+                  'count to zero.');
         }
 
         // Regression guard: a regular member's home base must always resolve to

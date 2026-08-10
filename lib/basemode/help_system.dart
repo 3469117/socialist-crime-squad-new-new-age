@@ -82,8 +82,14 @@ Future<void> helpOnActivity(ActivityType type) async {
           "environment. Resistance slows daily organizing progress and can "
           "trigger anti-union campaigns that push worker support backward. "
           "Business skill helps anticipate and counter those tactics.\n\n"
-          "Later labor systems will add firings, bargaining, strikes, picket "
-          "lines, contracts, and other consequences on top of this foundation.");
+          "At higher resistance, management may retaliate directly against "
+          "union supporters through discipline, reduced hours, or firings. "
+          "Retaliation can intimidate workers and reduce support, but a skilled "
+          "organizer can turn an unjust firing into a solidarity surge. Sleeper "
+          "agents who work at the targeted site can be personally fired and "
+          "forced to report back to the SCS.\n\n"
+          "Later labor systems will add bargaining, strikes, picket lines, "
+          "contracts, and other consequences on top of this foundation.");
     case ActivityType.writeGuardian:
       _head("=== Publish for the Socialist Guardian ===");
       _body("The Socialist Guardian is the SCS's independent media platform. "

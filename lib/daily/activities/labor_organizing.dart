@@ -2,6 +2,7 @@ import 'package:lcs_new_age/basemode/activities.dart';
 import 'package:lcs_new_age/common_actions/common_actions.dart';
 import 'package:lcs_new_age/common_display/common_display.dart';
 import 'package:lcs_new_age/creature/creature.dart';
+import 'package:lcs_new_age/creature/creature_type.dart';
 import 'package:lcs_new_age/creature/skills.dart';
 import 'package:lcs_new_age/gamestate/game_state.dart';
 import 'package:lcs_new_age/location/site.dart';
@@ -95,6 +96,18 @@ Future<void> doActivityOrganizeWorkers(Creature organizer) async {
     workplace,
     resistanceLawModifier,
   );
+  await _resolveEmployerRetaliation(
+    organizer,
+    workplace,
+    resistanceLawModifier,
+  );
+
+  if (workplace.isUnionized) {
+    addjuice(organizer, 10, 100);
+    await showMessage("Workers at ${workplace.name} have unionized!");
+    organizer.activity = Activity.none();
+    return;
+  }
 
   organizer.train(Skill.persuasion, 10 + progress);
   organizer.train(Skill.business, 8 + progress ~/ 2);
@@ -153,4 +166,158 @@ Future<void> _resolveEmployerCounterCampaign(
     "Management's anti-union campaign at ${workplace.name} shakes worker "
     "support. The organizing drive loses $setback percentage points.",
   );
+}
+
+
+Future<void> _resolveEmployerRetaliation(
+  Creature organizer,
+  Site workplace,
+  int resistanceLawModifier,
+) async {
+  if (workplace.laborEmployerResistance < 35 ||
+      workplace.laborOrganizingProgress < 15) {
+    return;
+  }
+
+  int chance =
+      (workplace.laborEmployerResistance ~/ 4 +
+              workplace.laborUnionBustStrength * 2 +
+              resistanceLawModifier * 4 -
+              organizer.skill(Skill.business) -
+              workplace.laborRetaliationIncidents * 4)
+          .clamp(0, 45);
+  if (lcsRandom(100) >= chance) return;
+
+  int warningDifficulty =
+      8 +
+      workplace.laborUnionBustStrength +
+      workplace.laborEmployerResistance ~/ 20 +
+      resistanceLawModifier.clamp(0, 3);
+  int businessRoll = organizer.skillRoll(Skill.business);
+  organizer.train(Skill.business, 8);
+
+  if (businessRoll >= warningDifficulty) {
+    workplace.recordLaborRetaliation();
+    await showMessage(
+      "${organizer.name} catches management preparing retaliation at "
+      "${workplace.name}. Workers document the threats before anyone is "
+      "disciplined.",
+    );
+    workplace.addLaborEmployerResistance(-2);
+    return;
+  }
+
+  Creature? sleeper = _findRetaliationTarget(workplace);
+  bool firing =
+      workplace.laborEmployerResistance >= 60 || lcsRandom(100) < 50;
+
+  if (sleeper != null && firing) {
+    workplace.recordLaborRetaliation(firedWorker: true);
+    _fireSleeperWorker(sleeper, workplace, organizer);
+    await showMessage(
+      "${sleeper.name} has been fired from ${workplace.name} for suspected "
+      "union activity and reports back to the SCS.",
+    );
+  } else if (firing) {
+    workplace.recordLaborRetaliation(firedWorker: true);
+    await showMessage(
+      "Management at ${workplace.name} fires a worker identified as a union "
+      "supporter.",
+    );
+  } else {
+    workplace.recordLaborRetaliation();
+    await showMessage(
+      "Management at ${workplace.name} cuts hours and changes schedules for "
+      "workers identified as union supporters.",
+    );
+  }
+
+  int solidarityRoll =
+      organizer.skillRoll(Skill.persuasion) +
+      workplace.laborOrganizingProgress ~/ 20;
+  int intimidation =
+      9 +
+      workplace.laborUnionBustStrength +
+      workplace.laborEmployerResistance ~/ 20 +
+      resistanceLawModifier.clamp(0, 3);
+  organizer.train(Skill.persuasion, 10);
+
+  if (solidarityRoll >= intimidation) {
+    int solidarityGain = (solidarityRoll - intimidation + 2).clamp(2, 8);
+    workplace.addLaborOrganizingProgress(solidarityGain);
+    await showMessage(
+      "The retaliation at ${workplace.name} backfires. Coworkers rally around "
+      "the targeted workers, adding $solidarityGain percentage points of "
+      "organizing support.",
+    );
+  } else {
+    int setback =
+        (intimidation - solidarityRoll + (firing ? 3 : 1)).clamp(3, 10);
+    workplace.addLaborOrganizingProgress(-setback);
+    await showMessage(
+      "Management's retaliation at ${workplace.name} intimidates workers. "
+      "The organizing drive loses $setback percentage points.",
+    );
+  }
+}
+
+Creature? _findRetaliationTarget(Site workplace) {
+  for (Creature person in pool) {
+    if (!person.sleeperAgent || person.workSite != workplace) continue;
+    if (_isManagementRetaliationExempt(person)) continue;
+    return person;
+  }
+  return null;
+}
+
+bool _isManagementRetaliationExempt(Creature person) => switch (person.type.id) {
+      CreatureTypeIds.corporateCEO ||
+      CreatureTypeIds.insuranceCEO ||
+      CreatureTypeIds.bankManager ||
+      CreatureTypeIds.corporateManager ||
+      CreatureTypeIds.nursingHomeAdmin ||
+      CreatureTypeIds.securityGuard ||
+      CreatureTypeIds.merc ||
+      CreatureTypeIds.agent =>
+        true,
+      _ => false,
+    };
+
+void _fireSleeperWorker(
+  Creature worker,
+  Site workplace,
+  Creature organizer,
+) {
+  Site? refuge;
+
+  for (Site site in workplace.city.sites) {
+    if (site.controller == SiteController.lcs && !site.siege.underSiege) {
+      refuge = site;
+      break;
+    }
+  }
+
+  refuge ??= organizer.base;
+  if (refuge == null || refuge.siege.underSiege) {
+    for (Site site in sites) {
+      if (site.controller == SiteController.lcs && !site.siege.underSiege) {
+        refuge = site;
+        break;
+      }
+    }
+  }
+
+  worker.squad = null;
+  worker.activity = Activity.none();
+  worker.workLocation = null;
+  worker.income = 0;
+  worker.sleeperAgent = false;
+
+  if (refuge != null) {
+    worker.location = refuge;
+    worker.base = refuge;
+  } else {
+    worker.location = workplace.city;
+    worker.base = null;
+  }
 }
