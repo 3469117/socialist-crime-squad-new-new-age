@@ -105,6 +105,19 @@ enum GuardianBeat {
 
   View pickIssue() => issues[lcsRandom(issues.length)];
 
+  static GuardianBeat forIssue(View issue) {
+    if (issue == View.healthcare ||
+        issue == View.housing ||
+        issue == View.retirement) {
+      return GuardianBeat.healthHousing;
+    }
+    for (GuardianBeat beat in GuardianBeat.values) {
+      if (beat == GuardianBeat.general) continue;
+      if (beat.issues.contains(issue)) return beat;
+    }
+    return GuardianBeat.general;
+  }
+
   static GuardianBeat fromId(String? id) => GuardianBeat.values.firstWhere(
         (beat) => beat.name == id,
         orElse: () => GuardianBeat.general,

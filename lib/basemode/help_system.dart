@@ -259,9 +259,9 @@ Future<void> helpOnActivity(ActivityType type) async {
           "full effectiveness at once. Large teams can outgrow a small "
           "newsroom, so regular publishing is also an investment in the "
           "institution itself.\n\n"
-          "Secret documents can still support special editions at the end of "
-          "the month. A dedicated investigation pipeline will be added in the "
-          "next media development pass.");
+          "Secret documents, labor disputes, and significant events can now "
+          "generate Guardian story leads. Use Investigate Guardian Lead to "
+          "develop them into verified, publication-ready reporting.");
     case ActivityType.streamGuardian:
       _head("=== Livestream for the Socialist Guardian ===");
       _body("Livestreaming is the Guardian's fast, audience-facing form of "
@@ -278,8 +278,31 @@ Future<void> helpOnActivity(ActivityType type) async {
           "both writers and livestreamers therefore produces a healthier media "
           "operation than relying on only one format.\n\n"
           "Reach, Credibility, and Editorial Capacity can be reviewed from the "
-          "Media Overview. Stories, investigations, and publication strategy "
-          "will become more explicit in later media passes.");
+          "Media Overview. Investigations now feed a persistent newsroom queue; "
+          "publication strategy for completed stories arrives in the next media "
+          "pass.");
+    case ActivityType.investigateGuardianStory:
+      _head("=== Investigate a Guardian Story ===");
+      _body("The Guardian now keeps a persistent newsroom queue. Leads are "
+          "generated from events and evidence that already exist in the "
+          "campaign: leaked or stolen documents, workplace grievances and "
+          "strikes, police incidents, political developments, and significant "
+          "SCS or FCS activity reported in the broader media.\n\n"
+          "A story moves through four stages: Lead, Investigating, Verified, "
+          "and Ready. Assign one or more Socialists to the same lead to build "
+          "investigation progress. The strongest writer leads the reporting; "
+          "a knowledge skill associated with the editorial beat supports the "
+          "work, and Street Smarts helps with sourcing and verification.\n\n"
+          "Guardian Credibility and Editorial Capacity improve investigation "
+          "speed. Documentary evidence is generally easier to verify than "
+          "claims surrounding contested political or clandestine events. "
+          "Reaching Verified slightly improves Guardian Credibility. Finishing "
+          "a story at 100% makes it Ready and slightly improves Editorial "
+          "Capacity.\n\n"
+          "Ready stories remain in the newsroom until the next media pass adds "
+          "explicit publication and amplification strategy. The queue is "
+          "bounded so the Guardian cannot accumulate unlimited unattended "
+          "leads.");
     case ActivityType.donations:
       _head("=== Solicit Donations ===");
       _body("Soliciting donations is a safe way to raise funds for the SCS.  "

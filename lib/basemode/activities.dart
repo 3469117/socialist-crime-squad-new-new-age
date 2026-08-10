@@ -11,6 +11,7 @@ import 'package:lcs_new_age/items/clothing_type.dart';
 import 'package:lcs_new_age/items/flag_type.dart';
 import 'package:lcs_new_age/location/site.dart';
 import 'package:lcs_new_age/newspaper/guardian_state.dart';
+import 'package:lcs_new_age/newspaper/guardian_story.dart';
 import 'package:lcs_new_age/politics/views.dart';
 import 'package:lcs_new_age/utils/colors.dart';
 
@@ -44,6 +45,8 @@ class Activity {
       int.tryParse(idString?.split(":ARMOR").lastOrNull ?? "0") ?? 0);
   Site? get location =>
       gameState.sites.firstWhereOrNull((e) => e.idString == idString);
+  GuardianStory? get guardianStory =>
+      gameState.guardianStories.firstWhereOrNull((e) => e.id == idInt);
 
   String get description {
     switch (type) {
@@ -71,6 +74,8 @@ class Activity {
         return "Guardian writing: ${GuardianBeat.fromId(idString).shortLabel}";
       case ActivityType.streamGuardian:
         return "Guardian live: ${GuardianBeat.fromId(idString).shortLabel}";
+      case ActivityType.investigateGuardianStory:
+        return "Investigating ${guardianStory?.shortTitle ?? "Guardian lead"}";
       case ActivityType.study:
         return "Practice ${skill?.displayName ?? "a bug"}";
       case ActivityType.takeClass:
@@ -111,6 +116,7 @@ enum ActivityType {
   bury("Burying Dead", darkGray),
   writeGuardian("Socialist Guardian Publishing", lightGreen),
   streamGuardian("Socialist Guardian Livestreaming", lightGreen),
+  investigateGuardianStory("Investigating Guardian Story", lightGreen),
   teachLiberalArts("Teaching Socialist Arts", purple),
   teachFighting("Teaching Fighting", purple),
   teachCovert("Teaching Covert Ops", purple),

@@ -10,6 +10,7 @@ import 'package:lcs_new_age/daily/activities/flag_creation.dart';
 import 'package:lcs_new_age/daily/activities/fundraising.dart';
 import 'package:lcs_new_age/daily/activities/graffiti.dart';
 import 'package:lcs_new_age/daily/activities/guardian.dart';
+import 'package:lcs_new_age/daily/activities/guardian_investigation.dart';
 import 'package:lcs_new_age/daily/activities/hacking.dart';
 import 'package:lcs_new_age/daily/activities/labor_organizing.dart';
 import 'package:lcs_new_age/daily/activities/learning.dart';
@@ -77,6 +78,7 @@ Future<void> soloActivities(bool disbanding) async {
         case ActivityType.study:
         case ActivityType.streamGuardian:
         case ActivityType.writeGuardian:
+        case ActivityType.investigateGuardianStory:
           if (p.site?.siege.lightsOff == true) {
             p.activity = Activity.none();
           }
@@ -102,6 +104,21 @@ Future<void> soloActivities(bool disbanding) async {
   }
 
   if (!disbanding) {
+    discoverGuardianStoryLeads();
+
+    List<Creature>? investigators = activities.remove(
+      ActivityType.investigateGuardianStory,
+    );
+    if (investigators != null) {
+      Map<int?, List<Creature>> investigationTeams = {};
+      for (Creature p in investigators) {
+        investigationTeams.putIfAbsent(p.activity.idInt, () => []).add(p);
+      }
+      for (List<Creature> team in investigationTeams.values) {
+        await doActivityInvestigateGuardianStory(team);
+      }
+    }
+
     List<Creature>? reliefSupporters = activities.remove(
       ActivityType.supportStrikeRelief,
     );

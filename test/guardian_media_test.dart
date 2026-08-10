@@ -14,4 +14,11 @@ void main() {
     expect(GuardianBeat.fromId(null), GuardianBeat.general);
     expect(GuardianBeat.fromId('legacy-or-unknown'), GuardianBeat.general);
   });
+
+  test('Guardian issues map back to a specialist beat', () {
+    expect(GuardianBeat.forIssue(View.policeBehavior),
+        GuardianBeat.justicePolicing);
+    expect(GuardianBeat.forIssue(View.pollution), GuardianBeat.scienceClimate);
+    expect(GuardianBeat.forIssue(View.taxes), GuardianBeat.laborEconomy);
+  });
 }

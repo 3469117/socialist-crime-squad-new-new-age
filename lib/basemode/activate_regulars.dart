@@ -10,6 +10,7 @@ import 'package:lcs_new_age/creature/creature.dart';
 import 'package:lcs_new_age/creature/skills.dart';
 import 'package:lcs_new_age/creature/sort_creatures.dart';
 import 'package:lcs_new_age/daily/activities/fundraising.dart';
+import 'package:lcs_new_age/daily/activities/guardian_investigation.dart';
 import 'package:lcs_new_age/engine/engine.dart';
 import 'package:lcs_new_age/gamestate/game_state.dart';
 import 'package:lcs_new_age/gamestate/squad.dart';
@@ -18,6 +19,7 @@ import 'package:lcs_new_age/items/clothing_type.dart';
 import 'package:lcs_new_age/items/flag_type.dart';
 import 'package:lcs_new_age/location/site.dart';
 import 'package:lcs_new_age/newspaper/guardian_state.dart';
+import 'package:lcs_new_age/newspaper/guardian_story.dart';
 import 'package:lcs_new_age/politics/alignment.dart';
 import 'package:lcs_new_age/utils/colors.dart';
 import 'package:lcs_new_age/utils/interface_options.dart';
@@ -112,6 +114,7 @@ List<ActivityType> _activism = [
   ActivityType.hacking,
   ActivityType.writeGuardian,
   ActivityType.streamGuardian,
+  ActivityType.investigateGuardianStory,
   ..._unionActivities,
 ];
 
@@ -147,6 +150,7 @@ List<ActivityType> _teaching = [
 ];
 
 Future<void> assignTask(Creature c) async {
+  discoverGuardianStoryLeads();
   int state = 0;
   bool unionActivityMenu = false;
   bool canDisposeCorpses =
@@ -374,6 +378,13 @@ void _activismSubmenu(Creature c) {
     "7 - Union Activity",
     baseColorKey: colorKey,
   );
+  bool hasGuardianLeads =
+      gameState.guardianStories.any((story) => !story.ready);
+  _subActivity(
+    ActivityType.investigateGuardianStory,
+    "8 - Investigate Guardian Lead",
+    greyOut: !hasGuardianLeads,
+  );
 }
 
 void _unionActivitySubmenu() {
@@ -440,6 +451,69 @@ Future<void> _selectGuardianBeat(
   );
 }
 
+Future<void> _selectGuardianInvestigationTarget(Creature c) async {
+  discoverGuardianStoryLeads();
+  List<GuardianStory> stories =
+      gameState.guardianStories.where((story) => !story.ready).toList()
+        ..sort((a, b) {
+          int stageCompare = b.stage.index.compareTo(a.stage.index);
+          if (stageCompare != 0) return stageCompare;
+          int progressCompare =
+              b.investigationProgress.compareTo(a.investigationProgress);
+          if (progressCompare != 0) return progressCompare;
+          return a.id.compareTo(b.id);
+        });
+
+  if (stories.isEmpty) {
+    await showMessage(
+      "The Socialist Guardian has no unresolved story leads right now.",
+    );
+    return;
+  }
+
+  await pagedInterface(
+    headerPrompt: "Which Guardian story should ${c.name} investigate?",
+    headerKey: {
+      4: "STORY LEAD",
+      40: "STAGE",
+      54: "BEAT",
+      69: "PROG",
+    },
+    footerPrompt: "Press a Letter to assign an investigation",
+    count: stories.length,
+    pageSize: 14,
+    lineBuilder: (y, key, index) {
+      GuardianStory story = stories[index];
+      addOptionText(
+        y,
+        0,
+        key,
+        "$key - ${truncateConsoleText(story.title, 35)}",
+      );
+      mvaddstrc(
+        y,
+        40,
+        story.stage == GuardianStoryStage.verified ? lightGreen : lightGray,
+        truncateConsoleText(story.stage.label, 13),
+      );
+      mvaddstrc(
+        y,
+        54,
+        lightGray,
+        truncateConsoleText(story.beat.shortLabel, 14),
+      );
+      mvaddstrc(y, 69, lightBlue, story.progressLabel);
+    },
+    onChoice: (index) async {
+      c.activity = Activity(
+        ActivityType.investigateGuardianStory,
+        idInt: stories[index].id,
+      );
+      return true;
+    },
+  );
+}
+
 Future<void> _activismChoice(Creature c, int choice) async {
   if (choice == 1) c.activity = Activity(ActivityType.communityService);
   if (choice == 2) c.activity = Activity(ActivityType.trouble);
@@ -454,6 +528,10 @@ Future<void> _activismChoice(Creature c, int choice) async {
   }
   if (choice == 6 && c.site?.compound.videoRoom == true) {
     await _selectGuardianBeat(c, ActivityType.streamGuardian);
+  }
+  if (choice == 8 &&
+      gameState.guardianStories.any((story) => !story.ready)) {
+    await _selectGuardianInvestigationTarget(c);
   }
 }
 
@@ -1766,6 +1844,24 @@ void _activityFooter(Creature cr) {
         midGray,
         "Writing builds credibility; knowledge skills support the reporting.",
       );
+    case ActivityType.investigateGuardianStory:
+      GuardianStory? story = cr.activity.guardianStory;
+      addstr(" investigate ${story?.title ?? "a Socialist Guardian lead"}.");
+      mvaddstrc(
+        23,
+        3,
+        midGray,
+        "Writing leads; the story's beat determines the supporting skill.",
+      );
+      if (story != null) {
+        mvaddstrc(
+          24,
+          3,
+          midGray,
+          "${story.source.label} | ${story.stage.label} | "
+          "${story.investigationProgress}% complete",
+        );
+      }
     default:
       addstr(" report a bug to the developers: ${cr.activity.type.name}.");
   }

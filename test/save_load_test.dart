@@ -61,6 +61,10 @@ void main() {
             reason: '$fileName did not default Guardian credibility to 20.');
         expect(gameState.guardianEditorialCapacity, 10,
             reason: '$fileName did not default Guardian capacity to 10.');
+        expect(gameState.guardianStories, isEmpty,
+            reason: '$fileName did not default Guardian story queue to empty.');
+        expect(gameState.nextGuardianStoryId, 1,
+            reason: '$fileName did not default the next Guardian story id.');
 
         // v0.3.0 adds per-site labor organizing progress. Older saves have no
         // such key, so every legacy site must deserialize to the default state.

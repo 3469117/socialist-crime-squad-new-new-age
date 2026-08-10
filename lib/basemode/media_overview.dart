@@ -1,4 +1,5 @@
 import 'package:lcs_new_age/common_display/common_display.dart';
+import 'package:lcs_new_age/daily/activities/guardian_investigation.dart';
 import 'package:lcs_new_age/engine/engine.dart';
 import 'package:lcs_new_age/gamestate/game_state.dart';
 import 'package:lcs_new_age/gamestate/time.dart';
@@ -10,6 +11,7 @@ import 'package:lcs_new_age/utils/colors.dart';
 import 'package:lcs_new_age/utils/interface_options.dart';
 
 Future<void> mediaOverview() async {
+  discoverGuardianStoryLeads();
   List<NewsStory> newsArchive = gameState.newsArchive.reversed.toList();
   bool redraw = true;
   while (redraw) {
@@ -34,11 +36,17 @@ Future<void> mediaOverview() async {
     mvaddstrx(24, 0,
         "  Avoiding violence will increase public support for your actions.");
 
+    int activeLeads =
+        gameState.guardianStories.where((story) => !story.ready).length;
+    int readyStories =
+        gameState.guardianStories.where((story) => story.ready).length;
+
     await pagedInterface(
       headerPrompt:
-          "Media Overview | Guardian Reach ${gameState.guardianReach}% | "
+          "Media | Reach ${gameState.guardianReach}% | "
           "Cred ${gameState.guardianCredibility}% | "
-          "Capacity ${gameState.guardianEditorialCapacity}%",
+          "Cap ${gameState.guardianEditorialCapacity}% | "
+          "Leads $activeLeads | Ready $readyStories",
       headerKey: {4: "HEADLINE", 40: "DATE", 53: "SOURCE", 72: "IMPACT"},
       footerPrompt: "Press a Letter to open a media story",
       count: gameState.newsArchive.length,

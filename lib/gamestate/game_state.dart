@@ -21,6 +21,7 @@ import 'package:lcs_new_age/location/district.dart';
 import 'package:lcs_new_age/location/location.dart';
 import 'package:lcs_new_age/location/location_type.dart';
 import 'package:lcs_new_age/location/site.dart';
+import 'package:lcs_new_age/newspaper/guardian_story.dart';
 import 'package:lcs_new_age/newspaper/news_story.dart';
 import 'package:lcs_new_age/politics/alignment.dart';
 import 'package:lcs_new_age/politics/laws.dart';
@@ -105,6 +106,14 @@ class GameState {
   int guardianCredibility = 20;
   @JsonKey(defaultValue: 10)
   int guardianEditorialCapacity = 10;
+
+  // Guardian investigations are a bounded newsroom queue. Leads come from
+  // evidence, labor disputes, and significant events already produced by the
+  // simulation rather than from a disconnected random-story generator.
+  @JsonKey(defaultValue: [])
+  List<GuardianStory> guardianStories = [];
+  @JsonKey(defaultValue: 1)
+  int nextGuardianStoryId = 1;
 
   // Non-persisting variables (don't include in to/from JSON)
   @JsonKey(includeFromJson: false, includeToJson: false)
