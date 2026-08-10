@@ -58,6 +58,9 @@ void main() {
           expect(site.laborOrganizingProgress, 0,
               reason: '${site.name} in $fileName did not default labor '
                   'organizing progress to zero.');
+          expect(site.laborEmployerResistance, 0,
+              reason: '${site.name} in $fileName did not default employer '
+                  'resistance to zero.');
         }
 
         // Regression guard: a regular member's home base must always resolve to

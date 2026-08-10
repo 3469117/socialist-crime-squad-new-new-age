@@ -77,9 +77,13 @@ Future<void> helpOnActivity(ActivityType type) async {
           "National labor law affects how quickly a drive can advance. "
           "Reactionary and Fascist labor law makes organizing harder, while "
           "Socialist labor law makes it easier.\n\n"
-          "For now, unionization is a persistent workplace state. Later labor "
-          "systems will build strikes, bargaining, employer retaliation, and "
-          "other consequences on top of it.");
+          "Management now reacts to an organizing drive. Employer resistance "
+          "rises at different rates depending on the workplace and labor-law "
+          "environment. Resistance slows daily organizing progress and can "
+          "trigger anti-union campaigns that push worker support backward. "
+          "Business skill helps anticipate and counter those tactics.\n\n"
+          "Later labor systems will add firings, bargaining, strikes, picket "
+          "lines, contracts, and other consequences on top of this foundation.");
     case ActivityType.writeGuardian:
       _head("=== Publish for the Socialist Guardian ===");
       _body("The Socialist Guardian is the SCS's independent media platform. "

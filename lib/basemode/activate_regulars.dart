@@ -366,7 +366,12 @@ Future<void> _selectLaborOrganizingTarget(Creature c) async {
 
   await pagedInterface(
     headerPrompt: "Which workplace will ${c.name} organize?",
-    headerKey: {4: "WORKPLACE", 45: "STATUS", 64: "PROGRESS"},
+    headerKey: {
+      4: "WORKPLACE",
+      39: "STATUS",
+      52: "RESIST.",
+      66: "PROGRESS",
+    },
     footerPrompt: "Press a Letter to select a workplace",
     pageSize: 18,
     count: workplaces.length,
@@ -376,10 +381,11 @@ Future<void> _selectLaborOrganizingTarget(Creature c) async {
         y,
         0,
         key,
-        "$key - ${truncateForDisplay(workplace.name, 38)}",
+        "$key - ${truncateForDisplay(workplace.name, 32)}",
       );
-      mvaddstr(y, 45, workplace.laborOrganizingStatus);
-      mvaddstr(y, 67, "${workplace.laborOrganizingProgress}%");
+      mvaddstr(y, 39, workplace.laborOrganizingStatus);
+      mvaddstr(y, 52, workplace.laborEmployerResistanceStatus);
+      mvaddstr(y, 68, "${workplace.laborOrganizingProgress}%");
     },
     onChoice: (index) async {
       Site workplace = workplaces[index];

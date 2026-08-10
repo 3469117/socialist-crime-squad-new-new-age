@@ -63,6 +63,8 @@ class Site extends Location {
 
   @JsonKey(defaultValue: 0)
   int laborOrganizingProgress = 0;
+  @JsonKey(defaultValue: 0)
+  int laborEmployerResistance = 0;
 
   bool get supportsLaborOrganizing => switch (type) {
         SiteType.departmentStore ||
@@ -89,10 +91,42 @@ class Site extends Location {
     return "Unorganized";
   }
 
+  int get laborUnionBustStrength => switch (type) {
+        SiteType.sweatshop => 6,
+        SiteType.corporateHQ ||
+        SiteType.bank ||
+        SiteType.insuranceOffice =>
+          5,
+        SiteType.dirtyIndustry ||
+        SiteType.nuclearPlant ||
+        SiteType.departmentStore ||
+        SiteType.amRadioStation ||
+        SiteType.cableNewsStation ||
+        SiteType.nursingHome =>
+          4,
+        SiteType.carDealership || SiteType.barAndGrill => 3,
+        _ => 2,
+      };
+
+  String get laborEmployerResistanceStatus {
+    if (isUnionized) return "Resolved";
+    if (laborEmployerResistance < 25) return "Low";
+    if (laborEmployerResistance < 50) return "Rising";
+    if (laborEmployerResistance < 75) return "High";
+    return "Severe";
+  }
+
   void addLaborOrganizingProgress(int amount) {
     laborOrganizingProgress = min(
       100,
       max(0, laborOrganizingProgress + amount),
+    );
+  }
+
+  void addLaborEmployerResistance(int amount) {
+    laborEmployerResistance = min(
+      100,
+      max(0, laborEmployerResistance + amount),
     );
   }
 
