@@ -103,6 +103,10 @@ class Site extends Location {
   int laborStrikeHardship = 0;
   @JsonKey(defaultValue: 0)
   int laborStrikeSolidarity = 0;
+  @JsonKey(defaultValue: 0)
+  int laborUnionLocalStrength = 0;
+  @JsonKey(defaultValue: 0)
+  int laborUnionDuesLastMonth = 0;
 
   static const int laborDemandNone = 0;
   static const int laborDemandHigherWages = 1;
@@ -128,6 +132,41 @@ class Site extends Location {
       };
 
   bool get isUnionized => laborOrganizingProgress >= 100;
+
+  int get laborUnionLocalStrengthForEffects {
+    if (!isUnionized) return 0;
+    return laborUnionLocalStrength == 0 ? 30 : laborUnionLocalStrength;
+  }
+
+  String get laborUnionLocalStatus {
+    if (!isUnionized) return "No Local";
+    int strength = laborUnionLocalStrengthForEffects;
+    if (strength < 50) return "Developing";
+    if (strength < 75) return "Established";
+    if (strength < 100) return "Strong";
+    return "Powerhouse";
+  }
+
+  void establishLaborUnionLocal({int initialStrength = 30}) {
+    if (!isUnionized || laborUnionLocalStrength > 0) return;
+    laborUnionLocalStrength = initialStrength.clamp(1, 100);
+  }
+
+  void addLaborUnionLocalStrength(int amount) {
+    if (!isUnionized) return;
+    establishLaborUnionLocal();
+    laborUnionLocalStrength = min(
+      100,
+      max(1, laborUnionLocalStrength + amount),
+    );
+  }
+
+  int get laborUnionMonthlyDuesBase {
+    if (!isUnionized) return 0;
+    return 50 +
+        laborUnionLocalStrengthForEffects * 4 +
+        laborContractDemandCount * 50;
+  }
 
   String get laborOrganizingStatus {
     if (isUnionized) return "Unionized";
@@ -308,6 +347,7 @@ class Site extends Location {
       _ => 0,
     };
     addLaborEmployerResistance(-resistanceReduction);
+    addLaborUnionLocalStrength(3);
   }
 
   bool get canStartLaborStrike =>
@@ -359,6 +399,7 @@ class Site extends Location {
 
   void startLaborStrike() {
     if (!canStartLaborStrike || laborStrikeActive) return;
+    establishLaborUnionLocal();
     laborStrikeActive = true;
     laborStrikePressure = 0;
     laborPicketStrength = min(
@@ -366,7 +407,8 @@ class Site extends Location {
       max(
         25,
         35 +
-            laborBargainingProgress ~/ 4 -
+            laborBargainingProgress ~/ 4 +
+            laborUnionLocalStrengthForEffects ~/ 5 -
             laborEmployerResistance ~/ 10,
       ),
     );
@@ -379,7 +421,10 @@ class Site extends Location {
       75,
       max(
         35,
-        45 + laborBargainingProgress ~/ 4 - laborEmployerResistance ~/ 10,
+        45 +
+            laborBargainingProgress ~/ 4 +
+            laborUnionLocalStrengthForEffects ~/ 5 -
+            laborEmployerResistance ~/ 10,
       ),
     );
   }
@@ -447,6 +492,7 @@ class Site extends Location {
     laborBargainingStalledRounds = 0;
     laborBargainingProgress = max(0, laborBargainingProgress - 20);
     addLaborEmployerResistance(10);
+    addLaborUnionLocalStrength(-5);
     _clearLaborStrikeCountermeasures();
   }
 

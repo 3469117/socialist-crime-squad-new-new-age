@@ -100,6 +100,7 @@ List<ActivityType> _unionActivities = [
   ActivityType.negotiateUnionContract,
   ActivityType.supportLaborStrike,
   ActivityType.supportStrikeRelief,
+  ActivityType.buildUnionLocal,
 ];
 
 List<ActivityType> _activism = [
@@ -388,6 +389,10 @@ void _unionActivitySubmenu() {
     ActivityType.supportStrikeRelief,
     "4 - Provide Strike Relief",
   );
+  _subActivity(
+    ActivityType.buildUnionLocal,
+    "5 - Build Union Local",
+  );
   _y++;
   mvaddstrc(_y++, 40, midGray, "Esc/Space - Back to Socialist Activism");
 }
@@ -419,6 +424,9 @@ Future<void> _unionActivityChoice(Creature c, int choice) async {
   }
   if (choice == 4) {
     await _selectLaborStrikeReliefTarget(c);
+  }
+  if (choice == 5) {
+    await _selectUnionLocalTarget(c);
   }
 }
 
@@ -760,6 +768,74 @@ Future<void> _selectLaborStrikeReliefTarget(Creature c) async {
 
       c.activity = Activity(
         ActivityType.supportStrikeRelief,
+        idString: workplace.idString,
+      );
+      return true;
+    },
+  );
+}
+
+Future<void> _selectUnionLocalTarget(Creature c) async {
+  var city = c.site?.city ?? c.base?.city;
+  if (city == null) {
+    await showMessage("${c.name} has no local union to support.");
+    return;
+  }
+
+  List<Site> workplaces = city.sites
+      .where(
+        (site) =>
+            site.supportsLaborOrganizing &&
+            site.controller == SiteController.unaligned &&
+            site.isUnionized,
+      )
+      .toList()
+    ..sort((a, b) => a.name.compareTo(b.name));
+
+  if (workplaces.isEmpty) {
+    await showMessage(
+      "There are no recognized local unions in this city.",
+    );
+    return;
+  }
+
+  await pagedInterface(
+    headerPrompt: "Where will ${c.name} build union infrastructure?",
+    headerKey: {
+      4: "WORKPLACE",
+      29: "LOCAL",
+      39: "FUND",
+      51: "DUES",
+      62: "CONTRACT",
+    },
+    footerPrompt: "Press a Letter to strengthen a union local",
+    pageSize: 18,
+    count: workplaces.length,
+    lineBuilder: (y, key, index) {
+      Site workplace = workplaces[index];
+      addOptionText(
+        y,
+        0,
+        key,
+        "$key - ${truncateForDisplay(workplace.name, 22)}",
+      );
+      mvaddstr(y, 29, "${workplace.laborUnionLocalStrengthForEffects}%");
+      mvaddstr(y, 39, "\$${workplace.laborStrikeFund}");
+      mvaddstr(y, 51, "\$${workplace.laborUnionDuesLastMonth}");
+      mvaddstr(y, 62, "${workplace.laborContractDemandCount}/4 secured");
+    },
+    onChoice: (index) async {
+      Site workplace = workplaces[index];
+      if (!workplace.isUnionized ||
+          workplace.laborUnionLocalStrengthForEffects >= 100) {
+        await showMessage(
+          "The union local at ${workplace.name} is already fully developed.",
+        );
+        return false;
+      }
+
+      c.activity = Activity(
+        ActivityType.buildUnionLocal,
         idString: workplace.idString,
       );
       return true;
@@ -1448,6 +1524,9 @@ void _activityFooter(Creature cr) {
         "${cr.activity.location?.name ?? "a local workplace"}.",
       );
       mvaddstrc(23, 3, midGray, "Costs up to \$100 per Socialist per day.");
+    case ActivityType.buildUnionLocal:
+      addstr(" strengthen a recognized workplace union local.");
+      mvaddstrc(23, 3, midGray, "Uses Persuasion and Business.");
     case ActivityType.writeGuardian:
       addstr(" publish stories for the Socialist Guardian.");
       mvaddstrc(23, 3, midGray, "Uses Writing and various knowledge skills.");

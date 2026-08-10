@@ -114,6 +114,19 @@ Future<void> soloActivities(bool disbanding) async {
         await doActivitySupportStrikeRelief(team);
       }
     }
+
+    List<Creature>? localBuilders = activities.remove(
+      ActivityType.buildUnionLocal,
+    );
+    if (localBuilders != null) {
+      Map<String?, List<Creature>> localTeams = {};
+      for (Creature p in localBuilders) {
+        localTeams.putIfAbsent(p.activity.idString, () => []).add(p);
+      }
+      for (List<Creature> team in localTeams.values) {
+        await doActivityBuildUnionLocal(team);
+      }
+    }
   }
 
   for (MapEntry entry in activities.entries) {

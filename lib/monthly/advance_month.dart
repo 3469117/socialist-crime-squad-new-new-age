@@ -18,6 +18,7 @@ import 'package:lcs_new_age/justice/prison.dart';
 import 'package:lcs_new_age/justice/trial.dart';
 import 'package:lcs_new_age/location/location_type.dart';
 import 'package:lcs_new_age/location/site.dart';
+import 'package:lcs_new_age/monthly/labor_monthly.dart';
 import 'package:lcs_new_age/monthly/lcs_monthly.dart';
 import 'package:lcs_new_age/monthly/sleeper_update.dart';
 import 'package:lcs_new_age/politics/alignment.dart';
@@ -85,6 +86,8 @@ Future<void> advanceMonth() async {
   for (Site l in sites) {
     l.newRental = false;
   }
+
+  await advanceLaborUnionLocals();
 
   //YOUR PAPER AND PUBLIC OPINION AND STUFF
   Iterable<Creature> publishers = pool.where(

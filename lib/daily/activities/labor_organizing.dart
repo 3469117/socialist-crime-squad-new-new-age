@@ -60,6 +60,7 @@ Future<void> doActivityOrganizeWorkers(Creature organizer) async {
   // Reaching 100 ends the drive immediately. Management does not get one
   // final counter-campaign after the workers have already won recognition.
   if (workplace.isUnionized) {
+    workplace.establishLaborUnionLocal();
     organizer.train(Skill.persuasion, 10 + progress);
     organizer.train(Skill.business, 5 + progress ~/ 2);
     addjuice(organizer, 10, 100);
@@ -106,6 +107,7 @@ Future<void> doActivityOrganizeWorkers(Creature organizer) async {
   );
 
   if (workplace.isUnionized) {
+    workplace.establishLaborUnionLocal();
     addjuice(organizer, 10, 100);
     await showMessage("Workers at ${workplace.name} have unionized!");
     organizer.activity = Activity.none();
@@ -365,9 +367,12 @@ Future<void> doActivityNegotiateUnionContract(Creature negotiator) async {
   int demandDifficulty = workplace.laborDemandDifficultyFor(
     workplace.laborBargainingDemand,
   );
+  workplace.establishLaborUnionLocal();
   int persuasionRoll = negotiator.skillRoll(Skill.persuasion);
   int businessSupport = negotiator.skill(Skill.business) ~/ 2;
-  int unionRoll = persuasionRoll + businessSupport + lawModifier;
+  int localSupport = workplace.laborUnionLocalStrengthForEffects ~/ 20;
+  int unionRoll =
+      persuasionRoll + businessSupport + localSupport + lawModifier;
   int managementDifficulty =
       8 +
       workplace.laborUnionBustStrength +
@@ -544,6 +549,7 @@ Future<void> doActivitySupportLaborStrike(List<Creature> organizers) async {
   int streetSupport = bestStreetSmarts ~/ 2;
   int picketSupport = workplace.laborPicketStrength ~/ 20;
   int solidaritySupport = workplace.laborStrikeSolidarity ~/ 20;
+  int localSupport = workplace.laborUnionLocalStrengthForEffects ~/ 20;
   int hardshipPenalty = workplace.laborStrikeHardship ~/ 15;
   int replacementPenalty = workplace.laborReplacementWorkerCoverage ~/ 15;
   int injunctionPenalty = workplace.laborStrikeInjunction ? 3 : 0;
@@ -554,6 +560,7 @@ Future<void> doActivitySupportLaborStrike(List<Creature> organizers) async {
       teamBonus +
       picketSupport +
       solidaritySupport +
+      localSupport +
       lawModifier -
       hardshipPenalty;
   int managementDifficulty =
@@ -685,6 +692,89 @@ Future<void> doActivitySupportLaborStrike(List<Creature> organizers) async {
     repressionLawModifier,
     policeRepressionModifier,
   );
+}
+
+Future<void> doActivityBuildUnionLocal(
+  List<Creature> organizers,
+) async {
+  if (organizers.isEmpty) return;
+
+  Creature lead = organizers.first;
+  Creature businessLead = organizers.first;
+  for (Creature organizer in organizers.skip(1)) {
+    if (organizer.skill(Skill.persuasion) > lead.skill(Skill.persuasion)) {
+      lead = organizer;
+    }
+    if (organizer.skill(Skill.business) >
+        businessLead.skill(Skill.business)) {
+      businessLead = organizer;
+    }
+  }
+
+  Site? workplace = lead.activity.location;
+  if (workplace == null ||
+      !workplace.supportsLaborOrganizing ||
+      workplace.controller != SiteController.unaligned ||
+      !workplace.isUnionized) {
+    _clearLaborStrikeActivities(organizers);
+    return;
+  }
+
+  workplace.establishLaborUnionLocal();
+  if (workplace.laborUnionLocalStrength >= 100) {
+    _clearLaborStrikeActivities(organizers);
+    return;
+  }
+
+  int lawModifier = switch (laws[Law.labor]!) {
+    DeepAlignment.archConservative => -2,
+    DeepAlignment.conservative => -1,
+    DeepAlignment.moderate => 0,
+    DeepAlignment.liberal => 1,
+    DeepAlignment.eliteLiberal => 2,
+  };
+  int teamBonus = (organizers.length - 1).clamp(0, 3);
+  int localStrength = workplace.laborUnionLocalStrengthForEffects;
+  int unionRoll = lead.skillRoll(Skill.persuasion) +
+      businessLead.skill(Skill.business) ~/ 2 +
+      lawModifier +
+      teamBonus;
+  int difficulty =
+      8 +
+      workplace.laborUnionBustStrength +
+      workplace.laborEmployerResistance ~/ 30 +
+      localStrength ~/ 25;
+  int margin = unionRoll - difficulty;
+  int growth = margin >= 0 ? (2 + margin ~/ 3 + teamBonus ~/ 2).clamp(2, 7) : 1;
+  int beforeStrength = workplace.laborUnionLocalStrength;
+  workplace.addLaborUnionLocalStrength(growth);
+
+  for (Creature organizer in organizers) {
+    organizer.train(Skill.persuasion, 6);
+    organizer.train(Skill.business, 8);
+  }
+
+  int afterStrength = workplace.laborUnionLocalStrength;
+  if (beforeStrength < 50 && afterStrength >= 50) {
+    await showMessage(
+      "The union local at ${workplace.name} has built a durable steward "
+      "network and regular membership meetings.",
+    );
+  } else if (beforeStrength < 75 && afterStrength >= 75) {
+    await showMessage(
+      "The local at ${workplace.name} is now a strong workplace organization "
+      "with experienced stewards and reliable member participation.",
+    );
+  } else if (afterStrength >= 100) {
+    for (Creature organizer in organizers) {
+      addjuice(organizer, 5, 100);
+    }
+    await showMessage(
+      "The union local at ${workplace.name} has become a powerhouse. Its "
+      "internal organization is as strong as it can be.",
+    );
+    _clearLaborStrikeActivities(organizers);
+  }
 }
 
 Future<void> doActivitySupportStrikeRelief(
@@ -834,6 +924,7 @@ Future<void> _resolveReplacementWorkers(
               workplace.laborReplacementWorkerCoverage ~/ 6 -
               workplace.laborPicketStrength ~/ 3 -
               businessLead.skill(Skill.business) -
+              workplace.laborUnionLocalStrengthForEffects ~/ 10 -
               contractProtection)
           .clamp(0, 65);
   if (lcsRandom(100) >= chance) return;
@@ -841,7 +932,8 @@ Future<void> _resolveReplacementWorkers(
   int unionRoll = lead.skillRoll(Skill.persuasion) +
       streetLead.skill(Skill.streetSmarts) ~/ 2 +
       teamBonus +
-      workplace.laborPicketStrength ~/ 15;
+      workplace.laborPicketStrength ~/ 15 +
+      workplace.laborUnionLocalStrengthForEffects ~/ 20;
   int employerDifficulty =
       10 +
       workplace.laborUnionBustStrength +
@@ -910,12 +1002,14 @@ Future<void> _resolveStrikeInjunction(
               workplace.laborUnionBustStrength * 2 +
               workplace.laborEmployerResistance ~/ 10 -
               businessLead.skill(Skill.business) * 2 -
+              workplace.laborUnionLocalStrengthForEffects ~/ 10 -
               contractProtection)
           .clamp(0, 55);
   if (lcsRandom(100) >= chance) return;
 
   int defenseRoll = businessLead.skillRoll(Skill.business) +
-      lead.skill(Skill.persuasion) ~/ 3;
+      lead.skill(Skill.persuasion) ~/ 3 +
+      workplace.laborUnionLocalStrengthForEffects ~/ 25;
   int difficulty =
       11 +
       workplace.laborUnionBustStrength +

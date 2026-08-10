@@ -118,6 +118,12 @@ void main() {
           expect(site.laborStrikeSolidarity, 0,
               reason: '${site.name} in $fileName did not default strike '
                   'solidarity to zero.');
+          expect(site.laborUnionLocalStrength, 0,
+              reason: '${site.name} in $fileName did not default union '
+                  'local strength to zero.');
+          expect(site.laborUnionDuesLastMonth, 0,
+              reason: '${site.name} in $fileName did not default monthly '
+                  'union dues to zero.');
         }
 
         // Regression guard: a regular member's home base must always resolve to

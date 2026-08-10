@@ -172,6 +172,27 @@ Future<void> helpOnActivity(ActivityType type) async {
           "It therefore reduces hardship immediately and raises worker "
           "solidarity even when the SCS treasury is empty. Persuasion and "
           "Business improve through the work.");
+    case ActivityType.buildUnionLocal:
+      _head("=== Build Union Local ===");
+      _body("A recognized union persists between bargaining rounds and "
+          "strikes. Build Union Local develops that permanent workplace "
+          "organization: stewards, membership meetings, communications, "
+          "dues collection, and the internal habits needed to act "
+          "collectively.\n\n"
+          "Every new local begins with a basic level of organization. "
+          "Persuasion and Business help Socialists strengthen it, while "
+          "hostile labor law and employer resistance make development "
+          "harder. Multiple Socialists can work on the same local for a "
+          "small team bonus.\n\n"
+          "Local strength is persistent. Stronger locals collect more "
+          "member dues each month, bargain more effectively, begin "
+          "strikes with stronger pickets and solidarity, and are harder "
+          "to undermine with replacement workers or injunctions. A "
+          "settled contract strengthens the local; a defeated strike can "
+          "weaken it without destroying the union.\n\n"
+          "Monthly dues go directly into that workplace union local's "
+          "reserve, not the SCS treasury. The reserve is the same fund "
+          "used automatically to support workers during a strike.");
     case ActivityType.writeGuardian:
       _head("=== Publish for the Socialist Guardian ===");
       _body("The Socialist Guardian is the SCS's independent media platform. "
