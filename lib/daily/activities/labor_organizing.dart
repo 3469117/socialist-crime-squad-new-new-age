@@ -6,6 +6,7 @@ import 'package:lcs_new_age/creature/creature_type.dart';
 import 'package:lcs_new_age/creature/skills.dart';
 import 'package:lcs_new_age/daily/activities/arrest.dart';
 import 'package:lcs_new_age/gamestate/game_state.dart';
+import 'package:lcs_new_age/gamestate/ledger.dart';
 import 'package:lcs_new_age/justice/crimes.dart';
 import 'package:lcs_new_age/location/site.dart';
 import 'package:lcs_new_age/politics/alignment.dart';
@@ -524,6 +525,12 @@ Future<void> doActivitySupportLaborStrike(List<Creature> organizers) async {
     policeRepressionModifier,
   );
 
+  bool strikeSustainable = await _applyStrikeSustainability(workplace);
+  if (!strikeSustainable) {
+    _clearLaborStrikeActivities(organizers);
+    return;
+  }
+
   int bestBusiness = businessLead.skill(Skill.business);
   int bestStreetSmarts = streetLead.skill(Skill.streetSmarts);
   for (Creature organizer in organizers) {
@@ -536,6 +543,8 @@ Future<void> doActivitySupportLaborStrike(List<Creature> organizers) async {
   int businessSupport = bestBusiness ~/ 3;
   int streetSupport = bestStreetSmarts ~/ 2;
   int picketSupport = workplace.laborPicketStrength ~/ 20;
+  int solidaritySupport = workplace.laborStrikeSolidarity ~/ 20;
+  int hardshipPenalty = workplace.laborStrikeHardship ~/ 15;
   int replacementPenalty = workplace.laborReplacementWorkerCoverage ~/ 15;
   int injunctionPenalty = workplace.laborStrikeInjunction ? 3 : 0;
   int policePenalty = workplace.laborStrikePolicePressure ~/ 30;
@@ -544,7 +553,9 @@ Future<void> doActivitySupportLaborStrike(List<Creature> organizers) async {
       streetSupport +
       teamBonus +
       picketSupport +
-      lawModifier;
+      solidaritySupport +
+      lawModifier -
+      hardshipPenalty;
   int managementDifficulty =
       10 +
       workplace.laborUnionBustStrength +
@@ -563,6 +574,8 @@ Future<void> doActivitySupportLaborStrike(List<Creature> organizers) async {
     int picketGain = (1 + margin ~/ 3 + teamBonus ~/ 2).clamp(1, 6);
     workplace.addLaborStrikePressure(pressureGain);
     workplace.addLaborPicketStrength(picketGain);
+    workplace.addLaborStrikeSolidarity((1 + margin ~/ 4).clamp(1, 4));
+    workplace.addLaborStrikeHardship(-1);
     workplace.addLaborEmployerResistance(-1);
 
     if (workplace.laborStrikePressure >= 100) {
@@ -624,23 +637,35 @@ Future<void> doActivitySupportLaborStrike(List<Creature> organizers) async {
   int picketLoss =
       (2 + gap - teamBonus +
               workplace.laborReplacementWorkerCoverage ~/ 25 +
+              workplace.laborStrikeHardship ~/ 25 +
               (workplace.laborStrikeInjunction ? 1 : 0))
-          .clamp(1, 12);
+          .clamp(1, 14);
   int pressureLoss =
       ((gap + 2) ~/ 3 + workplace.laborReplacementWorkerCoverage ~/ 35)
           .clamp(1, 6);
   workplace.addLaborPicketStrength(-picketLoss);
   workplace.addLaborStrikePressure(-pressureLoss);
+  workplace.addLaborStrikeSolidarity(-(1 + gap ~/ 3).clamp(1, 5));
+  workplace.addLaborStrikeHardship(1);
   workplace.addLaborEmployerResistance(1);
 
-  if (workplace.laborPicketStrength <= 0) {
+  if (workplace.laborPicketStrength <= 0 ||
+      workplace.laborStrikeSolidarity <= 0 ||
+      workplace.laborStrikeHardship >= 100) {
     int strikeDays = workplace.laborStrikeDays;
+    bool hardshipCollapse = workplace.laborStrikeHardship >= 100;
+    bool solidarityCollapse = workplace.laborStrikeSolidarity <= 0;
     workplace.defeatLaborStrike();
     String dayWord = strikeDays == 1 ? "day" : "days";
+    String reason = hardshipCollapse
+        ? "Worker hardship becomes unsustainable"
+        : solidarityCollapse
+            ? "Solidarity breaks down under sustained pressure"
+            : "The picket line collapses";
     await showMessage(
-      "After $strikeDays $dayWord, the picket line at ${workplace.name} "
-      "collapses. Workers return without a contract. Bargaining can resume, "
-      "but management is emboldened by the failed strike.",
+      "After $strikeDays $dayWord at ${workplace.name}, $reason. Workers "
+      "return without settling the demand. Bargaining can resume, but "
+      "management is emboldened by the failed strike.",
     );
     _clearLaborStrikeActivities(organizers);
     return;
@@ -660,6 +685,129 @@ Future<void> doActivitySupportLaborStrike(List<Creature> organizers) async {
     repressionLawModifier,
     policeRepressionModifier,
   );
+}
+
+Future<void> doActivitySupportStrikeRelief(
+  List<Creature> supporters,
+) async {
+  if (supporters.isEmpty) return;
+
+  Site? workplace = supporters.first.activity.location;
+  if (workplace == null ||
+      !workplace.supportsLaborOrganizing ||
+      workplace.controller != SiteController.unaligned ||
+      !workplace.laborStrikeActive) {
+    _clearLaborStrikeActivities(supporters);
+    return;
+  }
+
+  int requested = (supporters.length * 100).clamp(100, 500);
+  int contribution = ledger.funds.clamp(0, requested);
+  if (contribution > 0) {
+    ledger.subtractFunds(contribution, Expense.activism);
+    workplace.addLaborStrikeFund(contribution);
+  }
+
+  int solidarityGain =
+      (1 + supporters.length + contribution ~/ 200).clamp(1, 8);
+  int hardshipRelief =
+      (supporters.length + contribution ~/ 100).clamp(1, 10);
+  workplace.addLaborStrikeSolidarity(solidarityGain);
+  workplace.addLaborStrikeHardship(-hardshipRelief);
+
+  for (Creature supporter in supporters) {
+    supporter.train(Skill.persuasion, 5);
+    supporter.train(Skill.business, 5);
+  }
+
+  if (contribution == 0) {
+    await showMessage(
+      "The SCS has no cash available for strike relief at ${workplace.name}. "
+      "Volunteers still organize food, rides, and mutual aid, raising worker "
+      "solidarity by $solidarityGain points.",
+    );
+    return;
+  }
+
+  String supporterWord = supporters.length == 1 ? "Socialist" : "Socialists";
+  await showMessage(
+    "${supporters.length} $supporterWord provide \$$contribution in strike "
+    "relief at ${workplace.name}. The union's reserve is now "
+    "\$${workplace.laborStrikeFund}, hardship falls by $hardshipRelief, and "
+    "solidarity rises by $solidarityGain.",
+  );
+}
+
+Future<bool> _applyStrikeSustainability(Site workplace) async {
+  if (!workplace.laborStrikeActive) return false;
+
+  int dailyNeed =
+      (50 +
+              workplace.laborStrikeDays * 10 +
+              workplace.laborReplacementWorkerCoverage +
+              workplace.laborStrikePolicePressure ~/ 2 +
+              workplace.laborStrikeArrests * 10)
+          .clamp(50, 350);
+  int reliefSpent = workplace.spendLaborStrikeFund(dailyNeed);
+  int aidCoverage = reliefSpent * 100 ~/ dailyNeed;
+  int beforeHardship = workplace.laborStrikeHardship;
+
+  int hardshipGain =
+      (4 +
+              workplace.laborStrikeDays ~/ 4 +
+              workplace.laborReplacementWorkerCoverage ~/ 25 +
+              workplace.laborStrikePolicePressure ~/ 30 +
+              (workplace.laborStrikeInjunction ? 1 : 0) -
+              aidCoverage ~/ 20 -
+              workplace.laborStrikeSolidarity ~/ 40)
+          .clamp(-2, 12);
+  workplace.addLaborStrikeHardship(hardshipGain);
+
+  if (aidCoverage >= 75) {
+    workplace.addLaborStrikeSolidarity(1);
+  } else if (aidCoverage < 25 && workplace.laborStrikeHardship >= 50) {
+    workplace.addLaborStrikeSolidarity(-2);
+  } else if (workplace.laborStrikeHardship >= 75) {
+    workplace.addLaborStrikeSolidarity(-1);
+  }
+
+  int afterHardship = workplace.laborStrikeHardship;
+  if (beforeHardship < 25 && afterHardship >= 25) {
+    await showMessage(
+      "The strike at ${workplace.name} is beginning to strain household "
+      "budgets. Strike relief can keep hardship from undermining the line.",
+    );
+  } else if (beforeHardship < 50 && afterHardship >= 50) {
+    await showMessage(
+      "Workers at ${workplace.name} are under serious financial strain. "
+      "Without a stronger relief fund, solidarity will become harder to "
+      "maintain.",
+    );
+  } else if (beforeHardship < 75 && afterHardship >= 75) {
+    await showMessage(
+      "Hardship at ${workplace.name} is reaching crisis levels. Families are "
+      "running out of room to absorb another week without pay.",
+    );
+  }
+
+  if (workplace.laborStrikeHardship >= 100 ||
+      workplace.laborStrikeSolidarity <= 0) {
+    int strikeDays = workplace.laborStrikeDays;
+    bool hardshipCollapse = workplace.laborStrikeHardship >= 100;
+    workplace.defeatLaborStrike();
+    String dayWord = strikeDays == 1 ? "day" : "days";
+    String reason = hardshipCollapse
+        ? "worker hardship becomes unsustainable"
+        : "solidarity finally breaks under the pressure";
+    await showMessage(
+      "After $strikeDays $dayWord at ${workplace.name}, $reason. The strike "
+      "ends without settling the demand, though the union survives and can "
+      "return to bargaining.",
+    );
+    return false;
+  }
+
+  return true;
 }
 
 Future<void> _resolveReplacementWorkers(

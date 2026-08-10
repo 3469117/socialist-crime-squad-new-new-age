@@ -101,6 +101,21 @@ Future<void> soloActivities(bool disbanding) async {
     activities.putIfAbsent(p.activity.type, () => []).add(p);
   }
 
+  if (!disbanding) {
+    List<Creature>? reliefSupporters = activities.remove(
+      ActivityType.supportStrikeRelief,
+    );
+    if (reliefSupporters != null) {
+      Map<String?, List<Creature>> reliefTeams = {};
+      for (Creature p in reliefSupporters) {
+        reliefTeams.putIfAbsent(p.activity.idString, () => []).add(p);
+      }
+      for (List<Creature> team in reliefTeams.values) {
+        await doActivitySupportStrikeRelief(team);
+      }
+    }
+  }
+
   for (MapEntry entry in activities.entries) {
     ActivityType type = entry.key;
     List<Creature> people = entry.value;

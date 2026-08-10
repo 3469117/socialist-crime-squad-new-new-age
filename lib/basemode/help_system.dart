@@ -148,8 +148,30 @@ Future<void> helpOnActivity(ActivityType type) async {
           "repression. Street Smarts can de-escalate police intervention. On a "
           "failed check, an SCS strike supporter can be singled out for arrest "
           "and must face the normal police chase/arrest system.\n\n"
-          "Strike funds, long-strike hardship, sympathy strikes, lockouts, and "
-          "broader public-support campaigns are reserved for later passes.");
+          "Long strikes now create worker hardship. Each strike day consumes "
+          "money from the workplace's strike-relief reserve; uncovered needs, "
+          "replacement workers, injunctions, police pressure, and time all "
+          "increase hardship. High hardship weakens the picket and can break "
+          "solidarity. At maximum hardship or zero solidarity, the strike "
+          "collapses even if the picket still has strength. Use Provide Strike "
+          "Relief to contribute SCS funds and mutual-aid support.");
+    case ActivityType.supportStrikeRelief:
+      _head("=== Provide Strike Relief ===");
+      _body("Provide Strike Relief assigns Socialists to sustain workers "
+          "during an active strike. Each assigned Socialist can commit up to "
+          "\$100 per day from the SCS treasury, with a maximum daily "
+          "contribution of \$500 to the same workplace. Contributions become "
+          "a persistent workplace strike fund and are recorded as activism "
+          "expenses.\n\n"
+          "The strike fund is automatically drawn down as each strike day "
+          "creates household needs. Longer strikes, replacement-worker "
+          "coverage, police pressure, and arrests make daily support more "
+          "expensive. A well-funded reserve can slow or even reverse hardship. "
+          "Unspent money remains in the union's reserve for a later strike.\n\n"
+          "Relief work also organizes food, rides, childcare, and mutual aid. "
+          "It therefore reduces hardship immediately and raises worker "
+          "solidarity even when the SCS treasury is empty. Persuasion and "
+          "Business improve through the work.");
     case ActivityType.writeGuardian:
       _head("=== Publish for the Socialist Guardian ===");
       _body("The Socialist Guardian is the SCS's independent media platform. "

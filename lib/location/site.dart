@@ -97,6 +97,12 @@ class Site extends Location {
   int laborStrikePolicePressure = 0;
   @JsonKey(defaultValue: 0)
   int laborStrikeArrests = 0;
+  @JsonKey(defaultValue: 0)
+  int laborStrikeFund = 0;
+  @JsonKey(defaultValue: 0)
+  int laborStrikeHardship = 0;
+  @JsonKey(defaultValue: 0)
+  int laborStrikeSolidarity = 0;
 
   static const int laborDemandNone = 0;
   static const int laborDemandHigherWages = 1;
@@ -326,6 +332,31 @@ class Site extends Location {
     return "Clear";
   }
 
+  String get laborStrikeSustainabilityStatus {
+    if (laborStrikeHardship >= 75) return "Crisis";
+    if (laborStrikeHardship >= 50) return "Strained";
+    if (laborStrikeHardship >= 25) return "Tight";
+    return "Stable";
+  }
+
+  void addLaborStrikeFund(int amount) {
+    laborStrikeFund = min(999999, max(0, laborStrikeFund + amount));
+  }
+
+  int spendLaborStrikeFund(int amount) {
+    int spent = min(laborStrikeFund, max(0, amount));
+    laborStrikeFund -= spent;
+    return spent;
+  }
+
+  void addLaborStrikeHardship(int amount) {
+    laborStrikeHardship = min(100, max(0, laborStrikeHardship + amount));
+  }
+
+  void addLaborStrikeSolidarity(int amount) {
+    laborStrikeSolidarity = min(100, max(0, laborStrikeSolidarity + amount));
+  }
+
   void startLaborStrike() {
     if (!canStartLaborStrike || laborStrikeActive) return;
     laborStrikeActive = true;
@@ -343,6 +374,14 @@ class Site extends Location {
     laborReplacementWorkerCoverage = 0;
     laborStrikeInjunction = false;
     laborStrikePolicePressure = 0;
+    laborStrikeHardship = 0;
+    laborStrikeSolidarity = min(
+      75,
+      max(
+        35,
+        45 + laborBargainingProgress ~/ 4 - laborEmployerResistance ~/ 10,
+      ),
+    );
   }
 
   void recordLaborStrikeDay() {
@@ -391,6 +430,8 @@ class Site extends Location {
     if (!laborStrikeActive) return;
     laborStrikeActive = false;
     laborStrikePressure = 100;
+    laborStrikeHardship = 0;
+    laborStrikeSolidarity = 0;
     settleLaborContract();
     _clearLaborStrikeCountermeasures();
   }
@@ -400,6 +441,8 @@ class Site extends Location {
     laborStrikeActive = false;
     laborStrikePressure = 0;
     laborPicketStrength = 0;
+    laborStrikeHardship = 0;
+    laborStrikeSolidarity = 0;
     laborBargainingImpasse = false;
     laborBargainingStalledRounds = 0;
     laborBargainingProgress = max(0, laborBargainingProgress - 20);

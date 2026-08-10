@@ -99,6 +99,7 @@ List<ActivityType> _unionActivities = [
   ActivityType.organizeWorkers,
   ActivityType.negotiateUnionContract,
   ActivityType.supportLaborStrike,
+  ActivityType.supportStrikeRelief,
 ];
 
 List<ActivityType> _activism = [
@@ -383,6 +384,10 @@ void _unionActivitySubmenu() {
     ActivityType.supportLaborStrike,
     "3 - Support Strike & Picket",
   );
+  _subActivity(
+    ActivityType.supportStrikeRelief,
+    "4 - Provide Strike Relief",
+  );
   _y++;
   mvaddstrc(_y++, 40, midGray, "Esc/Space - Back to Socialist Activism");
 }
@@ -411,6 +416,9 @@ Future<void> _unionActivityChoice(Creature c, int choice) async {
   }
   if (choice == 3) {
     await _selectLaborStrikeTarget(c);
+  }
+  if (choice == 4) {
+    await _selectLaborStrikeReliefTarget(c);
   }
 }
 
@@ -684,6 +692,74 @@ Future<void> _selectLaborStrikeTarget(Creature c) async {
 
       c.activity = Activity(
         ActivityType.supportLaborStrike,
+        idString: workplace.idString,
+      );
+      return true;
+    },
+  );
+}
+
+
+Future<void> _selectLaborStrikeReliefTarget(Creature c) async {
+  var city = c.site?.city ?? c.base?.city;
+  if (city == null) {
+    await showMessage("${c.name} has no local strike relief effort to support.");
+    return;
+  }
+
+  List<Site> workplaces = city.sites
+      .where(
+        (site) =>
+            site.supportsLaborOrganizing &&
+            site.controller == SiteController.unaligned &&
+            site.laborStrikeActive,
+      )
+      .toList()
+    ..sort((a, b) => a.name.compareTo(b.name));
+
+  if (workplaces.isEmpty) {
+    await showMessage("There are no active local strikes needing relief.");
+    return;
+  }
+
+  await pagedInterface(
+    headerPrompt: "Where will ${c.name} provide strike relief?",
+    headerKey: {
+      4: "WORKPLACE",
+      29: "DEMAND",
+      47: "FUND",
+      58: "HARDSHIP",
+      70: "SOLID.",
+    },
+    footerPrompt: "Press a Letter to provide daily strike relief",
+    pageSize: 18,
+    count: workplaces.length,
+    lineBuilder: (y, key, index) {
+      Site workplace = workplaces[index];
+      addOptionText(
+        y,
+        0,
+        key,
+        "$key - ${truncateForDisplay(workplace.name, 22)}",
+      );
+      mvaddstr(
+        y,
+        29,
+        truncateForDisplay(workplace.laborDemandName, 17),
+      );
+      mvaddstr(y, 47, "\$${workplace.laborStrikeFund}");
+      mvaddstr(y, 58, "${workplace.laborStrikeHardship}%");
+      mvaddstr(y, 70, "${workplace.laborStrikeSolidarity}%");
+    },
+    onChoice: (index) async {
+      Site workplace = workplaces[index];
+      if (!workplace.laborStrikeActive) {
+        await showMessage("The strike at ${workplace.name} has already ended.");
+        return false;
+      }
+
+      c.activity = Activity(
+        ActivityType.supportStrikeRelief,
         idString: workplace.idString,
       );
       return true;
@@ -1366,6 +1442,12 @@ void _activityFooter(Creature cr) {
         midGray,
         "Uses Persuasion, Business, and Street Smarts.",
       );
+    case ActivityType.supportStrikeRelief:
+      addstr(
+        " provide strike relief at "
+        "${cr.activity.location?.name ?? "a local workplace"}.",
+      );
+      mvaddstrc(23, 3, midGray, "Costs up to \$100 per Socialist per day.");
     case ActivityType.writeGuardian:
       addstr(" publish stories for the Socialist Guardian.");
       mvaddstrc(23, 3, midGray, "Uses Writing and various knowledge skills.");
