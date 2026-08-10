@@ -5,7 +5,7 @@
 Socialists, Liberals, Reactionaries, and Fascists in a heightened contemporary
 United States.
 
-**Current version:** `v0.2.1`
+**Current version:** `v0.3.0`
 
 > SCS is in active early development. Expect incomplete conversions, inherited
 > LCS terminology, balance issues, bugs, and substantial changes between versions.
@@ -29,7 +29,7 @@ either extreme.
 
 ## Development
 
-Version 0.2.0 is the first broad contemporary-world conversion milestone.
+Version 0.3.0 adds the first major new gameplay pillar: a complete organized-labor system built around workplace organizing, collective bargaining, strikes, persistent union locals, contract enforcement, and mature-union automation.
 
 Implemented so far includes:
 
@@ -49,7 +49,6 @@ milestones move from world conversion into new mechanics.
 
 Planned development includes:
 
-- Labor organizing, unions, and strikes
 - Class, workplace, and economic-position systems
 - Tenant organizing and mutual aid
 - Worker and cooperative ownership
