@@ -10,6 +10,7 @@ import 'package:lcs_new_age/items/armor_upgrade.dart';
 import 'package:lcs_new_age/items/clothing_type.dart';
 import 'package:lcs_new_age/items/flag_type.dart';
 import 'package:lcs_new_age/location/site.dart';
+import 'package:lcs_new_age/newspaper/guardian_state.dart';
 import 'package:lcs_new_age/politics/views.dart';
 import 'package:lcs_new_age/utils/colors.dart';
 
@@ -66,6 +67,10 @@ class Activity {
         return "Building the union local at ${location?.name ?? "a workplace"}";
       case ActivityType.pursueUnionGrievance:
         return "Pursuing a grievance at ${location?.name ?? "a workplace"}";
+      case ActivityType.writeGuardian:
+        return "Guardian writing: ${GuardianBeat.fromId(idString).shortLabel}";
+      case ActivityType.streamGuardian:
+        return "Guardian live: ${GuardianBeat.fromId(idString).shortLabel}";
       case ActivityType.study:
         return "Practice ${skill?.displayName ?? "a bug"}";
       case ActivityType.takeClass:

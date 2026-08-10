@@ -96,6 +96,16 @@ class GameState {
   @JsonKey(defaultValue: [])
   List<NewsStory> newsArchive = [];
 
+  // Socialist Guardian institutional development. These values are separate
+  // from SCS approval so the publication can build an audience and reputation
+  // of its own over the course of a campaign.
+  @JsonKey(defaultValue: 10)
+  int guardianReach = 10;
+  @JsonKey(defaultValue: 20)
+  int guardianCredibility = 20;
+  @JsonKey(defaultValue: 10)
+  int guardianEditorialCapacity = 10;
+
   // Non-persisting variables (don't include in to/from JSON)
   @JsonKey(includeFromJson: false, includeToJson: false)
   Squad? get activeSquad =>

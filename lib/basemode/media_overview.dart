@@ -35,7 +35,10 @@ Future<void> mediaOverview() async {
         "  Avoiding violence will increase public support for your actions.");
 
     await pagedInterface(
-      headerPrompt: "Media Overview",
+      headerPrompt:
+          "Media Overview | Guardian Reach ${gameState.guardianReach}% | "
+          "Cred ${gameState.guardianCredibility}% | "
+          "Capacity ${gameState.guardianEditorialCapacity}%",
       headerKey: {4: "HEADLINE", 40: "DATE", 53: "SOURCE", 72: "IMPACT"},
       footerPrompt: "Press a Letter to open a media story",
       count: gameState.newsArchive.length,

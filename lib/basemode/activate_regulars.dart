@@ -17,6 +17,7 @@ import 'package:lcs_new_age/items/armor_upgrade.dart';
 import 'package:lcs_new_age/items/clothing_type.dart';
 import 'package:lcs_new_age/items/flag_type.dart';
 import 'package:lcs_new_age/location/site.dart';
+import 'package:lcs_new_age/newspaper/guardian_state.dart';
 import 'package:lcs_new_age/politics/alignment.dart';
 import 'package:lcs_new_age/utils/colors.dart';
 import 'package:lcs_new_age/utils/interface_options.dart';
@@ -110,6 +111,7 @@ List<ActivityType> _activism = [
   ActivityType.graffiti,
   ActivityType.hacking,
   ActivityType.writeGuardian,
+  ActivityType.streamGuardian,
   ..._unionActivities,
 ];
 
@@ -403,6 +405,41 @@ void _unionActivitySubmenu() {
   mvaddstrc(_y++, 40, midGray, "Esc/Space - Back to Socialist Activism");
 }
 
+Future<void> _selectGuardianBeat(
+  Creature c,
+  ActivityType activityType,
+) async {
+  List<GuardianBeat> beats = GuardianBeat.values;
+  bool livestream = activityType == ActivityType.streamGuardian;
+
+  await pagedInterface(
+    headerPrompt: livestream
+        ? "Choose the Socialist Guardian livestream beat"
+        : "Choose the Socialist Guardian publishing beat",
+    headerKey: {4: "EDITORIAL BEAT", 29: "COVERS"},
+    footerPrompt: "Press a Letter to choose an editorial beat",
+    count: beats.length,
+    pageSize: 12,
+    lineBuilder: (y, key, index) {
+      GuardianBeat beat = beats[index];
+      addOptionText(y, 0, key, "$key - ${beat.label}");
+      mvaddstrc(
+        y,
+        29,
+        lightGray,
+        truncateConsoleText(beat.summary, 51),
+      );
+    },
+    onChoice: (index) async {
+      c.activity = Activity(
+        activityType,
+        idString: beats[index].name,
+      );
+      return true;
+    },
+  );
+}
+
 Future<void> _activismChoice(Creature c, int choice) async {
   if (choice == 1) c.activity = Activity(ActivityType.communityService);
   if (choice == 2) c.activity = Activity(ActivityType.trouble);
@@ -412,9 +449,11 @@ Future<void> _activismChoice(Creature c, int choice) async {
       c.site?.compound.hackerDen == true) {
     c.activity = Activity(ActivityType.hacking);
   }
-  if (choice == 5) c.activity = Activity(ActivityType.writeGuardian);
+  if (choice == 5) {
+    await _selectGuardianBeat(c, ActivityType.writeGuardian);
+  }
   if (choice == 6 && c.site?.compound.videoRoom == true) {
-    c.activity = Activity(ActivityType.streamGuardian);
+    await _selectGuardianBeat(c, ActivityType.streamGuardian);
   }
 }
 
@@ -1602,12 +1641,15 @@ void _activityFooter(Creature cr) {
       addstr(" steal a car.");
       mvaddstrc(23, 3, midGray, "Uses Security and Street Smarts.");
     case ActivityType.streamGuardian:
-      addstr(" livestream for the Socialist Guardian.");
+      addstr(
+        " livestream ${GuardianBeat.fromId(cr.activity.idString).label} "
+        "coverage for the Socialist Guardian.",
+      );
       mvaddstrc(
         23,
         3,
         midGray,
-        "Uses Persuasion and various knowledge skills.",
+        "Persuasion drives reach; knowledge skills support the coverage.",
       );
     case ActivityType.study:
       addstr(" independently study ${cr.activity.skill?.displayName}.");
@@ -1714,8 +1756,16 @@ void _activityFooter(Creature cr) {
       );
       mvaddstrc(23, 3, midGray, "Uses Business and Persuasion.");
     case ActivityType.writeGuardian:
-      addstr(" publish stories for the Socialist Guardian.");
-      mvaddstrc(23, 3, midGray, "Uses Writing and various knowledge skills.");
+      addstr(
+        " publish ${GuardianBeat.fromId(cr.activity.idString).label} stories "
+        "for the Socialist Guardian.",
+      );
+      mvaddstrc(
+        23,
+        3,
+        midGray,
+        "Writing builds credibility; knowledge skills support the reporting.",
+      );
     default:
       addstr(" report a bug to the developers: ${cr.activity.type.name}.");
   }
@@ -1870,12 +1920,16 @@ Future<void> _activateBulk() async {
             case BulkActivity.liberalActivism:
               _activismDefault(tempp, noCommunityService: true);
             case BulkActivity.liberalGuardian:
-              if (tempp.site?.compound.videoRoom == true &&
-                  tempp.skill(Skill.persuasion) >= tempp.skill(Skill.writing)) {
-                tempp.activity.type = ActivityType.streamGuardian;
-              } else {
-                tempp.activity.type = ActivityType.writeGuardian;
-              }
+              ActivityType guardianActivity =
+                  tempp.site?.compound.videoRoom == true &&
+                          tempp.skill(Skill.persuasion) >=
+                              tempp.skill(Skill.writing)
+                      ? ActivityType.streamGuardian
+                      : ActivityType.writeGuardian;
+              tempp.activity = Activity(
+                guardianActivity,
+                idString: GuardianBeat.general.name,
+              );
             case BulkActivity.legalFundraising:
               _legalDefault(tempp);
             default:

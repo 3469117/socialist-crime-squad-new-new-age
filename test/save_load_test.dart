@@ -52,6 +52,16 @@ void main() {
         expect(pool, isNotEmpty,
             reason: 'No LCS members loaded from $fileName');
 
+        // v0.4.0 begins the persistent Socialist Guardian institution. Older
+        // saves predate these fields and should receive a modest functioning
+        // baseline rather than a zero-capacity newsroom.
+        expect(gameState.guardianReach, 10,
+            reason: '$fileName did not default Guardian reach to 10.');
+        expect(gameState.guardianCredibility, 20,
+            reason: '$fileName did not default Guardian credibility to 20.');
+        expect(gameState.guardianEditorialCapacity, 10,
+            reason: '$fileName did not default Guardian capacity to 10.');
+
         // v0.3.0 adds per-site labor organizing progress. Older saves have no
         // such key, so every legacy site must deserialize to the default state.
         for (final site in gameState.sites) {

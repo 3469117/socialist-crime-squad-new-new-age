@@ -51,46 +51,42 @@ void assignPublicationsToNewspaperStories() {
       conservativeStarChance = 0;
   }
 
-  // Calculate Liberal Guardian chance based on active liberals' skills
+  // The Socialist Guardian now has institutional reach and credibility of its
+  // own. Active staff still matter, but publication access no longer rises and
+  // falls solely with SCS approval.
+  List<Creature> activeGuardianStaff = pool
+      .where(
+        (c) =>
+            c.isActiveLiberal &&
+            (c.activity.type == ActivityType.writeGuardian ||
+                c.activity.type == ActivityType.streamGuardian),
+      )
+      .toList();
+
   double liberalGuardianChance = 0;
-  int cumulativeLiberalGuardianSkill = pool
-          .where((c) =>
-              c.isActiveLiberal &&
-              c.activity.type == ActivityType.writeGuardian)
-          .fold(
-              0,
-              (sum, c) =>
-                  sum +
-                  c.skill(Skill.writing) +
-                  c.skill(Skill.religion) +
-                  c.skill(Skill.law) +
-                  c.skill(Skill.science) +
-                  c.skill(Skill.business)) +
-      pool
-          .where((c) =>
-              c.isActiveLiberal &&
-              c.activity.type == ActivityType.streamGuardian)
-          .fold(
-              0,
-              (sum, c) =>
-                  sum +
-                  c.skill(Skill.persuasion) +
-                  c.skill(Skill.religion) +
-                  c.skill(Skill.law) +
-                  c.skill(Skill.science) +
-                  c.skill(Skill.business));
+  if (activeGuardianStaff.isNotEmpty) {
+    int cumulativeGuardianSkill = activeGuardianStaff.fold(0, (sum, c) {
+      int primarySkill = c.activity.type == ActivityType.writeGuardian
+          ? c.skill(Skill.writing)
+          : c.skill(Skill.persuasion);
+      return sum +
+          primarySkill +
+          c.skill(Skill.religion) +
+          c.skill(Skill.law) +
+          c.skill(Skill.science) +
+          c.skill(Skill.business);
+    });
 
-  // Train skills for active liberals
-  for (Creature c in pool.where((c) => c.isActiveLiberal)) {
-    if (c.activity.type == ActivityType.writeGuardian) {
-      c.train(Skill.writing, 10);
-    } else if (c.activity.type == ActivityType.streamGuardian) {
-      c.train(Skill.persuasion, 10);
-    }
+    double staffStrength = min(100, cumulativeGuardianSkill).toDouble();
+    double institutionStrength = gameState.guardianReach * 0.50 +
+        gameState.guardianCredibility * 0.30 +
+        gameState.guardianEditorialCapacity * 0.20;
+    double approvalFactor = 0.65 + politics.lcsApproval() / 300;
+
+    liberalGuardianChance =
+        ((staffStrength * 0.55 + institutionStrength * 0.45) * approvalFactor)
+            .clamp(0, 100);
   }
-
-  liberalGuardianChance =
-      min(100, cumulativeLiberalGuardianSkill) * politics.lcsApproval() / 100;
 
   for (NewsStory ns in newsStories) {
     double csChance = conservativeStarChance;
