@@ -644,10 +644,12 @@ Future<void> _selectLaborStrikeTarget(Creature c) async {
     headerPrompt: "Where will ${c.name} support a strike?",
     headerKey: {
       4: "WORKPLACE",
-      33: "STATUS",
-      44: "DEMAND",
-      63: "PRESS.",
-      72: "PICKET",
+      26: "STATUS",
+      36: "DEMAND",
+      51: "PRESS.",
+      58: "PICKET",
+      66: "SCABS",
+      73: "LEGAL",
     },
     footerPrompt: "Press a Letter to support a strike or picket line",
     pageSize: 18,
@@ -658,16 +660,18 @@ Future<void> _selectLaborStrikeTarget(Creature c) async {
         y,
         0,
         key,
-        "$key - ${truncateForDisplay(workplace.name, 26)}",
+        "$key - ${truncateForDisplay(workplace.name, 21)}",
       );
-      mvaddstr(y, 33, workplace.laborStrikeStatus);
+      mvaddstr(y, 26, workplace.laborStrikeStatus);
       mvaddstr(
         y,
-        44,
-        truncateForDisplay(workplace.laborDemandName, 17),
+        36,
+        truncateForDisplay(workplace.laborDemandName, 14),
       );
-      mvaddstr(y, 64, "${workplace.laborStrikePressure}%");
-      mvaddstr(y, 73, "${workplace.laborPicketStrength}%");
+      mvaddstr(y, 52, "${workplace.laborStrikePressure}%");
+      mvaddstr(y, 59, "${workplace.laborPicketStrength}%");
+      mvaddstr(y, 67, "${workplace.laborReplacementWorkerCoverage}%");
+      mvaddstr(y, 73, workplace.laborStrikeLegalStatus);
     },
     onChoice: (index) async {
       Site workplace = workplaces[index];

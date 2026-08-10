@@ -4,7 +4,9 @@ import 'package:lcs_new_age/common_display/common_display.dart';
 import 'package:lcs_new_age/creature/creature.dart';
 import 'package:lcs_new_age/creature/creature_type.dart';
 import 'package:lcs_new_age/creature/skills.dart';
+import 'package:lcs_new_age/daily/activities/arrest.dart';
 import 'package:lcs_new_age/gamestate/game_state.dart';
+import 'package:lcs_new_age/justice/crimes.dart';
 import 'package:lcs_new_age/location/site.dart';
 import 'package:lcs_new_age/politics/alignment.dart';
 import 'package:lcs_new_age/politics/laws.dart';
@@ -432,9 +434,19 @@ Future<void> doActivitySupportLaborStrike(List<Creature> organizers) async {
   if (organizers.isEmpty) return;
 
   Creature lead = organizers.first;
+  Creature businessLead = organizers.first;
+  Creature streetLead = organizers.first;
   for (Creature organizer in organizers.skip(1)) {
     if (organizer.skill(Skill.persuasion) > lead.skill(Skill.persuasion)) {
       lead = organizer;
+    }
+    if (organizer.skill(Skill.business) >
+        businessLead.skill(Skill.business)) {
+      businessLead = organizer;
+    }
+    if (organizer.skill(Skill.streetSmarts) >
+        streetLead.skill(Skill.streetSmarts)) {
+      streetLead = organizer;
     }
   }
 
@@ -476,16 +488,45 @@ Future<void> doActivitySupportLaborStrike(List<Creature> organizers) async {
     DeepAlignment.liberal => 2,
     DeepAlignment.eliteLiberal => 4,
   };
+  int repressionLawModifier = switch (laws[Law.labor]!) {
+    DeepAlignment.archConservative => 4,
+    DeepAlignment.conservative => 2,
+    DeepAlignment.moderate => 0,
+    DeepAlignment.liberal => -2,
+    DeepAlignment.eliteLiberal => -4,
+  };
+  int policeRepressionModifier = switch (laws[Law.policeReform]!) {
+    DeepAlignment.archConservative => 4,
+    DeepAlignment.conservative => 2,
+    DeepAlignment.moderate => 0,
+    DeepAlignment.liberal => -2,
+    DeepAlignment.eliteLiberal => -4,
+  };
+  int teamBonus = (organizers.length - 1).clamp(0, 3);
 
-  int bestBusiness = 0;
-  int bestStreetSmarts = 0;
+  await _resolveReplacementWorkers(
+    lead,
+    businessLead,
+    streetLead,
+    workplace,
+    teamBonus,
+    repressionLawModifier,
+  );
+  await _resolveStrikeInjunction(
+    lead,
+    businessLead,
+    workplace,
+    repressionLawModifier,
+  );
+  _buildStrikePolicePressure(
+    workplace,
+    repressionLawModifier,
+    policeRepressionModifier,
+  );
+
+  int bestBusiness = businessLead.skill(Skill.business);
+  int bestStreetSmarts = streetLead.skill(Skill.streetSmarts);
   for (Creature organizer in organizers) {
-    if (organizer.skill(Skill.business) > bestBusiness) {
-      bestBusiness = organizer.skill(Skill.business);
-    }
-    if (organizer.skill(Skill.streetSmarts) > bestStreetSmarts) {
-      bestStreetSmarts = organizer.skill(Skill.streetSmarts);
-    }
     organizer.train(Skill.persuasion, 8);
     organizer.train(Skill.business, 5);
     organizer.train(Skill.streetSmarts, 6);
@@ -494,8 +535,10 @@ Future<void> doActivitySupportLaborStrike(List<Creature> organizers) async {
   int persuasionRoll = lead.skillRoll(Skill.persuasion);
   int businessSupport = bestBusiness ~/ 3;
   int streetSupport = bestStreetSmarts ~/ 2;
-  int teamBonus = (organizers.length - 1).clamp(0, 3);
   int picketSupport = workplace.laborPicketStrength ~/ 20;
+  int replacementPenalty = workplace.laborReplacementWorkerCoverage ~/ 15;
+  int injunctionPenalty = workplace.laborStrikeInjunction ? 3 : 0;
+  int policePenalty = workplace.laborStrikePolicePressure ~/ 30;
   int unionRoll = persuasionRoll +
       businessSupport +
       streetSupport +
@@ -505,12 +548,18 @@ Future<void> doActivitySupportLaborStrike(List<Creature> organizers) async {
   int managementDifficulty =
       10 +
       workplace.laborUnionBustStrength +
-      workplace.laborEmployerResistance ~/ 20;
+      workplace.laborEmployerResistance ~/ 20 +
+      replacementPenalty +
+      injunctionPenalty +
+      policePenalty;
   int margin = unionRoll - managementDifficulty;
 
   if (margin >= 0) {
     int beforePressure = workplace.laborStrikePressure;
-    int pressureGain = (5 + margin + teamBonus).clamp(4, 15);
+    int pressureGain =
+        (5 + margin + teamBonus -
+                workplace.laborReplacementWorkerCoverage ~/ 25)
+            .clamp(2, 15);
     int picketGain = (1 + margin ~/ 3 + teamBonus ~/ 2).clamp(1, 6);
     workplace.addLaborStrikePressure(pressureGain);
     workplace.addLaborPicketStrength(picketGain);
@@ -559,12 +608,27 @@ Future<void> doActivitySupportLaborStrike(List<Creature> organizers) async {
         "$pressureGain points.",
       );
     }
+
+    await _resolveStrikePoliceIntervention(
+      organizers,
+      streetLead,
+      workplace,
+      teamBonus,
+      repressionLawModifier,
+      policeRepressionModifier,
+    );
     return;
   }
 
   int gap = -margin;
-  int picketLoss = (2 + gap - teamBonus).clamp(1, 10);
-  int pressureLoss = ((gap + 2) ~/ 3).clamp(1, 4);
+  int picketLoss =
+      (2 + gap - teamBonus +
+              workplace.laborReplacementWorkerCoverage ~/ 25 +
+              (workplace.laborStrikeInjunction ? 1 : 0))
+          .clamp(1, 12);
+  int pressureLoss =
+      ((gap + 2) ~/ 3 + workplace.laborReplacementWorkerCoverage ~/ 35)
+          .clamp(1, 6);
   workplace.addLaborPicketStrength(-picketLoss);
   workplace.addLaborStrikePressure(-pressureLoss);
   workplace.addLaborEmployerResistance(1);
@@ -587,6 +651,237 @@ Future<void> doActivitySupportLaborStrike(List<Creature> organizers) async {
     "Picket strength falls by $picketLoss points and strike pressure slips "
     "by $pressureLoss.",
   );
+
+  await _resolveStrikePoliceIntervention(
+    organizers,
+    streetLead,
+    workplace,
+    teamBonus,
+    repressionLawModifier,
+    policeRepressionModifier,
+  );
+}
+
+Future<void> _resolveReplacementWorkers(
+  Creature lead,
+  Creature businessLead,
+  Creature streetLead,
+  Site workplace,
+  int teamBonus,
+  int repressionLawModifier,
+) async {
+  if (!workplace.laborStrikeActive ||
+      workplace.laborStrikeDays < 2 ||
+      workplace.laborReplacementWorkerCoverage >= 100) {
+    return;
+  }
+
+  int contractProtection =
+      workplace.hasLaborDemand(Site.laborDemandUnionProtections) ? 12 : 0;
+  int chance =
+      (12 +
+              workplace.laborUnionBustStrength * 4 +
+              workplace.laborEmployerResistance ~/ 4 +
+              repressionLawModifier.clamp(0, 4) * 4 +
+              workplace.laborReplacementWorkerCoverage ~/ 6 -
+              workplace.laborPicketStrength ~/ 3 -
+              businessLead.skill(Skill.business) -
+              contractProtection)
+          .clamp(0, 65);
+  if (lcsRandom(100) >= chance) return;
+
+  int unionRoll = lead.skillRoll(Skill.persuasion) +
+      streetLead.skill(Skill.streetSmarts) ~/ 2 +
+      teamBonus +
+      workplace.laborPicketStrength ~/ 15;
+  int employerDifficulty =
+      10 +
+      workplace.laborUnionBustStrength +
+      workplace.laborEmployerResistance ~/ 20 +
+      repressionLawModifier.clamp(0, 4) +
+      workplace.laborReplacementWorkerCoverage ~/ 20;
+  lead.train(Skill.persuasion, 6);
+  streetLead.train(Skill.streetSmarts, 6);
+
+  if (unionRoll >= employerDifficulty) {
+    int reduction = (2 + (unionRoll - employerDifficulty) ~/ 2).clamp(2, 8);
+    int beforeCoverage = workplace.laborReplacementWorkerCoverage;
+    workplace.addLaborReplacementWorkerCoverage(-reduction);
+    if (beforeCoverage > 0) {
+      await showMessage(
+        "Union outreach at ${workplace.name} turns replacement workers away "
+        "from the struck jobs. Scab coverage falls to "
+        "${workplace.laborReplacementWorkerCoverage}%.",
+      );
+    } else {
+      await showMessage(
+        "Management at ${workplace.name} tries to recruit replacement "
+        "workers, but the picket line and union outreach keep the jobs empty.",
+      );
+    }
+    return;
+  }
+
+  int gain = (8 + (employerDifficulty - unionRoll) * 2).clamp(8, 22);
+  int beforeCoverage = workplace.laborReplacementWorkerCoverage;
+  workplace.addLaborReplacementWorkerCoverage(gain);
+  int added = workplace.laborReplacementWorkerCoverage - beforeCoverage;
+  await showMessage(
+    "Management at ${workplace.name} brings in replacement workers. Scab "
+    "coverage rises by $added points to "
+    "${workplace.laborReplacementWorkerCoverage}%, reducing the strike's "
+    "economic leverage.",
+  );
+}
+
+Future<void> _resolveStrikeInjunction(
+  Creature lead,
+  Creature businessLead,
+  Site workplace,
+  int repressionLawModifier,
+) async {
+  if (!workplace.laborStrikeActive ||
+      workplace.laborStrikeDays < 3 ||
+      workplace.laborStrikeInjunction) {
+    return;
+  }
+
+  int baseChance = switch (laws[Law.labor]!) {
+    DeepAlignment.archConservative => 25,
+    DeepAlignment.conservative => 15,
+    DeepAlignment.moderate => 7,
+    DeepAlignment.liberal => 2,
+    DeepAlignment.eliteLiberal => 0,
+  };
+  if (baseChance == 0) return;
+
+  int contractProtection =
+      workplace.hasLaborDemand(Site.laborDemandUnionProtections) ? 10 : 0;
+  int chance =
+      (baseChance +
+              workplace.laborUnionBustStrength * 2 +
+              workplace.laborEmployerResistance ~/ 10 -
+              businessLead.skill(Skill.business) * 2 -
+              contractProtection)
+          .clamp(0, 55);
+  if (lcsRandom(100) >= chance) return;
+
+  int defenseRoll = businessLead.skillRoll(Skill.business) +
+      lead.skill(Skill.persuasion) ~/ 3;
+  int difficulty =
+      11 +
+      workplace.laborUnionBustStrength +
+      workplace.laborEmployerResistance ~/ 25 +
+      repressionLawModifier.clamp(0, 4);
+  businessLead.train(Skill.business, 8);
+
+  if (defenseRoll >= difficulty) {
+    await showMessage(
+      "${businessLead.name} spots management's legal strategy at "
+      "${workplace.name} early. The union's attorneys beat back a requested "
+      "strike injunction.",
+    );
+    return;
+  }
+
+  workplace.laborStrikeInjunction = true;
+  workplace.addLaborStrikePolicePressure(
+    20 + repressionLawModifier.clamp(0, 4) * 3,
+  );
+  workplace.addLaborPicketStrength(-5);
+  await showMessage(
+    "Management at ${workplace.name} obtains a strike injunction. The court "
+    "restricts picketing, weakens the line, and increases the risk of police "
+    "intervention.",
+  );
+}
+
+void _buildStrikePolicePressure(
+  Site workplace,
+  int repressionLawModifier,
+  int policeRepressionModifier,
+) {
+  if (!workplace.laborStrikeActive) return;
+
+  int pressureGain = 0;
+  if (workplace.laborStrikeInjunction) pressureGain += 6;
+  pressureGain += workplace.laborReplacementWorkerCoverage ~/ 25;
+  pressureGain +=
+      (repressionLawModifier + policeRepressionModifier).clamp(0, 8);
+  if (workplace.hasLaborDemand(Site.laborDemandUnionProtections)) {
+    pressureGain -= 2;
+  }
+  workplace.addLaborStrikePolicePressure(pressureGain.clamp(0, 12));
+}
+
+Future<void> _resolveStrikePoliceIntervention(
+  List<Creature> organizers,
+  Creature streetLead,
+  Site workplace,
+  int teamBonus,
+  int repressionLawModifier,
+  int policeRepressionModifier,
+) async {
+  if (!workplace.laborStrikeActive ||
+      workplace.laborStrikePolicePressure < 20) {
+    return;
+  }
+
+  int contractProtection =
+      workplace.hasLaborDemand(Site.laborDemandUnionProtections) ? 10 : 0;
+  int chance =
+      (workplace.laborStrikePolicePressure ~/ 3 +
+              (workplace.laborStrikeInjunction ? 15 : 0) +
+              policeRepressionModifier.clamp(0, 4) * 4 +
+              repressionLawModifier.clamp(0, 4) * 2 -
+              streetLead.skill(Skill.streetSmarts) * 2 -
+              workplace.laborPicketStrength ~/ 10 -
+              contractProtection)
+          .clamp(0, 50);
+  if (lcsRandom(100) >= chance) return;
+
+  int streetRoll = streetLead.skillRoll(Skill.streetSmarts) + teamBonus;
+  int difficulty =
+      10 +
+      workplace.laborStrikePolicePressure ~/ 15 +
+      (workplace.laborStrikeInjunction ? 3 : 0) +
+      policeRepressionModifier.clamp(0, 4);
+  streetLead.train(Skill.streetSmarts, 8);
+
+  if (streetRoll >= difficulty) {
+    workplace.addLaborStrikePolicePressure(-10);
+    await showMessage(
+      "Police arrive at the ${workplace.name} picket, but "
+      "${streetLead.name} keeps the line disciplined and de-escalates the "
+      "confrontation.",
+    );
+    return;
+  }
+
+  Creature target = organizers[lcsRandom(organizers.length)];
+  workplace.recordLaborStrikeArrest();
+  workplace.addLaborStrikePolicePressure(5);
+  workplace.addLaborEmployerResistance(1);
+  criminalize(target, Crime.disturbingThePeace);
+  await showMessage(
+    "Police move against the ${workplace.name} picket under pressure from "
+    "management. ${target.name} is singled out for arrest.",
+  );
+
+  // Strike support is a daily activity, so the organizer normally still has
+  // their safehouse as their stored location. Temporarily place them at the
+  // workplace so the normal chase system uses the strike's actual district.
+  // If they escape, restore their prior location; if captured, the chase
+  // system moves them elsewhere and that result is preserved.
+  String? originalLocationId = target.locationId;
+  target.location = workplace;
+  await attemptArrest(
+    target,
+    "supporting the strike at ${workplace.name}",
+  );
+  if (target.location == workplace) {
+    target.locationId = originalLocationId;
+  }
 }
 
 void _clearLaborStrikeActivities(List<Creature> organizers) {

@@ -89,6 +89,14 @@ class Site extends Location {
   int laborPicketStrength = 0;
   @JsonKey(defaultValue: 0)
   int laborStrikeDays = 0;
+  @JsonKey(defaultValue: 0)
+  int laborReplacementWorkerCoverage = 0;
+  @JsonKey(defaultValue: false)
+  bool laborStrikeInjunction = false;
+  @JsonKey(defaultValue: 0)
+  int laborStrikePolicePressure = 0;
+  @JsonKey(defaultValue: 0)
+  int laborStrikeArrests = 0;
 
   static const int laborDemandNone = 0;
   static const int laborDemandHigherWages = 1;
@@ -311,6 +319,13 @@ class Site extends Location {
     return "No Union";
   }
 
+  String get laborStrikeLegalStatus {
+    if (laborStrikePolicePressure >= 60) return "Police";
+    if (laborStrikeInjunction) return "Court";
+    if (laborStrikePolicePressure > 0) return "Tense";
+    return "Clear";
+  }
+
   void startLaborStrike() {
     if (!canStartLaborStrike || laborStrikeActive) return;
     laborStrikeActive = true;
@@ -325,6 +340,9 @@ class Site extends Location {
       ),
     );
     laborStrikeDays = 0;
+    laborReplacementWorkerCoverage = 0;
+    laborStrikeInjunction = false;
+    laborStrikePolicePressure = 0;
   }
 
   void recordLaborStrikeDay() {
@@ -345,11 +363,36 @@ class Site extends Location {
     );
   }
 
+  void addLaborReplacementWorkerCoverage(int amount) {
+    laborReplacementWorkerCoverage = min(
+      100,
+      max(0, laborReplacementWorkerCoverage + amount),
+    );
+  }
+
+  void addLaborStrikePolicePressure(int amount) {
+    laborStrikePolicePressure = min(
+      100,
+      max(0, laborStrikePolicePressure + amount),
+    );
+  }
+
+  void recordLaborStrikeArrest() {
+    laborStrikeArrests++;
+  }
+
+  void _clearLaborStrikeCountermeasures() {
+    laborReplacementWorkerCoverage = 0;
+    laborStrikeInjunction = false;
+    laborStrikePolicePressure = 0;
+  }
+
   void settleLaborStrike() {
     if (!laborStrikeActive) return;
     laborStrikeActive = false;
     laborStrikePressure = 100;
     settleLaborContract();
+    _clearLaborStrikeCountermeasures();
   }
 
   void defeatLaborStrike() {
@@ -361,6 +404,7 @@ class Site extends Location {
     laborBargainingStalledRounds = 0;
     laborBargainingProgress = max(0, laborBargainingProgress - 20);
     addLaborEmployerResistance(10);
+    _clearLaborStrikeCountermeasures();
   }
 
   int get extraHeatFromCCSTarget {

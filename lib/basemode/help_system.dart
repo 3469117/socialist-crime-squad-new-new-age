@@ -132,8 +132,24 @@ Future<void> helpOnActivity(ActivityType type) async {
           "bargaining progress falls, and management "
           "resistance increases. Negotiations can then resume and may produce "
           "another impasse later.\n\n"
-          "Scabs, police intervention, strike funds, and broader public "
-          "support are reserved for later labor-system passes.");
+          "Management can now escalate an active strike by recruiting "
+          "replacement workers. Replacement-worker coverage reduces the "
+          "strike's economic leverage and makes bad strike days more costly. "
+          "Strong pickets, Persuasion, Street Smarts, and additional SCS "
+          "supporters can keep replacements from crossing the line.\n\n"
+          "After a strike has lasted several days, management may also seek a "
+          "court injunction. Business helps organizers anticipate the legal "
+          "attack. An injunction weakens the picket and raises police pressure. "
+          "Labor law strongly affects whether this tactic succeeds. A union "
+          "that has already secured Union Protections is harder to attack with "
+          "replacement workers, injunctions, and police escalation.\n\n"
+          "Police pressure builds when courts restrict the strike, replacement "
+          "workers create confrontation, or labor and police law favor "
+          "repression. Street Smarts can de-escalate police intervention. On a "
+          "failed check, an SCS strike supporter can be singled out for arrest "
+          "and must face the normal police chase/arrest system.\n\n"
+          "Strike funds, long-strike hardship, sympathy strikes, lockouts, and "
+          "broader public-support campaigns are reserved for later passes.");
     case ActivityType.writeGuardian:
       _head("=== Publish for the Socialist Guardian ===");
       _body("The Socialist Guardian is the SCS's independent media platform. "

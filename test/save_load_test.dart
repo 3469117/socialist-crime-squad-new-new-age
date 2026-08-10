@@ -97,6 +97,18 @@ void main() {
           expect(site.laborStrikeDays, 0,
               reason: '${site.name} in $fileName did not default strike '
                   'days to zero.');
+          expect(site.laborReplacementWorkerCoverage, 0,
+              reason: '${site.name} in $fileName did not default replacement '
+                  'worker coverage to zero.');
+          expect(site.laborStrikeInjunction, isFalse,
+              reason: '${site.name} in $fileName did not default strike '
+                  'injunction to false.');
+          expect(site.laborStrikePolicePressure, 0,
+              reason: '${site.name} in $fileName did not default strike police '
+                  'pressure to zero.');
+          expect(site.laborStrikeArrests, 0,
+              reason: '${site.name} in $fileName did not default strike arrest '
+                  'count to zero.');
         }
 
         // Regression guard: a regular member's home base must always resolve to
