@@ -34,6 +34,7 @@ Future<void> advanceLaborUnionLocals() async {
       totalDues += collected;
     }
 
+    _advanceSelfManagingLaborLocal(site);
     await _advanceLaborGrievances(site);
   }
 
@@ -45,10 +46,49 @@ Future<void> advanceLaborUnionLocals() async {
   );
 }
 
+
+void _advanceSelfManagingLaborLocal(Site site) {
+  if (!site.laborUnionSelfManaging || site.laborStrikeActive) return;
+
+  // Once a local has a durable steward structure, routine labor-management
+  // work no longer needs daily SCS attention.
+  // Strong locals steadily suppress ordinary management resistance even while
+  // the player is focused elsewhere.
+  int resistanceReduction = 1 + site.laborContractDemandCount ~/ 2;
+  if (site.laborUnionAutonomous) resistanceReduction++;
+  site.addLaborEmployerResistance(-resistanceReduction);
+
+  // Crises and active bargaining still consume the local's organizational
+  // capacity. Quiet, mature locals can continue developing on their own, with
+  // political conditions determining how quickly they approach powerhouse
+  // status. A serious setback can still knock a local below 75 and make direct
+  // Build Union Local work useful again.
+  if (site.hasActiveLaborGrievance ||
+      site.laborBargainingImpasse ||
+      site.laborBargainingDemand != Site.laborDemandNone ||
+      site.laborUnionLocalStrengthForEffects >= 100) {
+    return;
+  }
+
+  int growth = switch (laws[Law.labor]!) {
+    DeepAlignment.archConservative => site.hasAllLaborDemands ? 1 : 0,
+    DeepAlignment.conservative => site.hasAllLaborDemands ? 1 : 0,
+    DeepAlignment.moderate => site.hasAllLaborDemands ? 2 : 1,
+    DeepAlignment.liberal => 2,
+    DeepAlignment.eliteLiberal => 2,
+  };
+  if (growth > 0) site.addLaborUnionLocalStrength(growth);
+}
+
 Future<void> _advanceLaborGrievances(Site site) async {
   if (!site.hasLaborContract) return;
 
   if (site.hasActiveLaborGrievance) {
+    if (!site.laborGrievanceLegalReview && site.laborUnionSelfManaging) {
+      bool resolved = await _attemptSelfManagedLaborGrievance(site);
+      if (resolved) return;
+    }
+
     site.advanceLaborGrievanceMonth();
     if (site.laborGrievanceLegalReview) {
       if (site.laborGrievanceMonthsOpen >= 3) {
@@ -116,9 +156,64 @@ Future<void> _advanceLaborGrievances(Site site) async {
 
   site.startLaborGrievance(demand);
   site.addLaborEmployerResistance(2);
-  await showMessageOrLog(_laborViolationMessage(site, demand));
+  String message = _laborViolationMessage(site, demand);
+  if (site.laborUnionSelfManaging) {
+    int openingWork = (10 +
+            (site.laborUnionLocalStrengthForEffects - 75) ~/ 2 +
+            site.laborContractDemandCount * 2 +
+            (site.hasLaborDemand(Site.laborDemandUnionProtections) ? 4 : 0))
+        .clamp(10, 30);
+    site.addLaborGrievanceProgress(openingWork);
+    message +=
+        " The local's stewards begin handling the case without waiting for "
+        "SCS direction.";
+  }
+  await showMessageOrLog(message);
 }
 
+Future<bool> _attemptSelfManagedLaborGrievance(Site site) async {
+  int lawModifier = switch (laws[Law.labor]!) {
+    DeepAlignment.archConservative => -6,
+    DeepAlignment.conservative => -3,
+    DeepAlignment.moderate => 0,
+    DeepAlignment.liberal => 3,
+    DeepAlignment.eliteLiberal => 6,
+  };
+  int protectionBonus =
+      site.hasLaborDemand(Site.laborDemandUnionProtections) ? 10 : 0;
+  int progressGain = (8 +
+          (site.laborUnionLocalStrengthForEffects - 75) ~/ 3 +
+          site.laborContractDemandCount * 2 +
+          protectionBonus ~/ 3 +
+          lawModifier ~/ 2 -
+          site.laborUnionBustStrength -
+          site.laborEmployerResistance ~/ 30)
+      .clamp(4, 24);
+  site.addLaborGrievanceProgress(progressGain);
+
+  int settlementChance = (5 +
+          (site.laborUnionLocalStrengthForEffects - 75) +
+          site.laborContractDemandCount * 5 +
+          site.laborGrievanceProgress ~/ 3 +
+          protectionBonus +
+          lawModifier -
+          site.laborEmployerResistance ~/ 3 -
+          site.laborUnionBustStrength * 2)
+      .clamp(5, 75);
+  if (site.laborGrievanceProgress < 100 &&
+      lcsRandom(100) >= settlementChance) {
+    return false;
+  }
+
+  String issue = site.laborGrievanceName;
+  site.resolveLaborGrievance();
+  await showMessageOrLog(
+    "The mature union local at ${site.name} resolves its $issue grievance "
+    "through its own stewards and contract-enforcement process. No direct "
+    "SCS intervention is needed.",
+  );
+  return true;
+}
 
 Future<void> _resolveLaborGrievanceLegalReview(Site site) async {
   if (!site.hasActiveLaborGrievance || !site.laborGrievanceLegalReview) return;

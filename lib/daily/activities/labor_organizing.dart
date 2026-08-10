@@ -721,8 +721,8 @@ Future<void> doActivityBuildUnionLocal(
   }
 
   workplace.establishLaborUnionLocal();
-  if (workplace.laborUnionLocalStrength >= 100) {
-    _clearLaborStrikeActivities(organizers);
+  if (workplace.laborUnionLocalStrengthForEffects >= 75) {
+    _clearLaborActivities(organizers);
     return;
   }
 
@@ -764,19 +764,15 @@ Future<void> doActivityBuildUnionLocal(
       "network and regular membership meetings.",
     );
   } else if (beforeStrength < 75 && afterStrength >= 75) {
-    await showMessage(
-      "The local at ${workplace.name} is now a strong workplace organization "
-      "with experienced stewards and reliable member participation.",
-    );
-  } else if (afterStrength >= 100) {
     for (Creature organizer in organizers) {
       addjuice(organizer, 5, 100);
     }
     await showMessage(
-      "The union local at ${workplace.name} has become a powerhouse. Its "
-      "internal organization is as strong as it can be.",
+      "The local at ${workplace.name} is now a strong, self-managing workplace "
+      "organization. Its stewards can handle routine maintenance and many "
+      "grievances without daily SCS direction.",
     );
-    _clearLaborStrikeActivities(organizers);
+    _clearLaborActivities(organizers);
   }
 }
 

@@ -398,6 +398,7 @@ void _unionActivitySubmenu() {
     ActivityType.pursueUnionGrievance,
     "6 - Pursue Grievance",
   );
+  addOptionText(_y++, 40, "7", "7 - Union Overview");
   _y++;
   mvaddstrc(_y++, 40, midGray, "Esc/Space - Back to Socialist Activism");
 }
@@ -436,6 +437,92 @@ Future<void> _unionActivityChoice(Creature c, int choice) async {
   if (choice == 6) {
     await _selectLaborGrievanceTarget(c);
   }
+  if (choice == 7) {
+    await _showUnionOverview(c);
+  }
+}
+
+Future<void> _showUnionOverview(Creature c) async {
+  var city = c.site?.city ?? c.base?.city;
+  if (city == null) {
+    await showMessage("${c.name} has no local unions to review.");
+    return;
+  }
+
+  List<Site> workplaces = city.sites
+      .where(
+        (site) =>
+            site.supportsLaborOrganizing &&
+            site.controller == SiteController.unaligned &&
+            site.isUnionized,
+      )
+      .toList()
+    ..sort((a, b) {
+      int priority =
+          a.laborUnionAttentionRank.compareTo(b.laborUnionAttentionRank);
+      if (priority != 0) return priority;
+      return a.name.compareTo(b.name);
+    });
+
+  if (workplaces.isEmpty) {
+    await showMessage("There are no recognized union locals in ${city.name}.");
+    return;
+  }
+
+  int attention = workplaces
+      .where((site) => site.laborUnionNeedsPlayerAttention)
+      .length;
+  int selfManaging =
+      workplaces.where((site) => site.laborUnionSelfManaging).length;
+  await pagedInterface(
+    headerPrompt:
+        "Union Overview: ${workplaces.length} locals | $attention need action | "
+        "$selfManaging self-managing",
+    headerKey: {
+      4: "WORKPLACE",
+      27: "LOCAL",
+      35: "CONTRACT",
+      45: "CURRENT",
+      60: "MODE",
+    },
+    footerPrompt: "Press a Letter for details; Esc/Space returns",
+    pageSize: 18,
+    count: workplaces.length,
+    lineBuilder: (y, key, index) {
+      Site workplace = workplaces[index];
+      addOptionText(
+        y,
+        0,
+        key,
+        "$key - ${truncateForDisplay(workplace.name, 20)}",
+      );
+      mvaddstr(y, 27, "${workplace.laborUnionLocalStrengthForEffects}%");
+      mvaddstr(y, 35, "${workplace.laborContractDemandCount}/4");
+      mvaddstr(
+        y,
+        45,
+        truncateForDisplay(workplace.laborUnionCurrentStatus, 14),
+      );
+      mvaddstr(
+        y,
+        60,
+        truncateForDisplay(workplace.laborUnionManagementStatus, 19),
+      );
+    },
+    onChoice: (index) async {
+      Site workplace = workplaces[index];
+      await showMessage(
+        "${workplace.name}: ${workplace.laborUnionLocalStatus} local "
+        "(${workplace.laborUnionLocalStrengthForEffects}%), contract "
+        "${workplace.laborContractDemandCount}/4, reserve "
+        "\$${workplace.laborStrikeFund}, employer resistance "
+        "${workplace.laborEmployerResistanceStatus}. Current: "
+        "${workplace.laborUnionCurrentStatus}. "
+        "${workplace.laborUnionRecommendedAction}",
+      );
+      return false;
+    },
+  );
 }
 
 Future<void> _selectLaborOrganizingTarget(Creature c) async {
@@ -449,7 +536,8 @@ Future<void> _selectLaborOrganizingTarget(Creature c) async {
       .where(
         (site) =>
             site.supportsLaborOrganizing &&
-            site.controller == SiteController.unaligned,
+            site.controller == SiteController.unaligned &&
+            !site.isUnionized,
       )
       .toList()
     ..sort((a, b) => a.name.compareTo(b.name));
@@ -795,14 +883,20 @@ Future<void> _selectUnionLocalTarget(Creature c) async {
         (site) =>
             site.supportsLaborOrganizing &&
             site.controller == SiteController.unaligned &&
-            site.isUnionized,
+            site.isUnionized &&
+            site.laborUnionLocalStrengthForEffects < 75,
       )
       .toList()
-    ..sort((a, b) => a.name.compareTo(b.name));
+    ..sort((a, b) {
+      int strength = a.laborUnionLocalStrengthForEffects
+          .compareTo(b.laborUnionLocalStrengthForEffects);
+      if (strength != 0) return strength;
+      return a.name.compareTo(b.name);
+    });
 
   if (workplaces.isEmpty) {
     await showMessage(
-      "There are no recognized local unions in this city.",
+      "All recognized local unions here are already self-managing.",
     );
     return;
   }
@@ -835,9 +929,9 @@ Future<void> _selectUnionLocalTarget(Creature c) async {
     onChoice: (index) async {
       Site workplace = workplaces[index];
       if (!workplace.isUnionized ||
-          workplace.laborUnionLocalStrengthForEffects >= 100) {
+          workplace.laborUnionLocalStrengthForEffects >= 75) {
         await showMessage(
-          "The union local at ${workplace.name} is already fully developed.",
+          "The union local at ${workplace.name} is already self-managing.",
         );
         return false;
       }

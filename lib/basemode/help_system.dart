@@ -197,9 +197,16 @@ Future<void> helpOnActivity(ActivityType type) async {
           "to undermine with replacement workers or injunctions. A "
           "settled contract strengthens the local; a defeated strike can "
           "weaken it without destroying the union.\n\n"
+          "Direct SCS development ends once a local reaches 75% strength. At "
+          "that point it becomes self-managing: stewards handle routine "
+          "maintenance, employer resistance gradually falls, and the local can "
+          "continue developing between crises without tying up a Socialist. A "
+          "serious setback can knock it below 75%, making Build Union Local "
+          "available again.\n\n"
           "Monthly dues go directly into that workplace union local's "
           "reserve, not the SCS treasury. The reserve is the same fund "
-          "used automatically to support workers during a strike.");
+          "used automatically to support workers during a strike. Use Union "
+          "Overview to see which locals actually need SCS attention.");
     case ActivityType.pursueUnionGrievance:
       _head("=== Pursue Union Grievance ===");
       _body("A collective bargaining agreement only matters if management "
@@ -227,7 +234,12 @@ Future<void> helpOnActivity(ActivityType type) async {
           "using Pursue Grievance during legal review to strengthen the record "
           "before the ruling. Losing a case weakens the local and emboldens "
           "management, but previously secured contract demands are never "
-          "erased by a lost grievance.");
+          "erased by a lost grievance.\n\n"
+          "Strong locals at 75% or more are self-managing. Their stewards "
+          "automatically investigate and can settle routine workplace "
+          "grievances without direct SCS involvement. "
+          "Pursue Grievance remains available when you want to accelerate or "
+          "reinforce a difficult case.");
     case ActivityType.writeGuardian:
       _head("=== Publish for the Socialist Guardian ===");
       _body("The Socialist Guardian is the SCS's independent media platform. "

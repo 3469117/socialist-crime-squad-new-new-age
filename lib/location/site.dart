@@ -159,6 +159,71 @@ class Site extends Location {
     return "Powerhouse";
   }
 
+  bool get laborUnionSelfManaging =>
+      isUnionized && laborUnionLocalStrengthForEffects >= 75;
+
+  bool get laborUnionAutonomous =>
+      isUnionized &&
+      laborUnionLocalStrengthForEffects >= 100 &&
+      hasAllLaborDemands;
+
+  String get laborUnionManagementStatus {
+    if (!isUnionized) return "No Local";
+    if (laborUnionAutonomous) return "Autonomous";
+    if (laborUnionSelfManaging) return "Self-managing";
+    if (laborUnionLocalStrengthForEffects >= 50) return "Assisted";
+    return "Hands-on";
+  }
+
+  int get laborUnionAttentionRank {
+    if (laborStrikeActive) return 0;
+    if (laborBargainingImpasse) return 1;
+    if (hasActiveLaborGrievance) return 2;
+    if (laborBargainingDemand != laborDemandNone) return 3;
+    if (!hasLaborContract) return 4;
+    if (laborUnionLocalStrengthForEffects < 75) return 5;
+    if (!hasAllLaborDemands) return 6;
+    return 7;
+  }
+
+  bool get laborUnionNeedsPlayerAttention => laborUnionAttentionRank < 7;
+
+  String get laborUnionCurrentStatus {
+    if (!isUnionized) return "No Union";
+    if (laborStrikeActive) return "Strike";
+    if (laborBargainingImpasse) return "Impasse";
+    if (hasActiveLaborGrievance) {
+      if (!laborGrievanceLegalReview) return "Grievance";
+      return laborGrievanceUsesArbitration ? "Arbitration" : "Labor Board";
+    }
+    if (laborBargainingDemand != laborDemandNone) return "Bargaining";
+    if (!hasLaborContract) return "Needs Contract";
+    if (laborUnionLocalStrengthForEffects < 75) return "Build Local";
+    if (!hasAllLaborDemands) return "Ready to Bargain";
+    return "Stable";
+  }
+
+  String get laborUnionRecommendedAction {
+    if (!isUnionized) return "Organize Workers.";
+    if (laborStrikeActive) {
+      return "Support Strike & Picket; add Strike Relief if hardship rises.";
+    }
+    if (laborBargainingImpasse) return "Support Strike & Picket.";
+    if (hasActiveLaborGrievance) {
+      if (laborUnionSelfManaging) {
+        return "The local is handling this grievance; SCS help is optional.";
+      }
+      return "Pursue Grievance.";
+    }
+    if (laborBargainingDemand != laborDemandNone) {
+      return "Negotiate Union Contract.";
+    }
+    if (!hasLaborContract) return "Negotiate the first contract demand.";
+    if (laborUnionLocalStrengthForEffects < 75) return "Build Union Local.";
+    if (!hasAllLaborDemands) return "Negotiate the next contract demand.";
+    return "No routine SCS attention is required.";
+  }
+
   void establishLaborUnionLocal({int initialStrength = 30}) {
     if (!isUnionized || laborUnionLocalStrength > 0) return;
     laborUnionLocalStrength = initialStrength.clamp(1, 100);
@@ -222,7 +287,6 @@ class Site extends Location {
       };
 
   String get laborEmployerResistanceStatus {
-    if (isUnionized) return "Resolved";
     if (laborEmployerResistance < 25) return "Low";
     if (laborEmployerResistance < 50) return "Rising";
     if (laborEmployerResistance < 75) return "High";
