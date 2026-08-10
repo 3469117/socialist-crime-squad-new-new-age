@@ -321,3 +321,129 @@ void _fireSleeperWorker(
     worker.base = null;
   }
 }
+
+Future<void> doActivityNegotiateUnionContract(Creature negotiator) async {
+  Site? workplace = negotiator.activity.location;
+  if (workplace == null ||
+      !workplace.supportsLaborOrganizing ||
+      workplace.controller != SiteController.unaligned ||
+      !workplace.isUnionized ||
+      workplace.hasLaborContract) {
+    negotiator.activity = Activity.none();
+    return;
+  }
+
+  if (workplace.laborBargainingDemand == Site.laborDemandNone) {
+    int demand = negotiator.activity.idInt ?? Site.laborDemandNone;
+    workplace.startLaborBargaining(demand);
+    if (workplace.laborBargainingDemand == Site.laborDemandNone) {
+      negotiator.activity = Activity.none();
+      return;
+    }
+  }
+
+  if (workplace.laborBargainingImpasse) {
+    await showMessage(
+      "Bargaining at ${workplace.name} has reached an impasse. The workers "
+      "need a pressure campaign before negotiations can continue.",
+    );
+    negotiator.activity = Activity.none();
+    return;
+  }
+
+  int lawModifier = switch (laws[Law.labor]!) {
+    DeepAlignment.archConservative => -4,
+    DeepAlignment.conservative => -2,
+    DeepAlignment.moderate => 0,
+    DeepAlignment.liberal => 2,
+    DeepAlignment.eliteLiberal => 4,
+  };
+
+  int demandDifficulty = workplace.laborDemandDifficultyFor(
+    workplace.laborBargainingDemand,
+  );
+  int persuasionRoll = negotiator.skillRoll(Skill.persuasion);
+  int businessSupport = negotiator.skill(Skill.business) ~/ 2;
+  int unionRoll = persuasionRoll + businessSupport + lawModifier;
+  int managementDifficulty =
+      8 +
+      workplace.laborUnionBustStrength +
+      workplace.laborEmployerResistance ~/ 25 +
+      demandDifficulty;
+  int margin = unionRoll - managementDifficulty;
+
+  negotiator.train(Skill.persuasion, 10);
+  negotiator.train(Skill.business, 8);
+
+  if (margin >= 0) {
+    int beforeProgress = workplace.laborBargainingProgress;
+    int progress = (6 + margin).clamp(5, 15);
+    workplace.recordLaborBargainingSuccess(progress);
+    workplace.addLaborEmployerResistance(-1);
+
+    if (workplace.laborBargainingProgress >= 100) {
+      String demand = workplace.laborDemandName;
+      workplace.settleLaborContract();
+      addjuice(negotiator, 10, 100);
+      await showMessage(_laborSettlementMessage(workplace, demand));
+      negotiator.activity = Activity.none();
+      return;
+    }
+
+    int finalProgress = workplace.laborBargainingProgress;
+    if (beforeProgress < 25 && finalProgress >= 25) {
+      await showMessage(
+        "Bargaining at ${workplace.name} has moved beyond opening positions. "
+        "Management is discussing the union's ${workplace.laborDemandName} "
+        "proposal in detail.",
+      );
+    } else if (beforeProgress < 50 && finalProgress >= 50) {
+      await showMessage(
+        "The union at ${workplace.name} has won tentative movement on "
+        "${workplace.laborDemandName}.",
+      );
+    } else if (beforeProgress < 75 && finalProgress >= 75) {
+      await showMessage(
+        "Negotiations at ${workplace.name} are close to a settlement. Only "
+        "the major contract terms remain unresolved.",
+      );
+    }
+    return;
+  }
+
+  workplace.recordLaborBargainingFailure();
+  workplace.addLaborEmployerResistance(1);
+  await showMessage(
+    "Management at ${workplace.name} rejects the union's "
+    "${workplace.laborDemandName} proposal. This is stalled bargaining round "
+    "${workplace.laborBargainingStalledRounds} of 3.",
+  );
+
+  if (workplace.laborBargainingImpasse) {
+    await showMessage(
+      "Talks at ${workplace.name} have reached an impasse. Management will "
+      "not move without additional worker pressure.",
+    );
+    negotiator.activity = Activity.none();
+  }
+}
+
+String _laborSettlementMessage(Site workplace, String demand) {
+  String terms = switch (workplace.laborContractDemand) {
+    Site.laborDemandHigherWages =>
+      "Management agrees to meaningful wage increases and a binding pay "
+          "schedule.",
+    Site.laborDemandBetterConditions =>
+      "Management accepts enforceable improvements to scheduling and working "
+          "conditions.",
+    Site.laborDemandJobSecurity =>
+      "Management accepts just-cause discipline and stronger protections "
+          "against arbitrary firings.",
+    Site.laborDemandUnionProtections =>
+      "Management accepts durable union recognition, steward access, and "
+          "anti-retaliation protections.",
+    _ => "The union secures a collective bargaining agreement.",
+  };
+  return "Workers at ${workplace.name} ratify a contract centered on "
+      "$demand. $terms";
+}

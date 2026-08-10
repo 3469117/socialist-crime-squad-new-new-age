@@ -56,6 +56,8 @@ class Activity {
         return "Visiting ${location?.name ?? "a bug"}";
       case ActivityType.organizeWorkers:
         return "Organizing ${location?.name ?? "a workplace"}";
+      case ActivityType.negotiateUnionContract:
+        return "Bargaining at ${location?.name ?? "a workplace"}";
       case ActivityType.study:
         return "Practice ${skill?.displayName ?? "a bug"}";
       case ActivityType.takeClass:
@@ -76,6 +78,7 @@ enum ActivityType {
   graffiti("Spraying Graffiti", lightGreen),
   communityService("Community Service", blue),
   organizeWorkers("Organizing Workers", lightGreen),
+  negotiateUnionContract("Negotiating Union Contract", lightGreen),
   sellArt("Selling Art", lightBlue),
   sellMusic("Selling Music", lightBlue),
   sellTshirts("Selling T-shirts", lightBlue),

@@ -88,8 +88,26 @@ Future<void> helpOnActivity(ActivityType type) async {
           "organizer can turn an unjust firing into a solidarity surge. Sleeper "
           "agents who work at the targeted site can be personally fired and "
           "forced to report back to the SCS.\n\n"
-          "Later labor systems will add bargaining, strikes, picket lines, "
-          "contracts, and other consequences on top of this foundation.");
+          "At 100%, the organizing drive ends and the union is recognized. "
+          "Use Negotiate Union Contract to choose demands and bargain for a "
+          "first agreement.");
+    case ActivityType.negotiateUnionContract:
+      _head("=== Negotiate Union Contract ===");
+      _body("A unionized workplace still needs a collective bargaining "
+          "agreement. Choose one opening demand package: Higher Wages, Better "
+          "Conditions, Job Security, or Union Protections. Each package has a "
+          "different bargaining difficulty and is saved with that workplace.\n\n"
+          "Persuasion drives the negotiating roll, while Business contributes "
+          "support by helping the negotiator read management's position. "
+          "Labor law, the employer's union-busting strength, and remaining "
+          "employer resistance all affect the difficulty of reaching a deal.\n\n"
+          "Successful rounds build bargaining progress toward 100%. Failed "
+          "rounds stall the talks. Three stalled rounds in a row create a "
+          "formal impasse, ending ordinary negotiations until the workers can "
+          "apply additional pressure.\n\n"
+          "A settlement permanently records the contract package at that "
+          "workplace and reduces employer resistance. Impasses will become the "
+          "entry point for strikes and picket lines in the next labor pass.");
     case ActivityType.writeGuardian:
       _head("=== Publish for the Socialist Guardian ===");
       _body("The Socialist Guardian is the SCS's independent media platform. "

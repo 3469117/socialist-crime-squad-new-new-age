@@ -69,6 +69,22 @@ class Site extends Location {
   int laborRetaliationIncidents = 0;
   @JsonKey(defaultValue: 0)
   int laborWorkersFired = 0;
+  @JsonKey(defaultValue: 0)
+  int laborBargainingDemand = 0;
+  @JsonKey(defaultValue: 0)
+  int laborBargainingProgress = 0;
+  @JsonKey(defaultValue: 0)
+  int laborBargainingStalledRounds = 0;
+  @JsonKey(defaultValue: false)
+  bool laborBargainingImpasse = false;
+  @JsonKey(defaultValue: 0)
+  int laborContractDemand = 0;
+
+  static const int laborDemandNone = 0;
+  static const int laborDemandHigherWages = 1;
+  static const int laborDemandBetterConditions = 2;
+  static const int laborDemandJobSecurity = 3;
+  static const int laborDemandUnionProtections = 4;
 
   bool get supportsLaborOrganizing => switch (type) {
         SiteType.departmentStore ||
@@ -137,6 +153,89 @@ class Site extends Location {
   void recordLaborRetaliation({bool firedWorker = false}) {
     laborRetaliationIncidents++;
     if (firedWorker) laborWorkersFired++;
+  }
+
+  bool get hasLaborContract => laborContractDemand != laborDemandNone;
+
+  String get laborBargainingStatus {
+    if (!isUnionized) return "No Union";
+    if (hasLaborContract) return "Settled";
+    if (laborBargainingImpasse) return "Impasse";
+    if (laborBargainingDemand != laborDemandNone) return "Bargaining";
+    return "Needs Demands";
+  }
+
+  int get activeLaborDemand =>
+      hasLaborContract ? laborContractDemand : laborBargainingDemand;
+
+  String get laborDemandName => laborDemandNameFor(activeLaborDemand);
+
+  String laborDemandNameFor(int demand) => switch (demand) {
+        laborDemandHigherWages => "Higher Wages",
+        laborDemandBetterConditions => "Better Conditions",
+        laborDemandJobSecurity => "Job Security",
+        laborDemandUnionProtections => "Union Protections",
+        _ => "None",
+      };
+
+  int laborDemandDifficultyFor(int demand) => switch (demand) {
+        laborDemandHigherWages => 4,
+        laborDemandBetterConditions => 2,
+        laborDemandJobSecurity => 4,
+        laborDemandUnionProtections => 5,
+        _ => 0,
+      };
+
+  String laborDemandDifficultyLabelFor(int demand) => switch (demand) {
+        laborDemandHigherWages => "Hard",
+        laborDemandBetterConditions => "Easier",
+        laborDemandJobSecurity => "Hard",
+        laborDemandUnionProtections => "Hardest",
+        _ => "None",
+      };
+
+  void startLaborBargaining(int demand) {
+    if (!isUnionized || hasLaborContract) return;
+    if (demand < laborDemandHigherWages ||
+        demand > laborDemandUnionProtections) {
+      return;
+    }
+    laborBargainingDemand = demand;
+    laborBargainingProgress = 0;
+    laborBargainingStalledRounds = 0;
+    laborBargainingImpasse = false;
+  }
+
+  void recordLaborBargainingSuccess(int progress) {
+    laborBargainingProgress = min(
+      100,
+      max(0, laborBargainingProgress + progress),
+    );
+    laborBargainingStalledRounds = 0;
+  }
+
+  void recordLaborBargainingFailure() {
+    laborBargainingStalledRounds++;
+    if (laborBargainingStalledRounds >= 3) {
+      laborBargainingImpasse = true;
+    }
+  }
+
+  void settleLaborContract() {
+    if (laborBargainingDemand == laborDemandNone) return;
+    laborContractDemand = laborBargainingDemand;
+    laborBargainingProgress = 100;
+    laborBargainingStalledRounds = 0;
+    laborBargainingImpasse = false;
+
+    int resistanceReduction = switch (laborContractDemand) {
+      laborDemandHigherWages => 5,
+      laborDemandBetterConditions => 10,
+      laborDemandJobSecurity => 15,
+      laborDemandUnionProtections => 25,
+      _ => 0,
+    };
+    addLaborEmployerResistance(-resistanceReduction);
   }
 
   int get extraHeatFromCCSTarget {

@@ -67,6 +67,21 @@ void main() {
           expect(site.laborWorkersFired, 0,
               reason: '${site.name} in $fileName did not default fired-worker '
                   'count to zero.');
+          expect(site.laborBargainingDemand, Site.laborDemandNone,
+              reason: '${site.name} in $fileName did not default bargaining '
+                  'demand to none.');
+          expect(site.laborBargainingProgress, 0,
+              reason: '${site.name} in $fileName did not default bargaining '
+                  'progress to zero.');
+          expect(site.laborBargainingStalledRounds, 0,
+              reason: '${site.name} in $fileName did not default stalled '
+                  'bargaining rounds to zero.');
+          expect(site.laborBargainingImpasse, isFalse,
+              reason: '${site.name} in $fileName did not default bargaining '
+                  'impasse to false.');
+          expect(site.laborContractDemand, Site.laborDemandNone,
+              reason: '${site.name} in $fileName did not default contract '
+                  'demand to none.');
         }
 
         // Regression guard: a regular member's home base must always resolve to

@@ -179,6 +179,11 @@ Future<void> soloActivities(bool disbanding) async {
         for (Creature p in people) {
           await doActivityOrganizeWorkers(p);
         }
+      case ActivityType.negotiateUnionContract:
+        if (disbanding) continue;
+        for (Creature p in people) {
+          await doActivityNegotiateUnionContract(p);
+        }
       case ActivityType.hacking:
         if (disbanding) continue;
         await doActivityHacking(people);

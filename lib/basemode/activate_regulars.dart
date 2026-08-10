@@ -94,6 +94,7 @@ List<ActivityType> _activism = [
   ActivityType.hacking,
   ActivityType.writeGuardian,
   ActivityType.organizeWorkers,
+  ActivityType.negotiateUnionContract,
 ];
 
 List<ActivityType> _legal = [
@@ -323,6 +324,10 @@ void _activismSubmenu(Creature c) {
     greyOut: c.site?.compound.videoRoom != true,
   );
   _subActivity(ActivityType.organizeWorkers, "7 - Organize Workers");
+  _subActivity(
+    ActivityType.negotiateUnionContract,
+    "8 - Negotiate Union Contract",
+  );
 }
 
 Future<void> _activismChoice(Creature c, int choice) async {
@@ -340,6 +345,9 @@ Future<void> _activismChoice(Creature c, int choice) async {
   }
   if (choice == 7) {
     await _selectLaborOrganizingTarget(c);
+  }
+  if (choice == 8) {
+    await _selectLaborBargainingTarget(c);
   }
 }
 
@@ -402,6 +410,137 @@ Future<void> _selectLaborOrganizingTarget(Creature c) async {
       return true;
     },
   );
+}
+
+Future<void> _selectLaborBargainingTarget(Creature c) async {
+  var city = c.site?.city ?? c.base?.city;
+  if (city == null) {
+    await showMessage("${c.name} has no local unionized workplaces.");
+    return;
+  }
+
+  List<Site> workplaces = city.sites
+      .where(
+        (site) =>
+            site.supportsLaborOrganizing &&
+            site.controller == SiteController.unaligned &&
+            site.isUnionized,
+      )
+      .toList()
+    ..sort((a, b) => a.name.compareTo(b.name));
+
+  if (workplaces.isEmpty) {
+    await showMessage(
+      "There are no unionized workplaces in ${city.name}.",
+    );
+    return;
+  }
+
+  await pagedInterface(
+    headerPrompt: "Where will ${c.name} negotiate a union contract?",
+    headerKey: {
+      4: "WORKPLACE",
+      34: "STATUS",
+      48: "DEMAND",
+      69: "PROGRESS",
+    },
+    footerPrompt: "Press a Letter to select a unionized workplace",
+    pageSize: 18,
+    count: workplaces.length,
+    lineBuilder: (y, key, index) {
+      Site workplace = workplaces[index];
+      addOptionText(
+        y,
+        0,
+        key,
+        "$key - ${truncateForDisplay(workplace.name, 27)}",
+      );
+      mvaddstr(y, 34, workplace.laborBargainingStatus);
+      mvaddstr(
+        y,
+        48,
+        truncateForDisplay(workplace.laborDemandName, 18),
+      );
+      mvaddstr(y, 71, "${workplace.laborBargainingProgress}%");
+    },
+    onChoice: (index) async {
+      Site workplace = workplaces[index];
+      if (workplace.hasLaborContract) {
+        await showMessage(
+          "${workplace.name} already has a contract centered on "
+          "${workplace.laborDemandName}.",
+        );
+        return false;
+      }
+      if (workplace.laborBargainingImpasse) {
+        await showMessage(
+          "Bargaining at ${workplace.name} is at an impasse. The workers "
+          "need a pressure campaign before talks can resume.",
+        );
+        return false;
+      }
+
+      int? demand;
+      if (workplace.laborBargainingDemand == Site.laborDemandNone) {
+        demand = await _selectLaborDemandPackage(workplace);
+        if (demand == Site.laborDemandNone) return false;
+      }
+
+      c.activity = Activity(
+        ActivityType.negotiateUnionContract,
+        idString: workplace.idString,
+        idInt: demand,
+      );
+      return true;
+    },
+  );
+}
+
+Future<int> _selectLaborDemandPackage(Site workplace) async {
+  const demands = [
+    Site.laborDemandHigherWages,
+    Site.laborDemandBetterConditions,
+    Site.laborDemandJobSecurity,
+    Site.laborDemandUnionProtections,
+  ];
+  int selectedDemand = Site.laborDemandNone;
+
+  String focusFor(int demand) => switch (demand) {
+        Site.laborDemandHigherWages => "Pay",
+        Site.laborDemandBetterConditions => "Safety / hours",
+        Site.laborDemandJobSecurity => "Anti-firing rules",
+        Site.laborDemandUnionProtections => "Recognition rights",
+        _ => "",
+      };
+
+  await pagedInterface(
+    headerPrompt: "What will the union at ${workplace.name} demand?",
+    headerKey: {
+      4: "DEMAND PACKAGE",
+      32: "DIFFICULTY",
+      47: "FOCUS",
+    },
+    footerPrompt: "Press a Letter to choose the union's opening demand",
+    pageSize: 4,
+    count: demands.length,
+    lineBuilder: (y, key, index) {
+      int demand = demands[index];
+      addOptionText(
+        y,
+        0,
+        key,
+        "$key - ${workplace.laborDemandNameFor(demand)}",
+      );
+      mvaddstr(y, 32, workplace.laborDemandDifficultyLabelFor(demand));
+      mvaddstr(y, 47, focusFor(demand));
+    },
+    onChoice: (index) async {
+      selectedDemand = demands[index];
+      return true;
+    },
+  );
+
+  return selectedDemand;
 }
 
 void _activismDefault(Creature c, {bool noCommunityService = false}) {
@@ -1059,6 +1198,12 @@ void _activityFooter(Creature cr) {
     case ActivityType.organizeWorkers:
       addstr(
         " organize workers at "
+        "${cr.activity.location?.name ?? "a local workplace"}.",
+      );
+      mvaddstrc(23, 3, midGray, "Uses Persuasion and Business.");
+    case ActivityType.negotiateUnionContract:
+      addstr(
+        " negotiate a union contract at "
         "${cr.activity.location?.name ?? "a local workplace"}.",
       );
       mvaddstrc(23, 3, midGray, "Uses Persuasion and Business.");
