@@ -82,6 +82,21 @@ void main() {
           expect(site.laborContractDemand, Site.laborDemandNone,
               reason: '${site.name} in $fileName did not default contract '
                   'demand to none.');
+          expect(site.laborContractDemands, 0,
+              reason: '${site.name} in $fileName did not default cumulative '
+                  'contract demands to zero.');
+          expect(site.laborStrikeActive, isFalse,
+              reason: '${site.name} in $fileName did not default strike '
+                  'activity to false.');
+          expect(site.laborStrikePressure, 0,
+              reason: '${site.name} in $fileName did not default strike '
+                  'pressure to zero.');
+          expect(site.laborPicketStrength, 0,
+              reason: '${site.name} in $fileName did not default picket '
+                  'strength to zero.');
+          expect(site.laborStrikeDays, 0,
+              reason: '${site.name} in $fileName did not default strike '
+                  'days to zero.');
         }
 
         // Regression guard: a regular member's home base must always resolve to

@@ -585,7 +585,11 @@ void showInterrogationSidebar(InterrogationSession intr, Creature a) {
   setColor(lightGray);
   addstr("Heart: ${a.attribute(Attribute.heart)}");
   mvaddstr(++y, 40, "Wisdom: ${a.attribute(Attribute.wisdom)}");
-  mvaddstr(++y, 40, "Outfit: ${a.clothing.longName}");
+  mvaddstr(
+    ++y,
+    40,
+    "Outfit: ${truncateConsoleText(a.clothing.longName, 32)}",
+  );
 
   //mvaddstr(++y, 40, "Rapport: ${rapport[a.id]?.toStringAsFixed(1) ?? 0}");
   move(y += 2, 40);

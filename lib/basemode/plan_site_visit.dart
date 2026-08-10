@@ -90,7 +90,12 @@ Future<void> planSiteVisit() async {
         addstrc(heat > heatProtection ? red : darkGray, "$heatProtection");
       }
       if (thisCity != null) {
-        mvaddstrc(y, 50, darkGray, thisCity.description);
+        mvaddstrc(
+          y,
+          50,
+          darkGray,
+          truncateConsoleText(thisCity.description, 30),
+        );
       }
       y++;
     }

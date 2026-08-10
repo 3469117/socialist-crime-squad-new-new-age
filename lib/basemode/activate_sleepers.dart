@@ -52,7 +52,7 @@ Future<void> activateSleepers() async {
         "$letter - ${truncateForDisplay(tempp.name, maxCodeNameLength)}",
       );
 
-      mvaddstr(y, 24, tempp.type.name);
+      mvaddstr(y, 24, truncateConsoleText(tempp.type.name, 18));
 
       mvaddstr(y + 1, 6, "Effectiveness: ");
 
@@ -71,12 +71,19 @@ Future<void> activateSleepers() async {
       }
       addstr("${(tempp.infiltration * 100).ceil()}%");
 
-      mvaddstrc(y, 42, lightGray,
-          tempp.workLocation.getName(short: true, includeCity: true));
+      mvaddstrc(
+        y,
+        42,
+        lightGray,
+        truncateConsoleText(
+          tempp.workLocation.getName(short: true, includeCity: true),
+          16,
+        ),
+      );
 
       move(y, 58);
       setColor(tempp.activity.type.color);
-      addstr(tempp.activity.type.label);
+      addstr(truncateConsoleText(tempp.activity.type.label, 22));
       y += 2;
     }
 

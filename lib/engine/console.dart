@@ -88,7 +88,11 @@ class Console {
   void eraseLine(int y) => eraseArea(startY: y, endY: y + 1);
 
   void addchar(String c, {String? mouseClickKey}) {
-    if (y >= buffer.length) return;
+    if (y < 0 || y >= buffer.length) return;
+    if (x < 0) {
+      x++;
+      return;
+    }
     if (x >= buffer[y].length) return;
     if (c == '█') {
       buffer[y][x] = ConsoleChar(' ', currentForeground, currentForeground,

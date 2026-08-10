@@ -60,9 +60,17 @@ Future<void> activateRegulars() async {
         y,
         41,
         c.site?.isPartOfTheJusticeSystem == true ? yellow : lightGray,
-        c.location?.getName(short: true, includeCity: true) ?? "In Hiding",
+        truncateConsoleText(
+          c.location?.getName(short: true, includeCity: true) ?? "In Hiding",
+          16,
+        ),
       );
-      mvaddstrc(y, 57, c.activity.color, c.activity.description);
+      mvaddstrc(
+        y,
+        57,
+        c.activity.color,
+        truncateConsoleText(c.activity.description, 23),
+      );
       y++;
     }
     mvaddstrc(22, 0, lightGray, "Press a Letter to Assign an Activity.");
@@ -87,14 +95,19 @@ Future<void> activateRegulars() async {
   }
 }
 
+List<ActivityType> _unionActivities = [
+  ActivityType.organizeWorkers,
+  ActivityType.negotiateUnionContract,
+  ActivityType.supportLaborStrike,
+];
+
 List<ActivityType> _activism = [
   ActivityType.communityService,
   ActivityType.trouble,
   ActivityType.graffiti,
   ActivityType.hacking,
   ActivityType.writeGuardian,
-  ActivityType.organizeWorkers,
-  ActivityType.negotiateUnionContract,
+  ..._unionActivities,
 ];
 
 List<ActivityType> _legal = [
@@ -130,6 +143,7 @@ List<ActivityType> _teaching = [
 
 Future<void> assignTask(Creature c) async {
   int state = 0;
+  bool unionActivityMenu = false;
   bool canDisposeCorpses =
       c.site?.creaturesPresent.any((p) => !p.alive) == true;
   bool canInterrogateHostages =
@@ -179,7 +193,11 @@ Future<void> assignTask(Creature c) async {
     addOptionText(19, 40, "?", "? - About the Selected Activity");
     addOptionText(20, 40, "Enter", "Enter - Confirm Selection");
     if (state == Key.a) {
-      _activismSubmenu(c);
+      if (unionActivityMenu) {
+        _unionActivitySubmenu();
+      } else {
+        _activismSubmenu(c);
+      }
     } else if (state == Key.b) {
       _legalSubmenu();
     } else if (state == Key.c) {
@@ -195,6 +213,15 @@ Future<void> assignTask(Creature c) async {
     }
     _activityFooter(c);
     int key = await getKey();
+    if (key == Key.a ||
+        key == Key.b ||
+        key == Key.c ||
+        key == Key.d ||
+        key == Key.e ||
+        key == Key.t ||
+        key == Key.m) {
+      unionActivityMenu = false;
+    }
     switch (key) {
       case Key.a:
         state = key;
@@ -233,7 +260,14 @@ Future<void> assignTask(Creature c) async {
     }
     if (key >= Key.num0 && key <= Key.num9) {
       if (state == Key.a) {
-        await _activismChoice(c, key - Key.num0);
+        int choice = key - Key.num0;
+        if (unionActivityMenu) {
+          await _unionActivityChoice(c, choice);
+        } else if (choice == 7) {
+          unionActivityMenu = true;
+        } else {
+          await _activismChoice(c, choice);
+        }
       } else if (state == Key.b) {
         _legalChoice(c, key - Key.num0);
       } else if (state == Key.c) {
@@ -247,6 +281,10 @@ Future<void> assignTask(Creature c) async {
       } else if (state == Key.m) {
         _medicalChoice(c, key - Key.num0);
       }
+    }
+    if (unionActivityMenu && (key == Key.escape || key == Key.space)) {
+      unionActivityMenu = false;
+      continue;
     }
     if (isBackKey(key) && key != Key.x) {
       break;
@@ -320,14 +358,33 @@ void _activismSubmenu(Creature c) {
       : "";
   _subActivity(
     ActivityType.streamGuardian,
-    "6 - Livestream for Guardian$needVideoRoom",
+    "6 - Livestream Guardian$needVideoRoom",
     greyOut: c.site?.compound.videoRoom != true,
   );
-  _subActivity(ActivityType.organizeWorkers, "7 - Organize Workers");
+  String colorKey = _unionActivities.contains(_highlightedActivity) ? "C" : "w";
+  addOptionText(
+    _y++,
+    40,
+    "7",
+    "7 - Union Activity",
+    baseColorKey: colorKey,
+  );
+}
+
+void _unionActivitySubmenu() {
+  _y = 10;
+  mvaddstrc(_y++, 40, lightGreen, "=== Union Activity ===");
+  _subActivity(ActivityType.organizeWorkers, "1 - Organize Workers");
   _subActivity(
     ActivityType.negotiateUnionContract,
-    "8 - Negotiate Union Contract",
+    "2 - Negotiate Union Contract",
   );
+  _subActivity(
+    ActivityType.supportLaborStrike,
+    "3 - Support Strike & Picket",
+  );
+  _y++;
+  mvaddstrc(_y++, 40, midGray, "Esc/Space - Back to Socialist Activism");
 }
 
 Future<void> _activismChoice(Creature c, int choice) async {
@@ -343,11 +400,17 @@ Future<void> _activismChoice(Creature c, int choice) async {
   if (choice == 6 && c.site?.compound.videoRoom == true) {
     c.activity = Activity(ActivityType.streamGuardian);
   }
-  if (choice == 7) {
+}
+
+Future<void> _unionActivityChoice(Creature c, int choice) async {
+  if (choice == 1) {
     await _selectLaborOrganizingTarget(c);
   }
-  if (choice == 8) {
+  if (choice == 2) {
     await _selectLaborBargainingTarget(c);
+  }
+  if (choice == 3) {
+    await _selectLaborStrikeTarget(c);
   }
 }
 
@@ -459,23 +522,29 @@ Future<void> _selectLaborBargainingTarget(Creature c) async {
       mvaddstr(
         y,
         48,
-        truncateForDisplay(workplace.laborDemandName, 18),
+        truncateForDisplay(workplace.laborDemandStatusLabel, 18),
       );
-      mvaddstr(y, 71, "${workplace.laborBargainingProgress}%");
+      mvaddstr(
+        y,
+        71,
+        workplace.laborBargainingDemand == Site.laborDemandNone
+            ? "--"
+            : "${workplace.laborBargainingProgress}%",
+      );
     },
     onChoice: (index) async {
       Site workplace = workplaces[index];
-      if (workplace.hasLaborContract) {
+      if (workplace.hasAllLaborDemands) {
         await showMessage(
-          "${workplace.name} already has a contract centered on "
-          "${workplace.laborDemandName}.",
+          "${workplace.name} has already secured all four major union "
+          "demands in its contract.",
         );
         return false;
       }
       if (workplace.laborBargainingImpasse) {
         await showMessage(
-          "Bargaining at ${workplace.name} is at an impasse. The workers "
-          "need a pressure campaign before talks can resume.",
+          "Bargaining at ${workplace.name} is at an impasse. Use Support "
+          "Strike & Picket to put pressure on management.",
         );
         return false;
       }
@@ -497,12 +566,13 @@ Future<void> _selectLaborBargainingTarget(Creature c) async {
 }
 
 Future<int> _selectLaborDemandPackage(Site workplace) async {
-  const demands = [
+  final demands = [
     Site.laborDemandHigherWages,
     Site.laborDemandBetterConditions,
     Site.laborDemandJobSecurity,
     Site.laborDemandUnionProtections,
-  ];
+  ].where((demand) => !workplace.hasLaborDemand(demand)).toList();
+  if (demands.isEmpty) return Site.laborDemandNone;
   int selectedDemand = Site.laborDemandNone;
 
   String focusFor(int demand) => switch (demand) {
@@ -520,7 +590,7 @@ Future<int> _selectLaborDemandPackage(Site workplace) async {
       32: "DIFFICULTY",
       47: "FOCUS",
     },
-    footerPrompt: "Press a Letter to choose the union's opening demand",
+    footerPrompt: "Press a Letter to choose the union's next demand",
     pageSize: 4,
     count: demands.length,
     lineBuilder: (y, key, index) {
@@ -541,6 +611,80 @@ Future<int> _selectLaborDemandPackage(Site workplace) async {
   );
 
   return selectedDemand;
+}
+
+Future<void> _selectLaborStrikeTarget(Creature c) async {
+  var city = c.site?.city ?? c.base?.city;
+  if (city == null) {
+    await showMessage("${c.name} has no local strike to support.");
+    return;
+  }
+
+  List<Site> workplaces = city.sites
+      .where(
+        (site) =>
+            site.supportsLaborOrganizing &&
+            site.controller == SiteController.unaligned &&
+            site.isUnionized &&
+            !site.hasAllLaborDemands &&
+            site.laborBargainingDemand != Site.laborDemandNone &&
+            (site.laborBargainingImpasse || site.laborStrikeActive),
+      )
+      .toList()
+    ..sort((a, b) => a.name.compareTo(b.name));
+
+  if (workplaces.isEmpty) {
+    await showMessage(
+      "There are no local bargaining impasses or active strikes to support.",
+    );
+    return;
+  }
+
+  await pagedInterface(
+    headerPrompt: "Where will ${c.name} support a strike?",
+    headerKey: {
+      4: "WORKPLACE",
+      33: "STATUS",
+      44: "DEMAND",
+      63: "PRESS.",
+      72: "PICKET",
+    },
+    footerPrompt: "Press a Letter to support a strike or picket line",
+    pageSize: 18,
+    count: workplaces.length,
+    lineBuilder: (y, key, index) {
+      Site workplace = workplaces[index];
+      addOptionText(
+        y,
+        0,
+        key,
+        "$key - ${truncateForDisplay(workplace.name, 26)}",
+      );
+      mvaddstr(y, 33, workplace.laborStrikeStatus);
+      mvaddstr(
+        y,
+        44,
+        truncateForDisplay(workplace.laborDemandName, 17),
+      );
+      mvaddstr(y, 64, "${workplace.laborStrikePressure}%");
+      mvaddstr(y, 73, "${workplace.laborPicketStrength}%");
+    },
+    onChoice: (index) async {
+      Site workplace = workplaces[index];
+      if (!workplace.laborStrikeActive && !workplace.canStartLaborStrike) {
+        await showMessage(
+          "Workers at ${workplace.name} are not ready to strike.",
+        );
+        return false;
+      }
+
+      c.activity = Activity(
+        ActivityType.supportLaborStrike,
+        idString: workplace.idString,
+      );
+      return true;
+    },
+  );
 }
 
 void _activismDefault(Creature c, {bool noCommunityService = false}) {
@@ -1207,6 +1351,17 @@ void _activityFooter(Creature cr) {
         "${cr.activity.location?.name ?? "a local workplace"}.",
       );
       mvaddstrc(23, 3, midGray, "Uses Persuasion and Business.");
+    case ActivityType.supportLaborStrike:
+      addstr(
+        " support the strike at "
+        "${cr.activity.location?.name ?? "a local workplace"}.",
+      );
+      mvaddstrc(
+        23,
+        3,
+        midGray,
+        "Uses Persuasion, Business, and Street Smarts.",
+      );
     case ActivityType.writeGuardian:
       addstr(" publish stories for the Socialist Guardian.");
       mvaddstrc(23, 3, midGray, "Uses Writing and various knowledge skills.");
@@ -1423,7 +1578,10 @@ Future<void> _selectTendHostage(Creature cr) async {
         y,
         45,
         lightGray,
-        h.location?.getName(short: true, includeCity: true) ?? "Missing",
+        truncateConsoleText(
+          h.location?.getName(short: true, includeCity: true) ?? "Missing",
+          15,
+        ),
       );
       mvaddstr(
         y,

@@ -96,10 +96,16 @@ void printFunds({
   Color color = lightGray,
 }) {
   String str = "$prefix \$${ledger.funds}";
-  mvaddstrc(y, console.width - str.length - offsetFromRight, color, str);
+  str = truncateConsoleText(str, console.width - offsetFromRight);
+  mvaddstrc(y, console.width - strLenX(str) - offsetFromRight, color, str);
 }
 
-void printSquadActivityDescription(int y, int x, Squad squad) {
+void printSquadActivityDescription(
+  int y,
+  int x,
+  Squad squad, {
+  int? maxWidth,
+}) {
   String str = squad.activity.description;
   setColor(squad.activity.color);
   if (squad.activity.type == ActivityType.none) {
@@ -117,7 +123,11 @@ void printSquadActivityDescription(int y, int x, Squad squad) {
       setColor(white);
     }
   }
-  mvaddstr(y, x, str);
+  mvaddstr(
+    y,
+    x,
+    truncateConsoleText(str, maxWidth ?? console.width - x),
+  );
 }
 
 void makeDelimiter({int y = 8}) {
@@ -126,8 +136,13 @@ void makeDelimiter({int y = 8}) {
 
 void addHeader(Map<int, String> items, {int y = 1}) {
   makeDelimiter(y: y);
-  for (MapEntry entry in items.entries) {
-    mvaddstr(y, entry.key, entry.value);
+  final entries = items.entries.toList()
+    ..sort((a, b) => a.key.compareTo(b.key));
+  for (int i = 0; i < entries.length; i++) {
+    final entry = entries[i];
+    final nextX = i + 1 < entries.length ? entries[i + 1].key : console.width;
+    final width = nextX - entry.key;
+    mvaddstr(y, entry.key, truncateConsoleText(entry.value, width));
   }
 }
 
@@ -675,10 +690,19 @@ Future<void> pagedInterface({
   int pageCount = (count / pageSize).ceil();
   while (true) {
     eraseArea(startY: topY, startX: 0, endY: pageSize + 3 + topY, endX: 80);
-    mvaddstrc(topY, 0, white, headerPrompt);
+    mvaddstrc(
+      topY,
+      0,
+      white,
+      truncateConsoleText(headerPrompt, console.width),
+    );
     addHeader(headerKey, y: topY + 1);
     setColor(lightGray);
-    mvaddstrx(pageSize + 2 + topY, 0, footerPrompt);
+    mvaddstrx(
+      pageSize + 2 + topY,
+      0,
+      truncateConsoleText(footerPrompt, console.width),
+    );
     for (int i = 0; i + page * pageSize < count && i < pageSize; i++) {
       lineBuilder(
         i + 2 + topY,

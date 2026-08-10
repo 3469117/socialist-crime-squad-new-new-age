@@ -66,8 +66,13 @@ Future<void> reviewAssetsAndFormSquads() async {
         bool active = activeSquad == squads[p];
         setColor(active ? white : lightGray);
         String letter = letterAPlus(y - 2);
-        addOptionText(y, 0, letter, "$letter - ${squads[p].name}",
-            baseColorKey: active ? "W" : "w");
+        addOptionText(
+          y,
+          0,
+          letter,
+          truncateConsoleText("$letter - ${squads[p].name}", 31),
+          baseColorKey: active ? "W" : "w",
+        );
 
         if (squads[p].members.isNotEmpty &&
             squads[p].members[0].location != null) {
@@ -80,7 +85,14 @@ Future<void> reviewAssetsAndFormSquads() async {
                 setColor(active ? yellow : brown);
               }
             }
-            mvaddstr(y, 31, loc.getName(short: true, includeCity: true));
+            mvaddstr(
+              y,
+              31,
+              truncateConsoleText(
+                loc.getName(short: true, includeCity: true),
+                20,
+              ),
+            );
             setColor(active ? white : lightGray);
           }
         }
@@ -102,7 +114,7 @@ Future<void> reviewAssetsAndFormSquads() async {
               setColor(white);
             }
           }
-          mvaddstr(y, 51, str);
+          mvaddstr(y, 51, truncateConsoleText(str, 29));
         }
       } else if (p == squads.length) {
         addOptionText(y, 0, "1", "1 - Active Socialists ($active)",
@@ -309,7 +321,12 @@ Future<void> reviewMode(ReviewMode mode) async {
         setColor(lightGray);
       }
       move(y, 42);
-      addstr(tempp.location?.getName(short: true, includeCity: true) ?? "Away");
+      addstr(
+        truncateConsoleText(
+          tempp.location?.getName(short: true, includeCity: true) ?? "Away",
+          15,
+        ),
+      );
 
       move(y, 57);
       switch (mode) {
@@ -328,7 +345,7 @@ Future<void> reviewMode(ReviewMode mode) async {
           if (usepers) {
             // Let's add some color here...
             setColor(tempp.activity.color);
-            addstr(tempp.activity.description);
+            addstr(truncateConsoleText(tempp.activity.description, 23));
           }
         case ReviewMode.hostages:
           setColor(purple);
@@ -831,13 +848,22 @@ Future<void> assembleSquad(Squad? cursquad) async {
 
       printHealthStat(y, 34, tempp);
 
-      mvaddstrc(y, 46, tempp.align.color, tempp.type.name);
       mvaddstrc(
-          y,
-          63,
-          isAtCurrentSquadLocation ? lightGray : darkGray,
+        y,
+        46,
+        tempp.align.color,
+        truncateConsoleText(tempp.type.name, 17),
+      );
+      mvaddstrc(
+        y,
+        63,
+        isAtCurrentSquadLocation ? lightGray : darkGray,
+        truncateConsoleText(
           tempp.location?.getName(short: true, includeCity: true) ??
-              "In Hiding");
+              "In Hiding",
+          17,
+        ),
+      );
 
       y++;
     }
@@ -1004,11 +1030,12 @@ Future<void> assignNewBasesToTheSquadless() async {
         " - ${truncateForDisplay(tempp.name, maxCodeNameLength)}",
       );
 
-      mvaddstr(
-          y, 25, tempp.base?.getName(short: true, includeCity: true) ?? "Away");
+      String baseName =
+          tempp.base?.getName(short: true, includeCity: true) ?? "Away";
       if (tempp.base?.siege.underSiege == true) {
-        addstr(" <Under Siege>");
+        baseName += " <Under Siege>";
       }
+      mvaddstr(y, 25, truncateConsoleText(baseName, 26));
     }
 
     y = 2;

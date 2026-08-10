@@ -189,7 +189,7 @@ Future<void> selectAndFlyFlag(Site loc, {bool ownedOnly = false}) async {
         y,
         0,
         key,
-        "$key - ${flag.name}",
+        truncateConsoleText("$key - ${flag.name}", 40),
         baseColorKey: index == selected ? ColorKey.white : ColorKey.lightGray,
         enabledWhen: en,
       );

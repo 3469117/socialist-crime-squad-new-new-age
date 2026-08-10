@@ -407,10 +407,25 @@ Future<void> equipmentBaseAssign() async {
     for (p = pageLoot * 19;
         p < items.length && p < pageLoot * 19 + 19;
         p++, y++) {
-      addOptionText(y, 0, "${letterAPlus(y - 2)} - ",
-          "${letterAPlus(y - 2)} - ${items[p].equipTitle()}${items[p].stackSize > 1 ? " x${items[p].stackSize}" : ""}");
-      mvaddstrc(y, 25, lightGray,
-          siteFromItem[items[p]]!.getName(short: true, includeCity: true));
+      addOptionText(
+        y,
+        0,
+        "${letterAPlus(y - 2)} - ",
+        truncateConsoleText(
+          "${letterAPlus(y - 2)} - ${items[p].equipTitle()}"
+          "${items[p].stackSize > 1 ? " x${items[p].stackSize}" : ""}",
+          25,
+        ),
+      );
+      mvaddstrc(
+        y,
+        25,
+        lightGray,
+        truncateConsoleText(
+          siteFromItem[items[p]]!.getName(short: true, includeCity: true),
+          26,
+        ),
+      );
     }
 
     y = 2;

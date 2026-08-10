@@ -93,10 +93,11 @@ Future<void> helpOnActivity(ActivityType type) async {
           "first agreement.");
     case ActivityType.negotiateUnionContract:
       _head("=== Negotiate Union Contract ===");
-      _body("A unionized workplace still needs a collective bargaining "
-          "agreement. Choose one opening demand package: Higher Wages, Better "
-          "Conditions, Job Security, or Union Protections. Each package has a "
-          "different bargaining difficulty and is saved with that workplace.\n\n"
+      _body("A unionized workplace can bargain for all four major contract "
+          "demands: Higher Wages, Better Conditions, Job Security, and Union "
+          "Protections. Demands are cumulative rather than mutually exclusive. "
+          "After settling one demand, return to Negotiate Union Contract and "
+          "choose any demand the union has not yet secured.\n\n"
           "Persuasion drives the negotiating roll, while Business contributes "
           "support by helping the negotiator read management's position. "
           "Labor law, the employer's union-busting strength, and remaining "
@@ -105,9 +106,34 @@ Future<void> helpOnActivity(ActivityType type) async {
           "rounds stall the talks. Three stalled rounds in a row create a "
           "formal impasse, ending ordinary negotiations until the workers can "
           "apply additional pressure.\n\n"
-          "A settlement permanently records the contract package at that "
-          "workplace and reduces employer resistance. Impasses will become the "
-          "entry point for strikes and picket lines in the next labor pass.");
+          "Each settlement permanently adds that demand to the workplace's "
+          "collective bargaining agreement and reduces employer resistance. "
+          "Once all four demands are secured, the contract is complete. At an "
+          "impasse, use Support Strike & Picket to escalate the dispute.");
+    case ActivityType.supportLaborStrike:
+      _head("=== Support Strike & Picket ===");
+      _body("A strike becomes available only after a unionized workplace "
+          "reaches a formal bargaining impasse. Supporting the strike starts "
+          "the walkout if necessary and helps workers maintain a picket line "
+          "while building economic pressure on management.\n\n"
+          "Persuasion is the primary skill for keeping workers and supporters "
+          "united. Street Smarts helps run an effective public picket, while "
+          "Business helps the SCS understand management's strategy. Multiple "
+          "Socialists can support the same strike for a modest team bonus.\n\n"
+          "Labor law, employer resistance, the workplace's union-busting "
+          "strength, and current picket strength all affect each day's "
+          "contest. Successful days strengthen the line and build strike "
+          "pressure. Failed days weaken the picket and can give some pressure "
+          "back to management.\n\n"
+          "At 100% strike pressure, management accepts the union's current "
+          "demand and adds it to the contract. The union can then bargain for "
+          "any remaining demands. If picket strength falls to zero first, the "
+          "strike is defeated: workers return without settling that demand, "
+          "bargaining progress falls, and management "
+          "resistance increases. Negotiations can then resume and may produce "
+          "another impasse later.\n\n"
+          "Scabs, police intervention, strike funds, and broader public "
+          "support are reserved for later labor-system passes.");
     case ActivityType.writeGuardian:
       _head("=== Publish for the Socialist Guardian ===");
       _body("The Socialist Guardian is the SCS's independent media platform. "

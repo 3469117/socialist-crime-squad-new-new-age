@@ -328,7 +328,7 @@ Future<void> doActivityNegotiateUnionContract(Creature negotiator) async {
       !workplace.supportsLaborOrganizing ||
       workplace.controller != SiteController.unaligned ||
       !workplace.isUnionized ||
-      workplace.hasLaborContract) {
+      workplace.hasAllLaborDemands) {
     negotiator.activity = Activity.none();
     return;
   }
@@ -344,8 +344,8 @@ Future<void> doActivityNegotiateUnionContract(Creature negotiator) async {
 
   if (workplace.laborBargainingImpasse) {
     await showMessage(
-      "Bargaining at ${workplace.name} has reached an impasse. The workers "
-      "need a pressure campaign before negotiations can continue.",
+      "Bargaining at ${workplace.name} has reached an impasse. Use Support "
+      "Strike & Picket to put pressure on management.",
     );
     negotiator.activity = Activity.none();
     return;
@@ -428,6 +428,173 @@ Future<void> doActivityNegotiateUnionContract(Creature negotiator) async {
   }
 }
 
+Future<void> doActivitySupportLaborStrike(List<Creature> organizers) async {
+  if (organizers.isEmpty) return;
+
+  Creature lead = organizers.first;
+  for (Creature organizer in organizers.skip(1)) {
+    if (organizer.skill(Skill.persuasion) > lead.skill(Skill.persuasion)) {
+      lead = organizer;
+    }
+  }
+
+  Site? workplace = lead.activity.location;
+  if (workplace == null ||
+      !workplace.supportsLaborOrganizing ||
+      workplace.controller != SiteController.unaligned ||
+      !workplace.isUnionized ||
+      workplace.hasAllLaborDemands ||
+      workplace.laborBargainingDemand == Site.laborDemandNone) {
+    _clearLaborStrikeActivities(organizers);
+    return;
+  }
+
+  if (!workplace.laborStrikeActive) {
+    if (!workplace.canStartLaborStrike) {
+      _clearLaborStrikeActivities(organizers);
+      return;
+    }
+    workplace.startLaborStrike();
+    await showMessage(
+      "Workers at ${workplace.name} walk out after bargaining reaches an "
+      "impasse. Picket lines form around the union's "
+      "${workplace.laborDemandName} demand.",
+    );
+  }
+
+  if (!workplace.laborStrikeActive) {
+    _clearLaborStrikeActivities(organizers);
+    return;
+  }
+
+  workplace.recordLaborStrikeDay();
+
+  int lawModifier = switch (laws[Law.labor]!) {
+    DeepAlignment.archConservative => -4,
+    DeepAlignment.conservative => -2,
+    DeepAlignment.moderate => 0,
+    DeepAlignment.liberal => 2,
+    DeepAlignment.eliteLiberal => 4,
+  };
+
+  int bestBusiness = 0;
+  int bestStreetSmarts = 0;
+  for (Creature organizer in organizers) {
+    if (organizer.skill(Skill.business) > bestBusiness) {
+      bestBusiness = organizer.skill(Skill.business);
+    }
+    if (organizer.skill(Skill.streetSmarts) > bestStreetSmarts) {
+      bestStreetSmarts = organizer.skill(Skill.streetSmarts);
+    }
+    organizer.train(Skill.persuasion, 8);
+    organizer.train(Skill.business, 5);
+    organizer.train(Skill.streetSmarts, 6);
+  }
+
+  int persuasionRoll = lead.skillRoll(Skill.persuasion);
+  int businessSupport = bestBusiness ~/ 3;
+  int streetSupport = bestStreetSmarts ~/ 2;
+  int teamBonus = (organizers.length - 1).clamp(0, 3);
+  int picketSupport = workplace.laborPicketStrength ~/ 20;
+  int unionRoll = persuasionRoll +
+      businessSupport +
+      streetSupport +
+      teamBonus +
+      picketSupport +
+      lawModifier;
+  int managementDifficulty =
+      10 +
+      workplace.laborUnionBustStrength +
+      workplace.laborEmployerResistance ~/ 20;
+  int margin = unionRoll - managementDifficulty;
+
+  if (margin >= 0) {
+    int beforePressure = workplace.laborStrikePressure;
+    int pressureGain = (5 + margin + teamBonus).clamp(4, 15);
+    int picketGain = (1 + margin ~/ 3 + teamBonus ~/ 2).clamp(1, 6);
+    workplace.addLaborStrikePressure(pressureGain);
+    workplace.addLaborPicketStrength(picketGain);
+    workplace.addLaborEmployerResistance(-1);
+
+    if (workplace.laborStrikePressure >= 100) {
+      String demand = workplace.laborDemandName;
+      int strikeDays = workplace.laborStrikeDays;
+      workplace.settleLaborStrike();
+      for (Creature organizer in organizers) {
+        addjuice(organizer, 12, 150);
+      }
+      String dayWord = strikeDays == 1 ? "day" : "days";
+      String contractProgress = workplace.hasAllLaborDemands
+          ? "The union now has all four major demands under contract."
+          : "The union has secured ${workplace.laborContractDemandCount} "
+              "of 4 major demands.";
+      await showMessage(
+        "After $strikeDays $dayWord on strike, management at "
+        "${workplace.name} accepts the union's $demand package. Workers "
+        "ratify the settlement and return to work. $contractProgress",
+      );
+      _clearLaborStrikeActivities(organizers);
+      return;
+    }
+
+    int finalPressure = workplace.laborStrikePressure;
+    if (beforePressure < 25 && finalPressure >= 25) {
+      await showMessage(
+        "The strike at ${workplace.name} is disrupting normal operations. "
+        "Management is beginning to feel sustained pressure.",
+      );
+    } else if (beforePressure < 50 && finalPressure >= 50) {
+      await showMessage(
+        "The picket line at ${workplace.name} is holding. The strike is now "
+        "imposing serious operational costs on management.",
+      );
+    } else if (beforePressure < 75 && finalPressure >= 75) {
+      await showMessage(
+        "Management at ${workplace.name} is nearing a breaking point as the "
+        "strike continues to build pressure.",
+      );
+    } else {
+      await showMessage(
+        "Pickets at ${workplace.name} hold firm. Strike pressure rises by "
+        "$pressureGain points.",
+      );
+    }
+    return;
+  }
+
+  int gap = -margin;
+  int picketLoss = (2 + gap - teamBonus).clamp(1, 10);
+  int pressureLoss = ((gap + 2) ~/ 3).clamp(1, 4);
+  workplace.addLaborPicketStrength(-picketLoss);
+  workplace.addLaborStrikePressure(-pressureLoss);
+  workplace.addLaborEmployerResistance(1);
+
+  if (workplace.laborPicketStrength <= 0) {
+    int strikeDays = workplace.laborStrikeDays;
+    workplace.defeatLaborStrike();
+    String dayWord = strikeDays == 1 ? "day" : "days";
+    await showMessage(
+      "After $strikeDays $dayWord, the picket line at ${workplace.name} "
+      "collapses. Workers return without a contract. Bargaining can resume, "
+      "but management is emboldened by the failed strike.",
+    );
+    _clearLaborStrikeActivities(organizers);
+    return;
+  }
+
+  await showMessage(
+    "Management at ${workplace.name} withstands another day of the strike. "
+    "Picket strength falls by $picketLoss points and strike pressure slips "
+    "by $pressureLoss.",
+  );
+}
+
+void _clearLaborStrikeActivities(List<Creature> organizers) {
+  for (Creature organizer in organizers) {
+    organizer.activity = Activity.none();
+  }
+}
+
 String _laborSettlementMessage(Site workplace, String demand) {
   String terms = switch (workplace.laborContractDemand) {
     Site.laborDemandHigherWages =>
@@ -444,6 +611,11 @@ String _laborSettlementMessage(Site workplace, String demand) {
           "anti-retaliation protections.",
     _ => "The union secures a collective bargaining agreement.",
   };
-  return "Workers at ${workplace.name} ratify a contract centered on "
-      "$demand. $terms";
+  String contractProgress = workplace.hasAllLaborDemands
+      ? "The union's comprehensive contract now secures all four major "
+          "demands."
+      : "The union has secured ${workplace.laborContractDemandCount} of 4 "
+          "major demands and can bargain for the rest.";
+  return "Workers at ${workplace.name} ratify $demand as part of their "
+      "contract. $terms $contractProgress";
 }

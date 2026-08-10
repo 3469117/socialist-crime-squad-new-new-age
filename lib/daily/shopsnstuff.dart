@@ -36,7 +36,7 @@ Future<void> hospital(Site loc) async {
     bool showPartyPrompt =
         partysize > 0 && (activeSquadMemberIndex == -1 || partysize > 1);
     mvaddstrc(13, 1, showPartyPrompt ? lightGray : darkGray,
-        "# - Check the status of a squad Socialist");
+        "# - Check a squad Socialist's status");
     bool showStatusPrompt = activeSquadMember != null;
     addOptionText(14, 1, "0", "0 - Show the squad's Socialist status",
         enabledWhen: showStatusPrompt);
@@ -182,7 +182,7 @@ Future<void> dealership(Site loc) async {
     } else {
       setColor(darkGray);
     }
-    mvaddstr(15, 40, "# - Check the status of a squad Socialist");
+    mvaddstr(15, 40, "# - Check a squad Socialist's status");
 
     int c = await getKey();
 

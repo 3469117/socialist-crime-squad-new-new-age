@@ -197,7 +197,7 @@ void _mainPage(AgendaVibe vibe) {
         3 + c,
         56,
         politics.court[c].color,
-        politics.courtName[c].firstLast,
+        truncateConsoleText(politics.courtName[c].firstLast, 24),
       );
     }
     setColor(lightGray);

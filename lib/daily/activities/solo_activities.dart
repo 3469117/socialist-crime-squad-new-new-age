@@ -184,6 +184,15 @@ Future<void> soloActivities(bool disbanding) async {
         for (Creature p in people) {
           await doActivityNegotiateUnionContract(p);
         }
+      case ActivityType.supportLaborStrike:
+        if (disbanding) continue;
+        Map<String?, List<Creature>> strikeTeams = {};
+        for (Creature p in people) {
+          strikeTeams.putIfAbsent(p.activity.idString, () => []).add(p);
+        }
+        for (List<Creature> team in strikeTeams.values) {
+          await doActivitySupportLaborStrike(team);
+        }
       case ActivityType.hacking:
         if (disbanding) continue;
         await doActivityHacking(people);

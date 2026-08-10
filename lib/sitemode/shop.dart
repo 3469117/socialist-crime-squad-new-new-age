@@ -270,7 +270,7 @@ class Shop extends ShopOption {
           enabledWhen: activeSquadMemberIndex != -1);
       setColorConditional(
           partysize > 0 && (activeSquadMemberIndex == -1 || partysize > 1));
-      mvaddstr(y++, 40, "# - Check the status of a squad Socialist");
+      mvaddstr(y++, 40, "# - Check a squad Socialist's status");
       addOptionText(y, 1, "B", "B - Choose a buyer",
           enabledWhen: partysize >= 2);
 
@@ -511,7 +511,7 @@ class Shop extends ShopOption {
       addOptionText(15, 1, "0", "0 - Show the squad's Socialist status");
       setColorConditional(
           partysize > 0 && (activeSquadMemberIndex == -1 || partysize > 1));
-      mvaddstr(15, 40, "# - Check the status of a squad Socialist");
+      mvaddstr(15, 40, "# - Check a squad Socialist's status");
 
       addOptionText(16, 40, "Enter", "Enter - Done pawning");
 
@@ -704,8 +704,20 @@ class Shop extends ShopOption {
           p < masktype.length && p < page * 19 + 19;
           p++, y++) {
         setColor(lightGray);
-        mvaddstr(y, 0, "${letterAPlus(y - 2)} - ${masktype[p].name}");
-        mvaddstrc(y, 39, lightGray, masktype[p].description.trim());
+        mvaddstr(
+          y,
+          0,
+          truncateConsoleText(
+            "${letterAPlus(y - 2)} - ${masktype[p].name}",
+            39,
+          ),
+        );
+        mvaddstrc(
+          y,
+          39,
+          lightGray,
+          truncateConsoleText(masktype[p].description.trim(), 41),
+        );
       }
 
       mvaddstrc(22, 0, lightGray, "Press a Letter to select a Mask");

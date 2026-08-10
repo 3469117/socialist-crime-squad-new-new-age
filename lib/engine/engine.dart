@@ -60,6 +60,38 @@ int strLenX(String s) {
   return len;
 }
 
+String truncateConsoleText(
+  String value,
+  int maxWidth, {
+  bool ellipsis = true,
+}) {
+  if (maxWidth <= 0) return "";
+  if (strLenX(value) <= maxWidth) return value;
+
+  int contentWidth = maxWidth;
+  String suffix = "";
+  if (ellipsis && maxWidth >= 4) {
+    contentWidth -= 3;
+    suffix = "...";
+  }
+
+  StringBuffer result = StringBuffer();
+  int visible = 0;
+  for (int i = 0; i < value.length && visible < contentWidth; i++) {
+    if ((value[i] == "&" || value[i] == "^") &&
+        i + 1 < value.length &&
+        colorMap.containsKey(value[i + 1])) {
+      result.write(value[i]);
+      result.write(value[++i]);
+      continue;
+    }
+    result.write(value[i]);
+    visible++;
+  }
+  result.write(suffix);
+  return result.toString();
+}
+
 void addInlineOptionText(
   String key,
   String text, {
@@ -68,6 +100,10 @@ void addInlineOptionText(
   String highlightColorKey = "B",
   String disabledColorKey = "K",
 }) {
+  final availableWidth = console.width - console.x;
+  text = truncateConsoleText(text, availableWidth);
+  if (text.isEmpty) return;
+
   key = key.toUpperCase();
   String mouseClickKey = key;
   if (key.length > 1) {
@@ -149,6 +185,7 @@ void addCenteredOptionText(
   String highlightColorKey = "B",
   String disabledColorKey = "K",
 }) {
+  text = truncateConsoleText(text, console.width);
   int x = centerString(text);
   move(y, x);
   addInlineOptionText(key, text,
@@ -172,8 +209,10 @@ void mvaddstrx(int y, int x, String s,
     console.mvaddstrx(y, x, s,
         restoreOldColor: restoreOldColor, mouseClickKey: mouseClickKey);
 
-void mvaddstrCenter(int y, String s, {int x = 39}) =>
-    mvaddstr(y, centerString(s, x: x), s);
+void mvaddstrCenter(int y, String s, {int x = 39}) {
+  s = truncateConsoleText(s, console.width);
+  mvaddstr(y, centerString(s, x: x), s);
+}
 void move(int y, int x) => console.move(y, x);
 void flush() => console.flush();
 void refresh() => flush();

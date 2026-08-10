@@ -314,16 +314,23 @@ void locHeader([Site? loc]) {
   loc = loc ?? activeSquad?.site ?? activeSafehouse;
   move(0, 0);
   setColor(lightGray);
+  String leftHeader = "";
   if (loc != null) {
     if (loc.siege.underAttack) {
       setColor(red);
     } else if (loc.siege.underSiege) {
       setColor(yellow);
     }
-    if (activeSquad == null) addstr("No Squad Selected, ");
-    addstr("${loc.getName(includeCity: true)}, ");
+    if (activeSquad == null) leftHeader += "No Squad Selected, ";
+    leftHeader += "${loc.getName(includeCity: true)}, ";
   }
-  addstr("${getMonthShort(month)} $day, $year");
+  leftHeader += "${getMonthShort(month)} $day, $year";
+
+  final fundsText = "Money: \$${ledger.funds}";
+  final fundsStart = console.width - fundsText.length - 1;
+  final leftWidth = activeSquad != null ? 40 : fundsStart - 1;
+  mvaddstr(0, 0, truncateConsoleText(leftHeader, leftWidth));
+
   if (loc == null) {
     mvaddstrc(3, 6, darkGray, "To form a new squad:");
     mvaddstr(4, 6, "1) R - Review Assets and Form Squads");
@@ -331,7 +338,12 @@ void locHeader([Site? loc]) {
   }
   printFunds();
   if (activeSquad != null) {
-    printSquadActivityDescription(0, 41, activeSquad!);
+    printSquadActivityDescription(
+      0,
+      41,
+      activeSquad!,
+      maxWidth: fundsStart - 42,
+    );
   }
 }
 
