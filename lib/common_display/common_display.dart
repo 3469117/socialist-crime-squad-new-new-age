@@ -22,13 +22,71 @@ Future<void> showMessage(
   Color color = lightGray,
   bool delimeter = true,
 }) async {
+  final bool drawDelimiter = !clearScreenOnNextMessage && delimeter;
   if (clearScreenOnNextMessage) {
     erase();
-  } else if (delimeter) {
-    makeDelimiter();
   }
-  mvaddstrc(8, 1, color, message);
-  await getKey();
+
+  final lines = _wrapMessage(message, console.width - 2);
+  const int linesPerPage = 2;
+
+  for (int firstLine = 0; firstLine < lines.length; firstLine += linesPerPage) {
+    if (firstLine > 0) {
+      eraseArea(startY: 8, endY: 10);
+    } else if (lines.length > 1) {
+      eraseArea(startY: 9, endY: 10);
+    }
+
+    if (drawDelimiter) makeDelimiter();
+    mvaddstrc(8, 1, color, lines[firstLine]);
+    if (firstLine + 1 < lines.length) {
+      mvaddstrc(9, 1, color, lines[firstLine + 1]);
+    }
+    await getKey();
+  }
+}
+
+List<String> _wrapMessage(String message, int width) {
+  if (width <= 0) return [message];
+
+  final lines = <String>[];
+  for (final paragraph in message.split("\n")) {
+    if (paragraph.isEmpty) {
+      lines.add("");
+      continue;
+    }
+
+    String line = "";
+    for (final word in paragraph.split(RegExp(r"\s+"))) {
+      if (word.isEmpty) continue;
+
+      if (word.length > width) {
+        if (line.isNotEmpty) {
+          lines.add(line);
+          line = "";
+        }
+        String remainder = word;
+        while (remainder.length > width) {
+          lines.add(remainder.substring(0, width));
+          remainder = remainder.substring(width);
+        }
+        line = remainder;
+        continue;
+      }
+
+      final candidate = line.isEmpty ? word : "$line $word";
+      if (candidate.length <= width) {
+        line = candidate;
+      } else {
+        lines.add(line);
+        line = word;
+      }
+    }
+
+    if (line.isNotEmpty) lines.add(line);
+  }
+
+  return lines.isEmpty ? [""] : lines;
 }
 
 void printFunds({
